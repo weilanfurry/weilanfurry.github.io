@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+/* font-family: 'Arimo', sans-serif; */
+
+* {
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+
+/*===== VARIABLES CSS =====*/
+
+
+/* fe7030 */
+
+ :root {
+    /*========== Colors ==========*/
+    --main-color: #08b967;
+    --second-color: #121314;
+    --black-color: #000000;
+    --text-color: #8f8f8f;
+    --title-color: #162148;
+    --white-color: #ffffff;
+    --text-alt: #787878;
+    /*========== Font and typography ==========*/
+    --body-font: 'Arimo', sans-serif;
+    --sec-title-font: 25px;
+    --p-font: 17px;
+    --m-title: 20px;
+    --l-title: 25px;
+    --p-font-height: 30px;
+    --lp-font-height: 27px;
+    --title-font: 40px;
+    /*========== Font weight ==========*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    /*========== Margin ==========*/
+    --mb-1: .5rem;
+    --mb-2: 1rem;
+    --mb-3: 1.5rem;
+    --mb-4: 2rem;
+    --mb-5: 2.5rem;
+    --mb-6: 3rem;
+    /*========== z index ==========*/
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+
+/* ==================CSS Variable END========= */
+
+
+/*========== BASE ==========*/
+
+*,
+ ::before,
+ ::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--text-color);
+    font-size: var(--p-font);
+    font-weight: 400;
+    font-family: var(--body-font);
+    line-height: var(--p-font-height);
+    overflow-X: hidden;
+}
+
+img {
+    vertical-align: middle;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+ul,
+ol {
+    padding: 0;
+    list-style: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+
+/* ============================GENERAL STYLE END======= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+span,
+label {
+    margin: 0;
+}
+
+.ovh {
+    overflow: hidden;
+}
+
+table.table {
+    white-space: nowrap;
+}
+
+.custom-btn {
+    background: var(--main-color);
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: var(--white-color);
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    width: 100%;
+    border: 2px solid var(--main-color);
+}
+
+.custom-btn:hover {
+    background: none;
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+}
+
+.btn:focus {
+    outline: 0px;
+    box-shadow: none;
+}
+
+.my-6 {
+    margin: 40px 0;
+}
+
+.body-wrapper {
+    max-width: 1360px;
+    margin: auto;
+}
