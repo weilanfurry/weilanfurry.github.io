@@ -3,114 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页与资源下载</title>
+    <title>蔚澜Waverly - 开发者资源与个人主页</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 配置蓝白主题色 -->
+    <!-- Material Design 3 配置 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF', // 主蓝色
-                        secondary: '#E8F3FF', // 浅蓝背景
+                        // MD3 色彩系统
+                        primary: '#165DFF',
+                        'on-primary': '#FFFFFF',
+                        surface: '#FFFFFF',
+                        'surface-variant': '#F0F6FF',
+                        outline: '#D0E0FF',
+                        'text-primary': '#1A1C1E',
+                        'text-secondary': '#4B5563',
+                        'text-tertiary': '#6B7280',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'Roboto', 'Segoe UI', 'system-ui', 'sans-serif'],
                     },
+                    boxShadow: {
+                        'md3-1': '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)',
+                        'md3-2': '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)',
+                        'md3-3': '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+                    },
+                    borderRadius: {
+                        'md3-small': '12px',
+                        'md3-medium': '16px',
+                        'md3-large': '28px',
+                    }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
+        @layer base {
+            /* MD3 排版系统 */
+            .md3-display {
+                @apply text-[clamp(2rem,5vw,3rem)] font-bold tracking-[-0.015em];
+            }
+            .md3-headline {
+                @apply text-[clamp(1.5rem,4vw,2rem)] font-semibold tracking-[-0.01em];
+            }
+            .md3-title {
+                @apply text-xl font-medium tracking-[0.0015em];
+            }
+            .md3-body {
+                @apply text-base font-normal leading-relaxed tracking-[0.005em];
+            }
+            .md3-label {
+                @apply text-sm font-medium tracking-[0.01em];
+            }
+        }
+
+        @layer components {
+            /* MD3 卡片组件 */
+            .md3-card {
+                @apply bg-surface rounded-md3-medium shadow-md3-1 transition-all duration-300 ease-out;
+            }
+            .md3-card:hover {
+                @apply shadow-md3-2 -translate-y-1;
+            }
+            
+            /* MD3 按钮组件 */
+            .md3-outlined-button {
+                @apply inline-flex items-center justify-center px-6 py-3 border-2 border-outline rounded-md3-medium text-primary md3-label transition-all duration-200 ease-out hover:bg-surface-variant hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20;
+            }
+            
+            /* MD3 标签组件 */
+            .md3-assist-chip {
+                @apply inline-flex items-center px-4 py-2 bg-surface-variant text-primary rounded-full md3-label transition-all duration-200 ease-out hover:bg-primary hover:text-on-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20;
+            }
+            
+            /* MD3 头像组件 */
+            .md3-avatar-large {
+                @apply w-32 h-32 rounded-full bg-surface-variant shadow-md3-1 overflow-hidden transition-all duration-300 ease-out;
+            }
+            .md3-avatar-large:hover {
+                @apply shadow-md3-2 scale-105;
+            }
+        }
+
         @layer utilities {
-            .float-effect {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* 平滑滚动 */
+            html {
+                scroll-behavior: smooth;
             }
-            .float-effect:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px -5px rgba(22, 93, 255, 0.15);
+            
+            /* 焦点可见样式 */
+            .focus-visible-md3 {
+                @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20;
             }
-            .scrollbar-thin {
-                scrollbar-width: thin;
+            
+            /* 骨架屏效果 */
+            .skeleton {
+                background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+                background-size: 200% 100%;
+                animation: loading 1.5s infinite;
             }
-            .scrollbar-thin::-webkit-scrollbar {
-                width: 6px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-thumb {
-                background-color: #C9D8E7;
-                border-radius: 3px;
+            
+            @keyframes loading {
+                0% { background-position: 200% 0; }
+                100% { background-position: -200% 0; }
             }
         }
     </style>
 </head>
-<body class="bg-white font-sans text-gray-800">
-    <div class="flex h-screen max-w-7xl mx-auto overflow-hidden">
-        <!-- 左栏：个人信息 -->
-        <div class="w-80 bg-secondary scrollbar-thin overflow-y-auto p-6 border-r border-gray-100">
-            <!-- 头像 -->
-            <div class="flex justify-center mb-4">
-                <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center">
-                    <a href="https://imgse.com/i/pV4QYjg"><img src="https://s21.ax1x.com/2025/09/20/pV4QYjg.jpg" alt="pV4QYjg.jpg" border="0" /></a>
-                </div>
+<body class="bg-surface text-text-primary font-sans min-h-screen">
+    <!-- 顶部导航栏 -->
+    <header class="bg-surface shadow-md3-1 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <h1 class="md3-title text-primary">蔚澜Waverly</h1>
+                <span class="text-text-tertiary md3-body">开发者资源中心</span>
             </div>
-
-            <!-- 网名 -->
-            <div class="text-center mb-8">
-                <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-primary">蔚澜Waverly</h1>
-            </div>
-
-            <!-- 联系方式（带浮动效果） -->
-            <div class="bg-white rounded-xl p-5 mb-8 float-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-4">联系方式</h2>
-                <div class="space-y-3 text-gray-600">
-                    <p>📱 QQ 3654752568</p>
-                    <p>📧 Uild913@Outlook.com</p>
-                    <p>🔗 weilanfurry.github.io</p>
-                </div>
-            </div>
-
-            <!-- 爱好 -->
-            <div>
-                <h2 class="text-lg font-semibold text-gray-700 mb-4">我的爱好</h2>
-                <div class="flex flex-wrap gap-3">
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">C++开发</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">林肯公园</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">福瑞</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">做UP主</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">摄影</span>
-		    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">花粉</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex-1 scrollbar-thin overflow-y-auto p-8 bg-white">
-            <h2 class="text-2xl font-bold text-primary mb-8">资源下载</h2
             
-            <div class="space-y-5">
-                <!-- WaveTime番茄钟 -->
-                <a 
-                    href="https://www.123865.com/s/7FLYTd-SLj5v" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">WaveTime番茄钟</span>
-                    <span class="text-sm text-gray-500">2025-08-15</span>
-                </a>
-		<br>
-		
-		<!-- UW3 -->
-                <a 
-                    href="https://www.123865.com/s/7FLYTd-lLj5v" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">UildWork 3.0</span>
-                    <span class="text-sm text-gray-500">2025-03-30</span>
-                </a>
-		<br>
-
+            <!-- 主题控制 -->
+            <div class="flex items-center gap-3">
+                <!-- 主题色选择器 -->
+                <div class="relative group">
+                    <button class="md3-outlined-button flex items-center gap-2">
+                        <span>🎨</span>
+                        <span class="hidden sm:inline">主题色</span>
+                    </button>
+                    <div class="absolute right-0 top-full mt-2 bg-surface rounded-md3-medium shadow-md3-3 p-3 min-w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="grid grid-cols-4 gap-2">
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#165DFF] hover:scale-110 transition-transform" data-color="#165DFF"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#FF6B35] hover:scale-110 transition-transform" data-color="#FF6B35"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#00B894] hover:scale-110 transition-transform" data-color="#00B894"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#6C5CE7] hover:scale-110 transition-transform" data-color="#6C5CE7"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#FD79A8] hover:scale-110 transition-transform" data-color="#FD79A8"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#FDCB6E] hover:scale-110 transition-transform" data-color="#FDCB6E"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#0984E3] hover:scale-110 transition-transform" data-color="#0984E3"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#00CEC9] hover:scale-110 transition-transform" data-color="#00CEC9"></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 暗黑模式切换 -->
+                <button id="darkModeToggle" class="md3-outlined-button flex items-center gap-2">
+                    <span>🌙</span>
+                    <span class="hidden sm:inline">暗黑模式</span>
+                </button>
             </div>
-        </div>
+        </nav>
+    </header>
+
+    <!-- 主容器 -->
+    <div class="min-h-screen flex flex-col lg:flex-row max-w-7xl mx-auto">
+        <!-- 左侧个人信息栏 -->
+        <section class="lg:w-80 bg-surface-variant lg:min-h-screen p-6 lg:border-r lg:border-outline">
+            <!-- 头像区域 -->
+            <article class="flex flex-col items-center mb-8">
+                <div class="md3-avatar-large mb-6">
+                    <a href="https://imgse.com/i/pV4QYjg" class="block w-full h-full">
+                        <img 
+                            src="https://s21.ax1x.com/2025/09/20/pV4QYjg.jpg" 
+                            alt="蔚澜Waverly的个人头像" 
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        />
+                    </a>
+                </div>
+                <h1 class="md3-display text-primary text-center">蔚澜Waverly</h1>
+            </article>
+
+            <!-- 联系方式卡片 -->
+            <article class="md3-card p-6 mb-8">
+                <h2 class="md3-title text-text-primary mb-4">联系方式</h2>
+                <address class="not-italic space-y-3 text-text-secondary md3-body">
+                    <p class="flex items-center gap-3">
+                        <span class="text-primary">📱</span>
+                        <span>QQ 3654752568</span>
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <span class="text-primary">📧</span>
+                        <span>Uild913@Outlook.com</span>
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <span class="text-primary">🔗</span>
+                        <span>weilanfurry.github.io</span>
+                    </p>
+                </address>
+            </article>
+
+            <!-- 爱好标签区域 -->
+            <article>
+                <h2 class="md3-title text-text-primary mb-4">我的爱好</h2>
+                <div class="flex flex-wrap gap-3">
+                    <button class="md3-assist-chip">C++开发</button>
+                    <button class="md3-assist-chip">林肯公园</button>
+                    <button class="md3-assist-chip">福瑞</button>
+                    <button class="md3-assist-chip">做UP主</button>
+                    <button class="md3-assist-chip">摄影</button>
+                    <button class="md3-assist-chip">花粉</button>
+                </div>
+            </article>
+        </section>
+
+        <!-- 右侧内容区域 -->
+        <main class="flex-1 p-6 lg:p-8 bg-surface">
+            <!-- 资源下载区块 -->
+            <section class="mb-12">
+                <header class="mb-8">
+                    <h2 class="md3-headline text-primary">资源下载</h2>
+                </header>
+
+                <div class="space-y-4">
+                    <!-- WaveTime番茄钟 -->
+                    <article class="md3-card p-6">
+                        <a 
+                            href="https://www.123865.com/s/7FLYTd-SLj5v" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="md3-outlined-button w-full justify-between focus-visible-md3"
+                        >
+                            <span class="md3-label">WaveTime番茄钟</span>
+                            <span class="text-text-tertiary text-sm">2025-08-15</span>
+                        </a>
+                    </article>
+
+                    <!-- UildWork 3.0 -->
+                    <article class="md3-card p-6">
+                        <a 
+                            href="https://www.123865.com/s/7FLYTd-lLj5v" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="md3-outlined-button w-full justify-between focus-visible-md3"
+                        >
+                            <span class="md3-label">UildWork 3.0</span>
+                            <span class="text-text-tertiary text-sm">2025-03-30</span>
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 开发工具区块 -->
+            <section class="mb-12">
+                <header class="mb-8">
+                    <h2 class="md3-headline text-primary">优质开发工具</h2>
+                    <p class="text-text-secondary md3-body mt-2">精选实用的开发工具和资源</p>
+                </header>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- VS Code 扩展 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-md3-small flex items-center justify-center">
+                                <span class="text-primary text-xl">⚡</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-2">VS Code 生产力扩展</h3>
+                                <p class="text-text-secondary md3-body mb-4">GitLens、Prettier、ESLint、Live Server 等必备扩展配置</p>
+                                <a href="vscode-extensions.html" class="md3-outlined-button">查看详情</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 命令行工具 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-md3-small flex items-center justify-center">
+                                <span class="text-primary text-xl">💻</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-2">现代化命令行工具</h3>
+                                <p class="text-text-secondary md3-body mb-4">Windows Terminal、Oh My Posh、PowerShell 7 配置指南</p>
+                                <a href="command-line-tools.html" class="md3-outlined-button">查看详情</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 调试工具 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-md3-small flex items-center justify-center">
+                                <span class="text-primary text-xl">🔍</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-2">高效调试工具集</h3>
+                                <p class="text-text-secondary md3-body mb-4">Chrome DevTools、Postman、Fiddler 使用技巧</p>
+                                <a href="debugging-tools.html" class="md3-outlined-button">查看详情</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 版本控制 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-md3-small flex items-center justify-center">
+                                <span class="text-primary text-xl">📚</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-2">Git 工作流最佳实践</h3>
+                                <p class="text-text-secondary md3-body mb-4">分支策略、提交规范、团队协作流程</p>
+                                <a href="git-workflow.html" class="md3-outlined-button">查看详情</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 代码干货区块 -->
+            <section class="mb-12">
+                <header class="mb-8">
+                    <h2 class="md3-headline text-primary">代码干货与学习资源</h2>
+                    <p class="text-text-secondary md3-body mt-2">实用的代码片段、算法解析和开发经验</p>
+                </header>
+
+                <div class="grid gap-6">
+                    <!-- C++ 最佳实践 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 bg-primary/10 rounded-md3-medium flex items-center justify-center flex-shrink-0">
+                                <span class="text-primary text-2xl">C++</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-3">现代 C++ 开发最佳实践</h3>
+                                <p class="text-text-secondary md3-body mb-4">
+                                    RAII、智能指针、移动语义、模板元编程等现代 C++ 特性详解，包含性能优化技巧和内存管理策略。
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">RAII</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">智能指针</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">移动语义</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">模板</span>
+                                </div>
+                                <a href="cpp-best-practices.html" class="md3-outlined-button">学习更多</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 算法与数据结构 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 bg-primary/10 rounded-md3-medium flex items-center justify-center flex-shrink-0">
+                                <span class="text-primary text-2xl">📊</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-3">算法与数据结构精讲</h3>
+                                <p class="text-text-secondary md3-body mb-4">
+                                    常见数据结构实现、排序算法、图论算法、动态规划等核心算法解析，附带可视化演示和实战题目。
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">排序</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">图论</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">动态规划</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">二叉树</span>
+                                </div>
+                                <a href="algorithms-data-structures.html" class="md3-outlined-button">学习更多</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 前端工程化 -->
+                    <article class="md3-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 bg-primary/10 rounded-md3-medium flex items-center justify-center flex-shrink-0">
+                                <span class="text-primary text-2xl">🌐</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="md3-title text-text-primary mb-3">前端工程化实战指南</h3>
+                                <p class="text-text-secondary md3-body mb-4">
+                                    Webpack、Vite 配置优化，TypeScript 类型系统，组件库开发，性能监控和自动化部署流程。
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">Webpack</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">TypeScript</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">组件库</span>
+                                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">CI/CD</span>
+                                </div>
+                                <a href="frontend-engineering.html" class="md3-outlined-button">学习更多</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
     </div>
+
+    <!-- 加载脚本 -->
+    <script>
+        // 主题管理类
+        class ThemeManager {
+            constructor() {
+                this.currentTheme = localStorage.getItem('theme') || 'light';
+                this.currentColor = localStorage.getItem('themeColor') || '#165DFF';
+                this.init();
+            }
+
+            init() {
+                this.applyTheme();
+                this.applyColor();
+                this.bindEvents();
+            }
+
+            applyTheme() {
+                document.documentElement.setAttribute('data-theme', this.currentTheme);
+                localStorage.setItem('theme', this.currentTheme);
+                
+                // 更新暗黑模式按钮文本
+                const toggleBtn = document.getElementById('darkModeToggle');
+                if (toggleBtn) {
+                    const icon = this.currentTheme === 'dark' ? '☀️' : '🌙';
+                    const text = this.currentTheme === 'dark' ? '明亮模式' : '暗黑模式';
+                    toggleBtn.innerHTML = `${icon}<span class="hidden sm:inline">${text}</span>`;
+                }
+            }
+
+            applyColor() {
+                // 动态更新 CSS 变量
+                const root = document.documentElement;
+                root.style.setProperty('--primary-color', this.currentColor);
+                
+                // 计算衍生颜色
+                const surfaceVariant = this.lightenColor(this.currentColor, 0.95);
+                const outline = this.lightenColor(this.currentColor, 0.85);
+                
+                root.style.setProperty('--surface-variant-color', surfaceVariant);
+                root.style.setProperty('--outline-color', outline);
+                
+                localStorage.setItem('themeColor', this.currentColor);
+            }
+
+            lightenColor(color, factor) {
+                const hex = color.replace('#', '');
+                const r = parseInt(hex.substr(0, 2), 16);
+                const g = parseInt(hex.substr(2, 2), 16);
+                const b = parseInt(hex.substr(4, 2), 16);
+                
+                const lightR = Math.round(r + (255 - r) * factor);
+                const lightG = Math.round(g + (255 - g) * factor);
+                const lightB = Math.round(b + (255 - b) * factor);
+                
+                return `#${lightR.toString(16).padStart(2, '0')}${lightG.toString(16).padStart(2, '0')}${lightB.toString(16).padStart(2, '0')}`;
+            }
+
+            toggleTheme() {
+                this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+                this.applyTheme();
+            }
+
+            setColor(color) {
+                this.currentColor = color;
+                this.applyColor();
+            }
+
+            bindEvents() {
+                // 暗黑模式切换
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                if (darkModeToggle) {
+                    darkModeToggle.addEventListener('click', () => this.toggleTheme());
+                }
+
+                // 主题色选择
+                const themeColors = document.querySelectorAll('.theme-color');
+                themeColors.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const color = btn.getAttribute('data-color');
+                        this.setColor(color);
+                    });
+                });
+            }
+        }
+
+        // 暗黑模式样式
+        const darkModeStyles = `
+            [data-theme="dark"] {
+                --surface: #121212;
+                --surface-variant: #1E1E1E;
+                --text-primary: #FFFFFF;
+                --text-secondary: #B0B0B0;
+                --text-tertiary: #808080;
+                --outline: #404040;
+            }
+
+            [data-theme="dark"] body {
+                background-color: var(--surface) !important;
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .bg-surface {
+                background-color: var(--surface) !important;
+            }
+
+            [data-theme="dark"] .bg-surface-variant {
+                background-color: var(--surface-variant) !important;
+            }
+
+            [data-theme="dark"] .text-text-primary {
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .text-text-secondary {
+                color: var(--text-secondary) !important;
+            }
+
+            [data-theme="dark"] .text-text-tertiary {
+                color: var(--text-tertiary) !important;
+            }
+
+            [data-theme="dark"] .border-outline {
+                border-color: var(--outline) !important;
+            }
+
+            [data-theme="dark"] .md3-card {
+                background-color: var(--surface-variant) !important;
+            }
+
+            [data-theme="dark"] .md3-outlined-button {
+                border-color: var(--outline) !important;
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .md3-outlined-button:hover {
+                background-color: var(--surface) !important;
+                border-color: var(--primary-color) !important;
+            }
+
+            [data-theme="dark"] .md3-assist-chip {
+                background-color: var(--surface) !important;
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .md3-assist-chip:hover {
+                background-color: var(--primary-color) !important;
+                color: white !important;
+            }
+
+            [data-theme="dark"] .bg-primary\\/10 {
+                background-color: color-mix(in srgb, var(--primary-color) 10%, var(--surface)) !important;
+            }
+        `;
+
+        // 动态颜色样式
+        const dynamicColorStyles = `
+            :root {
+                --primary-color: #165DFF;
+                --surface-variant-color: #F0F6FF;
+                --outline-color: #D0E0FF;
+            }
+
+            .text-primary {
+                color: var(--primary-color) !important;
+            }
+
+            .bg-primary {
+                background-color: var(--primary-color) !important;
+            }
+
+            .border-primary {
+                border-color: var(--primary-color) !important;
+            }
+
+            .bg-surface-variant {
+                background-color: var(--surface-variant-color) !important;
+            }
+
+            .border-outline {
+                border-color: var(--outline-color) !important;
+            }
+
+            .md3-outlined-button {
+                border-color: var(--outline-color) !important;
+                color: var(--primary-color) !important;
+            }
+
+            .md3-outlined-button:hover {
+                background-color: var(--surface-variant-color) !important;
+                border-color: var(--primary-color) !important;
+            }
+
+            .md3-assist-chip {
+                background-color: var(--surface-variant-color) !important;
+                color: var(--primary-color) !important;
+            }
+
+            .md3-assist-chip:hover {
+                background-color: var(--primary-color) !important;
+                color: white !important;
+            }
+
+            .bg-primary\\/10 {
+                background-color: color-mix(in srgb, var(--primary-color) 10%, transparent) !important;
+            }
+        `;
+
+        // 添加样式到文档
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = darkModeStyles + dynamicColorStyles;
+        document.head.appendChild(styleSheet);
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化主题管理器
+            const themeManager = new ThemeManager();
+
+            // 骨架屏加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.remove('skeleton');
+                });
+                if (!img.complete) {
+                    img.classList.add('skeleton');
+                }
+            });
+
+            // 平滑滚动到锚点
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

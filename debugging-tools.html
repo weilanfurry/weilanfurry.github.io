@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Code 生产力扩展配置指南 - 蔚澜Waverly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Material Design 3 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // MD3 色彩系统
+                        primary: '#165DFF',
+                        'on-primary': '#FFFFFF',
+                        surface: '#FFFFFF',
+                        'surface-variant': '#F0F6FF',
+                        outline: '#D0E0FF',
+                        'text-primary': '#1A1C1E',
+                        'text-secondary': '#4B5563',
+                        'text-tertiary': '#6B7280',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Roboto', 'Segoe UI', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'md3-1': '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)',
+                        'md3-2': '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)',
+                        'md3-3': '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+                    },
+                    borderRadius: {
+                        'md3-small': '12px',
+                        'md3-medium': '16px',
+                        'md3-large': '28px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            .md3-display { @apply text-[clamp(2rem,5vw,3rem)] font-bold tracking-[-0.015em]; }
+            .md3-headline { @apply text-[clamp(1.5rem,4vw,2rem)] font-semibold tracking-[-0.01em]; }
+            .md3-title { @apply text-xl font-medium tracking-[0.0015em]; }
+            .md3-body { @apply text-base font-normal leading-relaxed tracking-[0.005em]; }
+            .md3-label { @apply text-sm font-medium tracking-[0.01em]; }
+        }
+
+        @layer components {
+            .md3-card { @apply bg-surface rounded-md3-medium shadow-md3-1 transition-all duration-300 ease-out; }
+            .md3-card:hover { @apply shadow-md3-2 -translate-y-1; }
+            .md3-outlined-button { @apply inline-flex items-center justify-center px-6 py-3 border-2 border-outline rounded-md3-medium text-primary md3-label transition-all duration-200 ease-out hover:bg-surface-variant hover:border-primary; }
+            .code-block { @apply bg-surface-variant rounded-md3-small p-4 font-mono text-sm overflow-x-auto; }
+        }
+
+        @layer utilities {
+            html { scroll-behavior: smooth; }
+            .focus-visible-md3 { @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-text-primary font-sans min-h-screen">
+    <!-- 顶部导航栏 -->
+    <header class="bg-surface shadow-md3-1 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="md3-title text-primary hover:underline">蔚澜Waverly</a>
+                <span class="text-text-tertiary md3-body">开发者资源中心</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- 主题色选择器 -->
+                <div class="relative group">
+                    <button class="md3-outlined-button flex items-center gap-2">
+                        <span>🎨</span>
+                        <span class="hidden sm:inline">主题色</span>
+                    </button>
+                    <div class="absolute right-0 top-full mt-2 bg-surface rounded-md3-medium shadow-md3-3 p-3 min-w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="grid grid-cols-4 gap-2">
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#165DFF] hover:scale-110 transition-transform" data-color="#165DFF"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#FF6B35] hover:scale-110 transition-transform" data-color="#FF6B35"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#00B894] hover:scale-110 transition-transform" data-color="#00B894"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#6C5CE7] hover:scale-110 transition-transform" data-color="#6C5CE7"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#FD79A8] hover:scale-110 transition-transform" data-color="#FD79A8"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#FDCB6E] hover:scale-110 transition-transform" data-color="#FDCB6E"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#0984E3] hover:scale-110 transition-transform" data-color="#0984E3"></button>
+                            <button class="theme-color w-8 h-8 rounded-full bg-[#00CEC9] hover:scale-110 transition-transform" data-color="#00CEC9"></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 暗黑模式切换 -->
+                <button id="darkModeToggle" class="md3-outlined-button flex items-center gap-2">
+                    <span>🌙</span>
+                    <span class="hidden sm:inline">暗黑模式</span>
+                </button>
+                <a href="index.html" class="md3-outlined-button">返回首页</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 文章内容 -->
+    <main class="max-w-4xl mx-auto px-6 py-8">
+        <article class="md3-card p-8">
+            <!-- 文章头部 -->
+            <header class="mb-8">
+                <h1 class="md3-headline text-primary mb-4">VS Code 生产力扩展配置指南</h1>
+                <div class="flex items-center gap-4 text-text-secondary md3-body">
+                    <span>📅 2025-10-08</span>
+                    <span>⏱️ 阅读时间：15分钟</span>
+                    <span>🏷️ 开发工具</span>
+                </div>
+            </header>
+
+            <!-- 文章内容 -->
+            <div class="prose prose-lg max-w-none">
+                <h2 class="md3-title text-text-primary mt-8 mb-4">🎯 核心扩展推荐</h2>
+                
+                <div class="space-y-6">
+                    <!-- GitLens -->
+                    <section class="md3-card p-6">
+                        <h3 class="md3-title text-text-primary mb-3">1. GitLens - Git 增强工具</h3>
+                        <p class="text-text-secondary md3-body mb-4">
+                            GitLens 增强了 VS Code 内置的 Git 功能，提供了丰富的代码注释和 Git 历史信息。
+                        </p>
+                        <div class="code-block mb-4">
+                            // 安装命令<br>
+                            ext install eamodio.gitlens
+                        </div>
+                        <h4 class="font-semibold text-text-primary mb-2">主要功能：</h4>
+                        <ul class="text-text-secondary md3-body space-y-2">
+                            <li>• 代码行级别的 Git 注释</li>
+                            <li>• 文件历史记录和比较</li>
+                            <li>• 分支管理和可视化</li>
+                            <li>• 提交信息模板</li>
+                        </ul>
+                    </section>
+
+                    <!-- Prettier -->
+                    <section class="md3-card p-6">
+                        <h3 class="md3-title text-text-primary mb-3">2. Prettier - 代码格式化</h3>
+                        <p class="text-text-secondary md3-body mb-4">
+                            Prettier 是一个固执己见的代码格式化工具，支持多种语言，确保代码风格一致。
+                        </p>
+                        <div class="code-block mb-4">
+                            // 安装命令<br>
+                            ext install esbenp.prettier-vscode
+                        </div>
+                        <h4 class="font-semibold text-text-primary mb-2">配置示例：</h4>
+                        <div class="code-block mb-4">
+                            {<br>
+                            &nbsp;&nbsp;"prettier.semi": true,<br>
+                            &nbsp;&nbsp;"prettier.singleQuote": true,<br>
+                            &nbsp;&nbsp;"prettier.tabWidth": 2,<br>
+                            &nbsp;&nbsp;"prettier.trailingComma": "es5"<br>
+                            }
+                        </div>
+                    </section>
+
+                    <!-- ESLint -->
+                    <section class="md3-card p-6">
+                        <h3 class="md3-title text-text-primary mb-3">3. ESLint - JavaScript 代码检查</h3>
+                        <p class="text-text-secondary md3-body mb-4">
+                            ESLint 用于识别和报告 JavaScript 代码中的问题，帮助维护代码质量。
+                        </p>
+                        <div class="code-block mb-4">
+                            // 安装命令<br>
+                            ext install dbaeumer.vscode-eslint
+                        </div>
+                        <h4 class="font-semibold text-text-primary mb-2">推荐配置：</h4>
+                        <div class="code-block mb-4">
+                            {<br>
+                            &nbsp;&nbsp;"eslint.validate": [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"javascript",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"javascriptreact",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"typescript",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"typescriptreact"<br>
+                            &nbsp;&nbsp;],<br>
+                            &nbsp;&nbsp;"eslint.format.enable": true<br>
+                            }
+                        </div>
+                    </section>
+
+                    <!-- Live Server -->
+                    <section class="md3-card p-6">
+                        <h3 class="md3-title text-text-primary mb-3">4. Live Server - 实时预览</h3>
+                        <p class="text-text-secondary md3-body mb-4">
+                            为静态和动态页面启动具有实时重载功能的开发本地服务器。
+                        </p>
+                        <div class="code-block mb-4">
+                            // 安装命令<br>
+                            ext install ritwickdey.liveserver
+                        </div>
+                        <h4 class="font-semibold text-text-primary mb-2">使用技巧：</h4>
+                        <ul class="text-text-secondary md3-body space-y-2">
+                            <li>• 右键 HTML 文件选择 "Open with Live Server"</li>
+                            <li>• 自动检测文件更改并刷新页面</li>
+                            <li>• 支持多浏览器同步</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <h2 class="md3-title text-text-primary mt-12 mb-4">⚙️ 工作区配置</h2>
+                
+                <section class="md3-card p-6">
+                    <h3 class="md3-title text-text-primary mb-4">推荐的 settings.json 配置</h3>
+                    <div class="code-block mb-4">
+                        {<br>
+                        &nbsp;&nbsp;// 编辑器设置<br>
+                        &nbsp;&nbsp;"editor.fontSize": 14,<br>
+                        &nbsp;&nbsp;"editor.lineHeight": 1.5,<br>
+                        &nbsp;&nbsp;"editor.tabSize": 2,<br>
+                        &nbsp;&nbsp;"editor.wordWrap": "on",<br>
+                        <br>
+                        &nbsp;&nbsp;// 文件设置<br>
+                        &nbsp;&nbsp;"files.autoSave": "onFocusChange",<br>
+                        &nbsp;&nbsp;"files.trimTrailingWhitespace": true,<br>
+                        <br>
+                        &nbsp;&nbsp;// 格式化设置<br>
+                        &nbsp;&nbsp;"editor.formatOnSave": true,<br>
+                        &nbsp;&nbsp;"editor.defaultFormatter": "esbenp.prettier-vscode",<br>
+                        <br>
+                        &nbsp;&nbsp;// Git 设置<br>
+                        &nbsp;&nbsp;"git.autofetch": true,<br>
+                        &nbsp;&nbsp;"git.confirmSync": false<br>
+                        }
+                    </div>
+                </section>
+
+                <h2 class="md3-title text-text-primary mt-12 mb-4">🎨 主题和图标</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <section class="md3-card p-6">
+                        <h3 class="md3-title text-text-primary mb-3">推荐主题</h3>
+                        <ul class="text-text-secondary md3-body space-y-2">
+                            <li>• One Dark Pro - 经典的暗色主题</li>
+                            <li>• GitHub Theme - GitHub 风格主题</li>
+                            <li>• Material Theme - Material Design 风格</li>
+                            <li>• Night Owl - 专为夜间编码设计</li>
+                        </ul>
+                    </section>
+
+                    <section class="md3-card p-6">
+                        <h3 class="md3-title text-text-primary mb-3">文件图标主题</h3>
+                        <ul class="text-text-secondary md3-body space-y-2">
+                            <li>• vscode-icons - 丰富的文件图标</li>
+                            <li>• Material Icon Theme - Material Design 图标</li>
+                            <li>• Simple Icons - 简洁的图标集</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <h2 class="md3-title text-text-primary mt-12 mb-4">🚀 高级技巧</h2>
+                
+                <section class="md3-card p-6">
+                    <h3 class="md3-title text-text-primary mb-4">1. 多光标编辑</h3>
+                    <p class="text-text-secondary md3-body mb-4">
+                        使用 <code class="bg-surface-variant px-2 py-1 rounded">Ctrl/Cmd + D</code> 选择下一个相同文本，
+                        <code class="bg-surface-variant px-2 py-1 rounded">Alt + 点击</code> 添加多个光标。
+                    </p>
+
+                    <h3 class="md3-title text-text-primary mb-4 mt-6">2. 命令面板</h3>
+                    <p class="text-text-secondary md3-body mb-4">
+                        使用 <code class="bg-surface-variant px-2 py-1 rounded">Ctrl/Cmd + Shift + P</code> 打开命令面板，
+                        快速执行各种操作。
+                    </p>
+
+                    <h3 class="md3-title text-text-primary mb-4 mt-6">3. 代码片段</h3>
+                    <p class="text-text-secondary md3-body mb-4">
+                        创建自定义代码片段，提高编码效率。在设置中搜索 "snippets" 进行配置。
+                    </p>
+                </section>
+
+                <div class="mt-12 p-6 bg-primary/10 rounded-md3-medium">
+                    <h3 class="md3-title text-primary mb-3">💡 总结</h3>
+                    <p class="text-text-secondary md3-body">
+                        合理配置 VS Code 扩展可以显著提升开发效率。建议根据项目需求选择必要的扩展，
+                        避免安装过多扩展影响性能。定期更新扩展和 VS Code 本身，享受最新的功能和优化。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 文章底部 -->
+            <footer class="mt-12 pt-6 border-t border-outline">
+                <div class="flex flex-wrap gap-4">
+                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">VS Code</span>
+                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">扩展配置</span>
+                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">开发工具</span>
+                    <span class="px-3 py-1 bg-surface-variant text-primary rounded-full text-sm">生产力</span>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+            <p class="text-text-secondary md3-body">© 2025 蔚澜Waverly - 开发者资源中心</p>
+        </div>
+    </footer>
+
+    <!-- 加载脚本 -->
+    <script>
+        // 主题管理类
+        class ThemeManager {
+            constructor() {
+                this.currentTheme = localStorage.getItem('theme') || 'light';
+                this.currentColor = localStorage.getItem('themeColor') || '#165DFF';
+                this.init();
+            }
+
+            init() {
+                this.applyTheme();
+                this.applyColor();
+                this.bindEvents();
+            }
+
+            applyTheme() {
+                document.documentElement.setAttribute('data-theme', this.currentTheme);
+                localStorage.setItem('theme', this.currentTheme);
+                
+                // 更新暗黑模式按钮文本
+                const toggleBtn = document.getElementById('darkModeToggle');
+                if (toggleBtn) {
+                    const icon = this.currentTheme === 'dark' ? '☀️' : '🌙';
+                    const text = this.currentTheme === 'dark' ? '明亮模式' : '暗黑模式';
+                    toggleBtn.innerHTML = `${icon}<span class="hidden sm:inline">${text}</span>`;
+                }
+            }
+
+            applyColor() {
+                // 动态更新 CSS 变量
+                const root = document.documentElement;
+                root.style.setProperty('--primary-color', this.currentColor);
+                
+                // 计算衍生颜色
+                const surfaceVariant = this.lightenColor(this.currentColor, 0.95);
+                const outline = this.lightenColor(this.currentColor, 0.85);
+                
+                root.style.setProperty('--surface-variant-color', surfaceVariant);
+                root.style.setProperty('--outline-color', outline);
+                
+                localStorage.setItem('themeColor', this.currentColor);
+            }
+
+            lightenColor(color, factor) {
+                const hex = color.replace('#', '');
+                const r = parseInt(hex.substr(0, 2), 16);
+                const g = parseInt(hex.substr(2, 2), 16);
+                const b = parseInt(hex.substr(4, 2), 16);
+                
+                const lightR = Math.round(r + (255 - r) * factor);
+                const lightG = Math.round(g + (255 - g) * factor);
+                const lightB = Math.round(b + (255 - b) * factor);
+                
+                return `#${lightR.toString(16).padStart(2, '0')}${lightG.toString(16).padStart(2, '0')}${lightB.toString(16).padStart(2, '0')}`;
+            }
+
+            toggleTheme() {
+                this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+                this.applyTheme();
+            }
+
+            setColor(color) {
+                this.currentColor = color;
+                this.applyColor();
+            }
+
+            bindEvents() {
+                // 暗黑模式切换
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                if (darkModeToggle) {
+                    darkModeToggle.addEventListener('click', () => this.toggleTheme());
+                }
+
+                // 主题色选择
+                const themeColors = document.querySelectorAll('.theme-color');
+                themeColors.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const color = btn.getAttribute('data-color');
+                        this.setColor(color);
+                    });
+                });
+            }
+        }
+
+        // 暗黑模式样式
+        const darkModeStyles = `
+            [data-theme="dark"] {
+                --surface: #121212;
+                --surface-variant: #1E1E1E;
+                --text-primary: #FFFFFF;
+                --text-secondary: #B0B0B0;
+                --text-tertiary: #808080;
+                --outline: #404040;
+            }
+
+            [data-theme="dark"] body {
+                background-color: var(--surface) !important;
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .bg-surface {
+                background-color: var(--surface) !important;
+            }
+
+            [data-theme="dark"] .bg-surface-variant {
+                background-color: var(--surface-variant) !important;
+            }
+
+            [data-theme="dark"] .text-text-primary {
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .text-text-secondary {
+                color: var(--text-secondary) !important;
+            }
+
+            [data-theme="dark"] .text-text-tertiary {
+                color: var(--text-tertiary) !important;
+            }
+
+            [data-theme="dark"] .border-outline {
+                border-color: var(--outline) !important;
+            }
+
+            [data-theme="dark"] .md3-card {
+                background-color: var(--surface-variant) !important;
+            }
+
+            [data-theme="dark"] .md3-outlined-button {
+                border-color: var(--outline) !important;
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .md3-outlined-button:hover {
+                background-color: var(--surface) !important;
+                border-color: var(--primary-color) !important;
+            }
+
+            [data-theme="dark"] .md3-assist-chip {
+                background-color: var(--surface) !important;
+                color: var(--text-primary) !important;
+            }
+
+            [data-theme="dark"] .md3-assist-chip:hover {
+                background-color: var(--primary-color) !important;
+                color: white !important;
+            }
+
+            [data-theme="dark"] .bg-primary\\/10 {
+                background-color: color-mix(in srgb, var(--primary-color) 10%, var(--surface)) !important;
+            }
+
+            [data-theme="dark"] .code-block {
+                background-color: var(--surface) !important;
+                color: var(--text-primary) !important;
+                border: 1px solid var(--outline) !important;
+            }
+
+            [data-theme="dark"] code {
+                background-color: var(--surface-variant) !important;
+                color: var(--text-primary) !important;
+                border-color: var(--outline) !important;
+            }
+        `;
+
+        // 动态颜色样式
+        const dynamicColorStyles = `
+            :root {
+                --primary-color: #165DFF;
+                --surface-variant-color: #F0F6FF;
+                --outline-color: #D0E0FF;
+            }
+
+            .text-primary {
+                color: var(--primary-color) !important;
+            }
+
+            .bg-primary {
+                background-color: var(--primary-color) !important;
+            }
+
+            .border-primary {
+                border-color: var(--primary-color) !important;
+            }
+
+            .bg-surface-variant {
+                background-color: var(--surface-variant-color) !important;
+            }
+
+            .border-outline {
+                border-color: var(--outline-color) !important;
+            }
+
+            .md3-outlined-button {
+                border-color: var(--outline-color) !important;
+                color: var(--primary-color) !important;
+            }
+
+            .md3-outlined-button:hover {
+                background-color: var(--surface-variant-color) !important;
+                border-color: var(--primary-color) !important;
+            }
+
+            .md3-assist-chip {
+                background-color: var(--surface-variant-color) !important;
+                color: var(--primary-color) !important;
+            }
+
+            .md3-assist-chip:hover {
+                background-color: var(--primary-color) !important;
+                color: white !important;
+            }
+
+            .bg-primary\\/10 {
+                background-color: color-mix(in srgb, var(--primary-color) 10%, transparent) !important;
+            }
+        `;
+
+        // 添加样式到文档
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = darkModeStyles + dynamicColorStyles;
+        document.head.appendChild(styleSheet);
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化主题管理器
+            const themeManager = new ThemeManager();
+
+            // 骨架屏加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.remove('skeleton');
+                });
+                if (!img.complete) {
+                    img.classList.add('skeleton');
+                }
+            });
+
+            // 平滑滚动到锚点
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
