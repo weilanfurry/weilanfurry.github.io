@@ -3,146 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页与资源下载</title>
+    <title>蔚澜Waverly</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 配置蓝白主题色 -->
+    <!-- 配置 CirGeoUI 色彩系统 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF', // 主蓝色
-                        secondary: '#E8F3FF', // 浅蓝背景
+                        // CirGeoUI 主色：光核橙
+                        primary: '#FF8C00',
+                        // 卡片容器背景
+                        card: '#1A1A1A',
+                        // 底层背景
+                        base: '#121212',
+                        // 次要文字
+                        'text-secondary': '#999999',
+                        // 分割边框
+                        border: '#333333',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        // 英文 Inter / Roboto，中文使用系统无衬线（思源黑体/鸿蒙黑体）
+                        sans: ['Inter', 'Roboto', 'system-ui', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
                     },
+                    borderRadius: {
+                        // 卡片统一 20px
+                        'card': '20px',
+                    },
+                    boxShadow: {
+                        // 柔和悬浮阴影
+                        'soft': '0 8px 20px rgba(0, 0, 0, 0.5)',
+                        'hover': '0 12px 24px rgba(255, 140, 0, 0.15)',
+                    }
                 }
             }
         }
     </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .float-effect {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .float-effect:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px -5px rgba(22, 93, 255, 0.15);
-            }
-            .scrollbar-thin {
-                scrollbar-width: thin;
-            }
-            .scrollbar-thin::-webkit-scrollbar {
-                width: 6px;
-            }
-            .scrollbar-thin::-webkit-scrollbar-thumb {
-                background-color: #C9D8E7;
-                border-radius: 3px;
-            }
+    <style>
+        /* 自定义圆角 20px (如果不想用 rounded-card 可以这样用) */
+        .rounded-20px {
+            border-radius: 20px;
+        }
+        /* 自定义滚动条 (深色适配) */
+        .scrollbar-dark {
+            scrollbar-width: thin;
+            scrollbar-color: #333333 #1A1A1A;
+        }
+        .scrollbar-dark::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollbar-dark::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+        .scrollbar-dark::-webkit-scrollbar-thumb {
+            background-color: #333333;
+            border-radius: 3px;
+        }
+        /* 悬停浮动效果 (适配深色) */
+        .float-effect {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .float-effect:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(255, 140, 0, 0.2);
+        }
+        /* 药丸标签基础样式 */
+        .pill-tag {
+            @apply px-4 py-2 bg-primary text-white rounded-full text-sm font-medium;
+            transition: opacity 0.2s;
+        }
+        .pill-tag:hover {
+            opacity: 0.9;
+        }
+        /* 去除默认链接下划线 */
+        a {
+            text-decoration: none;
         }
     </style>
 </head>
-<body class="bg-white font-sans text-gray-800">
+<body class="bg-base text-white font-sans antialiased">
     <div class="flex h-screen max-w-7xl mx-auto overflow-hidden">
-        <!-- 左栏：个人信息 -->
-        <div class="w-80 bg-secondary scrollbar-thin overflow-y-auto p-6 border-r border-gray-100">
-            <!-- 头像 -->
+        <!-- 左栏：个人信息 (卡片风格) -->
+        <div class="w-80 bg-card scrollbar-dark overflow-y-auto p-6 border-r border-border">
+            <!-- 头像 (正圆形) -->
             <div class="flex justify-center mb-4">
-                <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center">
-                    <a href="https://imgse.com/i/pV4QYjg"><img src="https://s21.ax1x.com/2025/09/20/pV4QYjg.jpg" alt="pV4QYjg.jpg" border="0" /></a>
+                <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/30">
+                    <img src="https://s21.ax1x.com/2025/09/20/pV4QYjg.jpg" alt="蔚澜头像" class="w-28 h-28 rounded-full object-cover">
                 </div>
             </div>
 
-            <!-- 网名 -->
+            <!-- 网名 (光核橙) -->
             <div class="text-center mb-8">
                 <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-primary">蔚澜Waverly</h1>
             </div>
 
-            <!-- 联系方式（带浮动效果） -->
-            <div class="bg-white rounded-xl p-5 mb-8 float-effect">
-                <h2 class="text-lg font-semibold text-gray-700 mb-4">联系方式</h2>
-                <div class="space-y-3 text-gray-600">
+            <!-- 联系方式卡片 (圆角20px, 深色容器) -->
+            <div class="bg-[#1A1A1A] rounded-card p-5 mb-8 float-effect border border-border/30">
+                <h2 class="text-lg font-semibold text-white mb-4">联系方式</h2>
+                <div class="space-y-3 text-text-secondary">
                     <p>📱 QQ 3654752568</p>
                     <p>📧 Uild913@Outlook.com</p>
                     <p>🔗 weilanfurry.github.io</p>
                 </div>
             </div>
 
-            <!-- 爱好 -->
+            <!-- 爱好 (药丸标签) -->
             <div>
-                <h2 class="text-lg font-semibold text-gray-700 mb-4">我的爱好</h2>
+                <h2 class="text-lg font-semibold text-white mb-4">我的爱好</h2>
                 <div class="flex flex-wrap gap-3">
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">C++开发</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">林肯公园</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">福瑞</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">做UP主</span>
-                    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">摄影</span>
-		    <span class="px-4 py-2 bg-white rounded-full text-primary text-sm shadow-sm">花粉</span>
+                    <span class="pill-tag">C++开发</span>
+                    <span class="pill-tag">林肯公园</span>
+                    <span class="pill-tag">福瑞</span>
+                    <span class="pill-tag">做UP主</span>
+                    <span class="pill-tag">摄影</span>
+                    <span class="pill-tag">花粉</span>
                 </div>
             </div>
         </div>
 
-        <div class="flex-1 scrollbar-thin overflow-y-auto p-8 bg-white">
-            <h2 class="text-2xl font-bold text-primary mb-8">资源下载</h2
-            
-            <div class="space-y-5">
+        <!-- 右栏：资源下载 -->
+        <div class="flex-1 scrollbar-dark overflow-y-auto p-8 bg-base">
+            <h2 class="text-2xl font-bold text-primary mb-8">资源下载</h2>
 
-		<!-- SlipTime -->
-                <a 
-                    href="https://www.123865.com/s/7FLYTd-hMvqv" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">SlipTime春节倒计时</span>
-                    <span class="text-sm text-gray-500">2026-2-16</span>
+            <div class="space-y-4">
+                <!-- SlipTime -->
+                <a href="https://www.123865.com/s/7FLYTd-hMvqv" target="_blank" 
+                   class="block bg-card rounded-card p-5 flex justify-between items-center float-effect border border-border/30">
+                    <span class="font-medium text-white">SlipTime春节倒计时</span>
+                    <span class="text-sm text-text-secondary">2026-02-16</span>
                 </a>
-		<br>
 
-		<!-- TGAI -->
-                <a 
-                    href="https://www.123865.com/s/7FLYTd-syTqv" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">TicGo井字棋AI</span>
-                    <span class="text-sm text-gray-500">2025-12-27</span>
+                <!-- TGAI -->
+                <a href="https://www.123865.com/s/7FLYTd-syTqv" target="_blank" 
+                   class="block bg-card rounded-card p-5 flex justify-between items-center float-effect border border-border/30">
+                    <span class="font-medium text-white">TicGo井字棋AI</span>
+                    <span class="text-sm text-text-secondary">2025-12-27</span>
                 </a>
-		<br>
 
-		<!-- UW4 -->
-                <a 
-                    href="https://www.123pan.com/s/7FLYTd-3JTqv" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">UildWork ZERO</span>
-                    <span class="text-sm text-gray-500">2025-10-17</span>
+                <!-- UW4 -->
+                <a href="https://www.123pan.com/s/7FLYTd-3JTqv" target="_blank" 
+                   class="block bg-card rounded-card p-5 flex justify-between items-center float-effect border border-border/30">
+                    <span class="font-medium text-white">UildWork ZERO</span>
+                    <span class="text-sm text-text-secondary">2025-10-17</span>
                 </a>
-		<br>
 
                 <!-- WaveTime番茄钟 -->
-                <a 
-                    href="https://www.123865.com/s/7FLYTd-SLj5v" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">WaveTime番茄钟</span>
-                    <span class="text-sm text-gray-500">2025-08-15</span>
+                <a href="https://www.123865.com/s/7FLYTd-SLj5v" target="_blank" 
+                   class="block bg-card rounded-card p-5 flex justify-between items-center float-effect border border-border/30">
+                    <span class="font-medium text-white">WaveTime番茄钟</span>
+                    <span class="text-sm text-text-secondary">2025-08-15</span>
                 </a>
-		<br>
-		
-		<!-- UW3 -->
-                <a 
-                    href="https://www.123865.com/s/7FLYTd-lLj5v" 
-                    target="_blank" 
-                    class="block bg-secondary rounded-xl p-5 flex justify-between items-center float-effect"
-                >
-                    <span class="font-medium text-gray-800">UildWork 3.0</span>
-                    <span class="text-sm text-gray-500">2025-03-30</span>
-                </a>
-		<br>
 
+                <!-- UW3 -->
+                <a href="https://www.123865.com/s/7FLYTd-lLj5v" target="_blank" 
+                   class="block bg-card rounded-card p-5 flex justify-between items-center float-effect border border-border/30">
+                    <span class="font-medium text-white">UildWork 3.0</span>
+                    <span class="text-sm text-text-secondary">2025-03-30</span>
+                </a>
+            </div>
+
+            <!-- 底部署名 (可选，保留设计语言版权) -->
+            <div class="mt-12 text-center text-text-secondary text-sm border-t border-border pt-6">
+                <p>Design with CirGeoUI by Pultorch · 圆生万物，简致永恒</p>
             </div>
         </div>
     </div>
