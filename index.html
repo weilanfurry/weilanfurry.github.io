@@ -184,32 +184,32 @@
         <div class="flex-1 scrollbar-dark overflow-y-auto p-8 bg-base">
             <h2 class="text-2xl font-bold text-primary mb-8">项目板块</h2>
 
-            <!-- 2×2网格布局 - 四大板块 -->
+            <!-- 2×2网格布局 - 四大板块（已按要求重命名） -->
             <div class="grid grid-cols-2 grid-rows-2 gap-6 mb-8 h-[60vh]">
-                <!-- 板块1: PulHome Hub -->
+                <!-- 板块1: 开发者生态 -->
                 <div class="section-card float-effect" onclick="showModal('modal1')">
-                    <h3 class="text-xl font-bold text-primary mb-2">PulHome Hub</h3>
+                    <h3 class="text-xl font-bold text-primary mb-2">开发者生态</h3>
                     <p class="text-text-secondary">正在开发，稍后上线</p>
                     <i class="fa-solid fa-cloud-house text-4xl text-primary mt-4"></i>
                 </div>
 
-                <!-- 板块2: UildWork/ASMS -->
+                <!-- 板块2: 韭菜盒子 -->
                 <div class="section-card float-effect" onclick="showModal('modal2')">
-                    <h3 class="text-xl font-bold text-primary mb-2">UildWork/ASMS</h3>
-                    <p class="text-text-secondary">多人协作工作台系列</p>
+                    <h3 class="text-xl font-bold text-primary mb-2">韭菜盒子</h3>
+                    <p class="text-text-secondary">正在开发，稍后上线</p>
                     <i class="fa-solid fa-code-branch text-4xl text-primary mt-4"></i>
                 </div>
 
-                <!-- 板块3: UI 设计 -->
+                <!-- 板块3: PulTorch（原UI设计，现放入UildWork链接） -->
                 <div class="section-card float-effect" onclick="showModal('modal3')">
-                    <h3 class="text-xl font-bold text-primary mb-2">UI 设计</h3>
-                    <p class="text-text-secondary">正在开发，稍后上线</p>
+                    <h3 class="text-xl font-bold text-primary mb-2">PulTorch</h3>
+                    <p class="text-text-secondary">UildWork 系列工具</p>
                     <i class="fa-solid fa-palette text-4xl text-primary mt-4"></i>
                 </div>
 
-                <!-- 板块4: 其他 -->
+                <!-- 板块4: 个人项目（收纳所有其他链接） -->
                 <div class="section-card float-effect" onclick="showModal('modal4')">
-                    <h3 class="text-xl font-bold text-primary mb-2">其他</h3>
+                    <h3 class="text-xl font-bold text-primary mb-2">个人项目</h3>
                     <p class="text-text-secondary">创意小项目合集</p>
                     <i class="fa-solid fa-cubes-stacked text-4xl text-primary mt-4"></i>
                 </div>
@@ -222,20 +222,29 @@
         </div>
     </div>
 
-    <!-- 弹窗1: PulHome Hub -->
+    <!-- 弹窗1: 开发者生态 -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="hideModal('modal1')"><i class="fa-solid fa-xmark"></i></span>
-            <h2 class="text-xl font-bold text-primary mb-4">PulHome Hub</h2>
+            <h2 class="text-xl font-bold text-primary mb-4">开发者生态</h2>
             <p class="text-text-secondary">正在开发，稍后上线</p>
         </div>
     </div>
 
-    <!-- 弹窗2: UildWork/ASMS (保留所有原始UildWork链接) -->
+    <!-- 弹窗2: 韭菜盒子 -->
     <div id="modal2" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="hideModal('modal2')"><i class="fa-solid fa-xmark"></i></span>
-            <h2 class="text-xl font-bold text-primary mb-4">UildWork/ASMS 系列</h2>
+            <h2 class="text-xl font-bold text-primary mb-4">韭菜盒子</h2>
+            <p class="text-text-secondary">正在开发，稍后上线</p>
+        </div>
+    </div>
+
+    <!-- 弹窗3: PulTorch（原UildWork/ASMS链接移至此） -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="hideModal('modal3')"><i class="fa-solid fa-xmark"></i></span>
+            <h2 class="text-xl font-bold text-primary mb-4">PulTorch - UildWork 系列</h2>
             <div class="space-y-4">
                 <a href="https://www.123pan.com/s/7FLYTd-3JTqv" target="_blank" class="block bg-base rounded-lg p-3 float-effect">
                     <span class="font-medium text-white resource-text">UildWork ZERO</span>
@@ -249,20 +258,11 @@
         </div>
     </div>
 
-    <!-- 弹窗3: UI 设计 -->
-    <div id="modal3" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="hideModal('modal3')"><i class="fa-solid fa-xmark"></i></span>
-            <h2 class="text-xl font-bold text-primary mb-4">UI 设计</h2>
-            <p class="text-text-secondary">正在开发，稍后上线</p>
-        </div>
-    </div>
-
-    <!-- 弹窗4: 其他 (保留所有原始非UildWork链接) -->
+    <!-- 弹窗4: 个人项目（保留原其他板块的所有链接） -->
     <div id="modal4" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="hideModal('modal4')"><i class="fa-solid fa-xmark"></i></span>
-            <h2 class="text-xl font-bold text-primary mb-4">其他创意项目</h2>
+            <h2 class="text-xl font-bold text-primary mb-4">个人项目</h2>
             <div class="space-y-4">
                 <a href="https://www.123865.com/s/7FLYTd-hMvqv" target="_blank" class="block bg-base rounded-lg p-3 float-effect">
                     <span class="font-medium text-white resource-text">SlipTime春节倒计时</span>
