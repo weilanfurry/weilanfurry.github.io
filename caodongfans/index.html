@@ -1,0 +1,170 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SkillBottle Web</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand-wrap">
+          <div class="brand" id="brandTitle">SkillBottle Web</div>
+          <div class="brand-sub" id="brandSubtitle">全场景前端项目终端</div>
+        </div>
+
+        <div class="side-section">
+          <nav class="nav" id="nav" aria-label="目录">
+            <div class="nav-empty" id="navEmpty">加载中…</div>
+            <div class="nav-items" id="navItems"></div>
+          </nav>
+        </div>
+
+        <div class="sidebar-fill" aria-hidden="true"></div>
+        <div class="sidebar-footnote">*该项目由SkillBottle v0.5框架开发</div>
+      </aside>
+
+      <main class="main">
+        <section class="viewer" aria-label="app viewer">
+          <div class="viewer-empty" id="viewerEmpty">
+            <div class="viewer-title" id="viewerTitle">未选择</div>
+            <p class="muted" id="viewerDesc">把子文件夹放到 <code>app/</code> 里，并在每个子文件夹下放一个 <code>index.html</code>。</p>
+          </div>
+
+          <div class="viewer-frames" id="viewerFrames" aria-hidden="true"></div>
+          <div class="viewer-panel" id="advancedPanel" aria-label="高级模块">
+            <div class="panel-head">
+              <div class="panel-title">高级模块</div>
+              <div class="panel-sub">CirGeoUI 风格 · 仅黑白灰 + 蓝色品牌</div>
+            </div>
+            <div class="panel-card" id="personalizeCard">
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">个性化设置</div>
+                  <div class="panel-row-desc">自定义左侧标题、颜色与框架背景</div>
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">大标题</div>
+                  <div class="panel-row-desc">左上角大文字</div>
+                </div>
+
+                <div class="panel-actions">
+                  <input class="pill-input" id="personalTitleInput" type="text" maxlength="40" />
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">副标题</div>
+                  <div class="panel-row-desc">大标题下方小文字</div>
+                </div>
+
+                <div class="panel-actions">
+                  <input class="pill-input" id="personalSubtitleInput" type="text" maxlength="60" />
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">大标题文字颜色</div>
+                  <div class="panel-row-desc">仅影响左上角大标题</div>
+                </div>
+
+                <div class="panel-actions">
+                  <input class="color-input" id="personalBrandColorInput" type="color" />
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">框架背景颜色</div>
+                  <div class="panel-row-desc">仅影响框架底色（不影响子项目页面）</div>
+                </div>
+
+                <div class="panel-actions">
+                  <input class="color-input" id="personalFrameBgInput" type="color" />
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">黑夜 / 白昼</div>
+                  <div class="panel-row-desc">切换整个面板的主题模式</div>
+                </div>
+
+                <label class="switch" aria-label="主题切换">
+                  <input id="themeToggle" type="checkbox" />
+                  <span class="switch-track" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">恢复默认</div>
+                  <div class="panel-row-desc">清除个性化设置并恢复主题默认值</div>
+                </div>
+
+                <button class="pill-btn" type="button" id="personalResetBtn">恢复默认</button>
+              </div>
+            </div>
+
+
+            <div class="panel-card" id="exportCard" style="display:none;">
+              <div class="panel-row" style="align-items:flex-start;">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">导出为静态页面</div>
+                  <div class="panel-row-desc">打包整个框架 + app/ 内的项目，生成纯前端版本（无需 Python 运行）</div>
+                  <div class="panel-row-desc" id="exportStatus">点击“导出”开始</div>
+                  <div class="panel-row-desc">输出目录（在本项目下的 <code>result/</code>）：</div>
+                  <div class="panel-row-desc"><code id="exportPath"></code></div>
+                </div>
+
+                <button class="pill-btn" type="button" id="exportBtn">导出</button>
+              </div>
+            </div>
+
+            <div class="panel-card" id="adminPwdCard" style="display:none;">
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">管理员密码</div>
+                  <div class="panel-row-desc" id="adminPwdStatus">加载中…</div>
+                </div>
+
+                <div class="panel-actions">
+                  <button class="pill-btn" type="button" id="adminSetPwdBtn" style="display:none;">注册密码</button>
+                  <button class="pill-btn" type="button" id="adminChangePwdBtn" style="display:none;">更改密码</button>
+                </div>
+              </div>
+            </div>
+            <div class="panel-card" id="manageCard" style="display:none;">
+              <div class="panel-row">
+                <div class="panel-row-text">
+                  <div class="panel-row-title">管理模式</div>
+                  <div class="panel-row-desc">退出后将隐藏“高级模块”，锁定项目在普通模式下不可打开</div>
+                </div>
+
+                <button class="pill-btn" type="button" id="exitManageBtn">退出管理模式</button>
+              </div>
+            </div>
+            <div class="panel-bottom-note">技术交流生态QQ群：996390776</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+
+    <script type="application/json" id="sb-manifest">{"items": [{"id": "乐队简介", "label": "乐队简介", "href": "apps/乐队简介/index.html"}, {"id": "但", "label": "但", "href": "apps/但/index.html"}, {"id": "大风吹", "label": "大风吹", "href": "apps/大风吹/index.html"}, {"id": "山海", "label": "山海", "href": "apps/山海/index.html"}, {"id": "烂泥", "label": "烂泥", "href": "apps/烂泥/index.html"}, {"id": "鬼", "label": "鬼", "href": "apps/鬼/index.html"}]}</script>
+    <script type="application/json" id="sb-personalize">{"title": "草东没有粉丝站", "brandColor": "#bd0000", "frameBg": "#000000", "subtitle": "跳进染缸！"}</script>
+    <script type="application/json" id="sb-theme">"dark"</script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
+
+
+
+

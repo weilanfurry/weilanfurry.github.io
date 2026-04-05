@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "乐队简介",
+      "label": "乐队简介",
+      "href": "apps/乐队简介/index.html"
+    },
+    {
+      "id": "但",
+      "label": "但",
+      "href": "apps/但/index.html"
+    },
+    {
+      "id": "大风吹",
+      "label": "大风吹",
+      "href": "apps/大风吹/index.html"
+    },
+    {
+      "id": "山海",
+      "label": "山海",
+      "href": "apps/山海/index.html"
+    },
+    {
+      "id": "烂泥",
+      "label": "烂泥",
+      "href": "apps/烂泥/index.html"
+    },
+    {
+      "id": "鬼",
+      "label": "鬼",
+      "href": "apps/鬼/index.html"
+    }
+  ]
+}

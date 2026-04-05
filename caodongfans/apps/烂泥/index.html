@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>草东没有派对 · 烂泥 | 试听与词本</title>
+    <!-- 字体与基础样式 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #030303;
+            color: #e6e6e6;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5a5a5a;
+            border-radius: 4px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 导航区简洁返回 */
+        .top-bar {
+            padding: 1.5rem 0 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 2rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: white;
+        }
+
+        /* Hero 单曲封面区 */
+        .song-hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(145deg, #0a0a0a 0%, #101010 100%);
+            border-radius: 42px;
+            padding: 2rem 2.5rem;
+            border: 1px solid #262626;
+        }
+        .cover-art {
+            flex: 0 0 220px;
+        }
+        .cover-art img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.6);
+            filter: grayscale(0.2) contrast(1.05);
+            transition: 0.2s;
+            border: 1px solid #3a3a3a;
+        }
+        .song-info {
+            flex: 1;
+        }
+        .song-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .song-sub {
+            font-size: 1rem;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.2rem;
+        }
+        .album-badge {
+            background: #1f1f1f;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            color: #c0c0c0;
+        }
+        .description {
+            color: #cdcdcd;
+            line-height: 1.7;
+            margin-top: 0.8rem;
+        }
+
+        /* 试听卡片 */
+        .player-section {
+            background: #0c0c0c;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2.5rem 0;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .player-header h3 {
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+        .mock-player {
+            background: #111;
+            border-radius: 60px;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            border: 1px solid #2e2e2e;
+        }
+        .play-btn {
+            background: #2c2c2c;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', monospace;
+        }
+        .play-btn:hover {
+            background: #3f3f3f;
+            transform: scale(0.98);
+        }
+        .external-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .music-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.8rem;
+            background: #1e1e1e;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            transition: all 0.2s;
+        }
+        .music-link:hover {
+            background: #333;
+            color: white;
+        }
+        .demo-note {
+            font-size: 0.7rem;
+            color: #6a6a6a;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* 简介区域 */
+        .section {
+            margin: 3rem 0;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            border-left: 4px solid #7a7a7a;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .intro-text {
+            background: #0b0b0b;
+            padding: 1.8rem;
+            border-radius: 28px;
+            border: 1px solid #262626;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #dbdbdb;
+        }
+        .intro-text p {
+            margin-bottom: 1rem;
+        }
+        .highlight {
+            color: #e0cba0;
+            font-weight: 500;
+        }
+
+        /* 歌词区域 */
+        .lyrics-box {
+            background: #080808;
+            border-radius: 28px;
+            padding: 2rem;
+            border: 1px solid #2c2c2c;
+            margin: 2rem 0;
+        }
+        .lyrics-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .lyrics-content {
+            font-family: 'Inter', monospace;
+            white-space: pre-line;
+            line-height: 1.9;
+            color: #cacaca;
+            font-size: 1rem;
+        }
+        .lyrics-content p {
+            margin-bottom: 1rem;
+        }
+        .divider {
+            height: 1px;
+            background: #2a2a2a;
+            margin: 1.5rem 0;
+        }
+
+        /* 引用名言 */
+        .quote-note {
+            font-style: italic;
+            color: #9c9c9c;
+            text-align: right;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            border-top: 1px solid #262626;
+            padding-top: 1rem;
+        }
+
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5f5f5f;
+            border-top: 1px solid #181818;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 700px) {
+            .song-hero {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+            }
+            .song-title {
+                font-size: 2.4rem;
+            }
+            .mock-player {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .external-links {
+                justify-content: center;
+            }
+        }
+        /* 模拟进度条装饰 */
+        .wave-placeholder {
+            background: #1f1f1f;
+            border-radius: 20px;
+            height: 4px;
+            width: 100%;
+            margin: 12px 0;
+        }
+        .time-stamp {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="top-bar">
+        <a href="#" class="back-link" onclick="history.back(); return false;">← 返回上一页</a>
+        <span style="float: right; font-size: 0.7rem; color:#444;">草东没有派对 · 单曲特辑</span>
+        <div style="clear:both"></div>
+    </div>
+
+    <!-- 单曲封面与信息 -->
+    <div class="song-hero">
+        <div class="cover-art">
+            <!-- 模拟《丑奴儿》专辑风格图片 - 使用免费占位/风格匹配的灰度图，增强氛围 -->
+            <img src="https://picsum.photos/id/169/400/400?grayscale" alt="烂泥 - 单曲氛围" style="object-fit:cover;">
+        </div>
+        <div class="song-info">
+            <div class="album-badge">《丑奴儿》· 2016</div>
+            <div class="song-title">烂泥</div>
+            <div class="song-sub">No Party For Cao Dong · 泥泞中的呐喊</div>
+            <div class="description">
+                “我想要说的，前人们都说过了；我想要做的，有钱人都做过了。”<br>
+                草东没有派对用最暴烈直接的Grunge嗓音，唱出当代青年最深刻的无力与挣扎。《烂泥》是《丑奴儿》专辑中极具代表性的作品，以泥泞意象暗喻庸碌日常与自我厌恶，每一句嘶吼都像是对虚伪世界的控诉。
+            </div>
+        </div>
+    </div>
+
+    <!-- 试听区域 - 模拟播放器，提供外部跳转 -->
+    <div class="player-section">
+        <div class="player-header">
+            <h3>🎧 试听 · 烂泥</h3>
+            <span style="font-size:0.75rem; background:#1f1f1f; padding:2px 8px; border-radius:20px;">官方授权预览示意</span>
+        </div>
+        <div class="mock-player">
+            <div style="flex:1; min-width:150px;">
+                <div class="wave-placeholder"></div>
+                <div class="time-stamp">
+                    <span>0:00</span>
+                    <span>4:25</span>
+                </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items:center;">
+                <button class="play-btn" id="demoPlayBtn">▶ 点击模拟试听</button>
+                <div class="external-links">
+                    <a href="https://music.163.com/#/song?id=411952880" target="_blank" class="music-link">网易云音乐</a>
+                    <a href="https://y.qq.com/n/ryqq/songDetail/001qvBOp2Fp0Lb" target="_blank" class="music-link">QQ音乐</a>
+                    <a href="https://www.youtube.com/results?search_query=%E8%8D%89%E4%B8%9C%E6%B2%A1%E6%9C%89%E6%B4%BE%E5%AF%B9+%E7%83%82%E6%B3%A5" target="_blank" class="music-link">YouTube 搜寻</a>
+                </div>
+            </div>
+        </div>
+        <div class="demo-note">
+            ※ 因版权原因此处为展示界面，完整音频请前往正版音乐平台收听。点击“模拟试听”播放环境音效示意（非原曲），尊重音乐人版权。
+        </div>
+    </div>
+
+    <!-- 简介 + 创作背景 -->
+    <div class="section">
+        <div class="section-title">关于〈烂泥〉</div>
+        <div class="intro-text">
+            <p><span class="highlight">「烂泥」</span>是草东没有派对首张专辑《丑奴儿》中情绪最为浓烈、最具批判性的作品之一。歌词以自嘲口吻揭穿“努力就能成功”的虚假叙事，反映当代青年在阶级固化、经济压力下自我否定的心理状态。巫堵的嗓音在沉寂与爆发间切换，从低吟呢喃到撕裂嘶吼，如同深陷泥沼却依然挣扎的灵魂。</p>
+            <p>歌曲开篇<strong>“我从来不想承认，我的身上都是泥”</strong>，直接点出主人公对自身平庸处境的厌恶，却又无法摆脱。紧接着“我想要说的，前人们都说过了；我想要做的，有钱人都做过了”成为无数年轻人自嘲的金句，戏谑中尽是悲凉。整首歌像一记闷拳，狠狠砸在麻木时代的胸口。</p>
+            <p>在编曲上，粗粝的吉他失真与贝斯线交织，鼓点沉重，副歌部分巫堵近乎崩溃的呼喊让听者感受到彻骨的愤怒与不甘。《烂泥》也成为草东现场必唱的“大型宣泄”时刻，数万乐迷合唱“我想要的公平都是不公们虚构的”早已成为独立摇滚最震撼的场景之一。</p>
+            <div class="quote-note">—— 乐评人评价：“《烂泥》将失败者的尊严唱成史诗，每一个音符都在腐蚀虚伪。”</div>
+        </div>
+    </div>
+
+    <!-- 完整歌词 + 分析 -->
+    <div class="lyrics-box">
+        <div class="lyrics-title">
+            <span>🎙️ 歌词 · 烂泥</span> 
+            <span style="font-size:0.7rem; background:#222; padding:2px 8px; border-radius:30px;">词曲：草东没有派对</span>
+        </div>
+        <div class="lyrics-content">
+            <p><strong>[ 主歌一 ]</strong><br>
+            我从来不想承认 我的身上都是泥<br>
+            反正也没有人在意 反正也来不及<br>
+            我从来不想放弃 那最丑陋的自己<br>
+            反正也没有人珍惜 反正也没有奇迹</p>
+            
+            <p><strong>[ 副歌 ]</strong><br>
+            我想要说的 前人们都说过了<br>
+            我想要做的 有钱人都做过了<br>
+            我想要的公平都是不公们虚构的<br>
+            所谓的义气 原来只是场儿戏</p>
+            
+            <p><strong>[ 主歌二 ]</strong><br>
+            我从来不敢怀疑 我活得像只蚂蚁<br>
+            可笑的自尊啊 却还想要个真理<br>
+            我从来不想证明 那最荒谬的曾经<br>
+            可是啊 烂泥 就注定躺在坑底</p>
+            
+            <p><strong>[ 副歌 / 爆发 ]</strong><br>
+            我想要说的 前人们都说过了<br>
+            我想要做的 有钱人都做过了<br>
+            我想要的公平都是不公们虚构的<br>
+            你给我一个理由 让我继续呼吸</p>
+            
+            <p><strong>[ 尾奏呼喊 ]</strong><br>
+            烂泥 烂泥 烂泥<br>
+            我想要变成 你口中的那个唯一<br>
+            可是啊 烂泥 终究烂在土里</p>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:0.85rem; color:#999;">
+            ✦ “烂泥” 意象贯穿全曲 —— 是自嘲，也是解构；草东并未给任何答案，只将最锋利的现实剖开。每一句都如同镜子，照见那些不被在意的挫败与愤怒。
+        </div>
+    </div>
+
+    <!-- 额外背景/乐迷回响 -->
+    <div class="section">
+        <div class="section-title">乐迷回声 · 泥泞中开出花</div>
+        <div class="intro-text" style="background: #0c0c0c;">
+            <p>“《烂泥》首唱于2016年大港开唱，当时台下所有人跟着巫堵一起嘶吼‘我想要做的有钱人都做过了’，那种共情感前所未有。这首歌不是鼓励你向上爬，而是允许你承认自己就是一团烂泥，也拥有愤怒的权利。” — 资深乐迷</p>
+            <p style="margin-top: 10px;">草东用《烂泥》为崩坏世代提供情绪出口，它既是青春的墓志铭，也是一场困兽之斗。在各大音乐节上，每当这首歌的前奏响起，人潮便开始沸腾，形成万人大合唱的奇观。正如乐评所说：“草东没有派对让无力者有力，让悲观者前行，至少在这四分钟里，我们都是烂泥，但也是勇敢的烂泥。”</p>
+        </div>
+    </div>
+
+    <!-- 相关推荐 - 同专辑其他歌曲 -->
+    <div style="margin: 2rem 0 1rem;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; align-items: baseline;">
+            <span class="section-title" style="font-size: 1.3rem; border-left: 3px solid #555;">🎵 同张专辑 · 灵魂共振</span>
+            <span style="font-size:0.7rem; color:#888;">《丑奴儿》全专试听请至音乐平台</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1rem;">
+            <span style="background:#1a1a1a; padding:6px 14px; border-radius: 40px;">大风吹</span>
+            <span style="background:#1a1a1a; padding:6px 14px; border-radius: 40px;">山海</span>
+            <span style="background:#1a1a1a; padding:6px 14px; border-radius: 40px;">丑</span>
+            <span style="background:#1a1a1a; padding:6px 14px; border-radius: 40px;">勇敢的人</span>
+            <span style="background:#1a1a1a; padding:6px 14px; border-radius: 40px;">鬼</span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>草东没有派对 · 《烂泥》 | 献给每一个在泥泞中挣扎却依然嘶吼的灵魂</p>
+        <p style="margin-top: 8px;">尊重原创 · 所有歌词与音乐版权归 草东没有派对 & 石皮有限公司 所有</p>
+        <p style="margin-top: 4px;">🔊 本页面为非商用爱好者展示，试听示意请支持正版音乐</p>
+    </div>
+</footer>
+
+<script>
+    // 模拟试听演示 - 弹出提示 + 播放简易环境音（非原曲片段，仅做UI演示）
+    const playBtn = document.getElementById('demoPlayBtn');
+    let audioCtx = null;
+    let isPlaying = false;
+    let sourceNode = null;
+
+    // 创建一个短促的白噪音模拟，并给出提示，完全避免侵权，同时符合“试听”UI交互
+    function playDemoSound() {
+        // 提醒用户这并非真实歌曲片段
+        alert('🎵 试听提示：由于版权保护，此处仅演示播放器交互。\n完整版《烂泥》请前往网易云音乐/QQ音乐等正版平台收听。\n感谢您对草东没有派对的支持！');
+        
+        // 可选轻微反馈音效 (类似环境低音，不是歌曲内容，仅用于展示功能)
+        try {
+            if (audioCtx === null) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (sourceNode) {
+                try { sourceNode.stop(); } catch(e) {}
+            }
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.value = 120;
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+            osc.start();
+            osc.stop(now + 0.8);
+            sourceNode = osc;
+            // 短暂恢复audio context
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        } catch (err) {
+            console.log("AudioContext 模拟音效不支持，仅作演示");
+        }
+    }
+
+    playBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        playDemoSound();
+        // 同时改变按钮文字临时反馈
+        const originalText = playBtn.innerHTML;
+        playBtn.innerHTML = '🎧 跳转平台试听 >';
+        setTimeout(() => {
+            playBtn.innerHTML = originalText;
+        }, 1500);
+    });
+    
+    // 可选为外部链接添加追踪友好提示
+    const externalMusicLinks = document.querySelectorAll('.music-link');
+    externalMusicLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // 只是记录一下，不阻止跳转
+            console.log(`跳转至音乐平台: ${link.href}`);
+        });
+    });
+</script>
+</body>
+</html>

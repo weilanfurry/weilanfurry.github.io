@@ -1,0 +1,24 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" rx="42" fill="#1A1A1A"/>
+  <rect x="18" y="18" width="1164" height="864" rx="34" fill="none" stroke="#333333" stroke-width="2"/>
+
+  <rect x="96" y="170" width="560" height="380" rx="30" fill="#121212" stroke="#333333" stroke-width="2"/>
+  <circle cx="1040" cy="230" r="110" fill="#121212" stroke="#333333" stroke-width="2"/>
+
+  <rect x="724" y="420" width="404" height="18" rx="9" fill="#333333"/>
+  <rect x="724" y="458" width="300" height="14" rx="7" fill="#333333" opacity="0.85"/>
+  <rect x="724" y="490" width="340" height="14" rx="7" fill="#333333" opacity="0.7"/>
+
+  <rect x="96" y="610" width="920" height="18" rx="9" fill="#333333" opacity="0.85"/>
+  <rect x="96" y="646" width="760" height="14" rx="7" fill="#333333" opacity="0.7"/>
+
+  <circle cx="1010" cy="200" r="10" fill="#FF8C00"/>
+  <circle cx="1056" cy="252" r="6" fill="#FF8C00" opacity="0.65"/>
+  <circle cx="980" cy="270" r="4" fill="#FF8C00" opacity="0.45"/>
+
+  <g font-family="Inter, Roboto, ui-sans-serif, system-ui, -apple-system, 'HarmonyOS Sans SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', Arial"
+     fill="#FFFFFF">
+    <text x="72" y="96" font-size="34" font-weight="700">示例照片</text>
+    <text x="72" y="140" font-size="18" fill="#999999">4:3 占位图（可替换为真实图片）</text>
+  </g>
+</svg>

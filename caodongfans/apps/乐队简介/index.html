@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>草东没有派对 | 时代之声，灵魂呐喊</title>
+    <!-- Google Fonts & 基础样式重置 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b6b6b;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #f5f5f5;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+        }
+        .logo span {
+            color: #8a8a8a;
+            font-weight: 300;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+        }
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero 区 */
+        .hero {
+            height: 100vh;
+            min-height: 650px;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2070&auto=format');
+            background-size: cover;
+            background-position: center 30%;
+            opacity: 0.25;
+            filter: grayscale(100%);
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        .hero-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #999;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.1s both;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 通用章节样式 */
+        .section {
+            padding: 100px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        .section-sub {
+            text-align: center;
+            color: #888;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            font-size: 1.1rem;
+        }
+
+        /* 简介网格 */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .intro-text p {
+            margin-bottom: 1.5rem;
+            color: #cdcdcd;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .intro-text blockquote {
+            border-left: 3px solid #6b6b6b;
+            padding-left: 1.5rem;
+            font-style: italic;
+            color: #aaa;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        .member-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .member-card {
+            background: #141414;
+            padding: 1.2rem;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            transition: transform 0.2s, background 0.2s;
+            border: 1px solid #2a2a2a;
+        }
+        .member-card:hover {
+            background: #1e1e1e;
+            transform: translateY(-4px);
+        }
+        .member-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .member-role {
+            font-size: 0.8rem;
+            color: #8a8a8a;
+            margin-top: 5px;
+        }
+
+        /* 专辑卡片 */
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .album-card {
+            background: #111111;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #262626;
+        }
+        .album-card:hover {
+            transform: translateY(-8px);
+            border-color: #3a3a3a;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
+        }
+        .album-cover {
+            background: #1f1f1f;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+        .album-card:hover .album-cover img {
+            opacity: 1;
+        }
+        .album-info {
+            padding: 1.5rem;
+        }
+        .album-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .album-year {
+            color: #8a8a8a;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .album-songs {
+            font-size: 0.85rem;
+            color: #bbbbbb;
+            margin-top: 1rem;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 0.8rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #2c2c2c;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #ccc;
+            margin-right: 0.5rem;
+        }
+
+        /* 音乐风格区 */
+        .style-section {
+            background: #0f0f0f;
+            border-radius: 28px;
+            padding: 3rem;
+            margin-top: 1rem;
+        }
+        .style-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+        .style-item {
+            flex: 1;
+            min-width: 200px;
+        }
+        .style-item h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #e0e0e0;
+        }
+        .style-item p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        .quote-large {
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.4;
+            font-style: italic;
+            color: #bcbcbc;
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        /* 巡演亮点 */
+        .tour-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+        .tour-card {
+            background: #0d0d0d;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border-left: 3px solid #6b6b6b;
+        }
+        .tour-card .city {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .tour-card .year {
+            color: #7a7a7a;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .tour-card .note {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            color: #aaa;
+        }
+
+        /* 金句区域 */
+        .lyric-wall {
+            background: #000000;
+            padding: 3rem 2rem;
+            border-radius: 28px;
+            text-align: center;
+        }
+        .lyric-line {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin: 1.5rem 0;
+            color: #d0d0d0;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.3px;
+        }
+        .lyric-line small {
+            font-size: 0.8rem;
+            color: #777;
+            display: block;
+            margin-top: 0.3rem;
+        }
+
+        /* 页脚 */
+        .footer {
+            padding: 50px 0 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6a6a6a;
+            border-top: 1px solid #1c1c1c;
+        }
+        .footer a {
+            color: #9e9e9e;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+                letter-spacing: 2px;
+            }
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .section {
+                padding: 70px 0;
+            }
+            .style-section {
+                padding: 1.8rem;
+            }
+            .lyric-line {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .member-card {
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">草东没有派对<span> // NO PARTY FOR CAO DONG</span></div>
+        <div class="nav-links">
+            <a href="#intro">故事</a>
+            <a href="#members">成员</a>
+            <a href="#albums">专辑</a>
+            <a href="#style">风格</a>
+            <a href="#tour">巡演</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">Grunge · 崩世代 · 灵魂呐喊</div>
+            <h1>草东没有派对</h1>
+            <p>“我想要的公平都是不公们虚构的” — <strong>《烂泥》</strong></p>
+        </div>
+    </div>
+
+    <!-- 介绍 + 成员 -->
+    <div id="intro" class="section">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-text">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 1rem;">关于 · 草东</h2>
+                    <p>草东没有派对（No Party For Cao Dong）是一支来自中国台湾的摇滚乐队，2012年成军于台北阳明山的草东街。最初由几个热爱音乐的少年组成，取名「草东街派对」。历经成员更迭，派对终会散场，于是他们更名为「草东没有派对」，寓意着即便欢乐不再，音乐仍在延续。<br>2016年，乐队发行首张专辑《丑奴儿》，以Grunge为底色的暴烈声场与直指人心的歌词迅速席卷独立乐坛，一举斩获第28届金曲奖「最佳乐团」「最佳新人」以及「年度歌曲」（《大风吹》）三项大奖，成为华语摇滚现象级的存在。<br>他们的音乐始终关注年轻人的困境与自省，描摹失败者的苦涩与不妥协。从《丑奴儿》到暌违七年的第二张专辑《瓦合》，草东从未停止进化，在爆裂与沉静之间继续书写这个时代的愤怒与无力。</p>
+                    <blockquote>“草东的音乐是极具生命力又具有时代意义的作品。” — 第28届金曲奖颁奖词</blockquote>
+                    <p>2023年5月，他们带着《瓦合》回归，融合了Nu-Metal、电子、民谣等元素，克制却依然锋利，再次夺得金曲奖最佳乐团。草东的现场向来一票难求，被乐迷戏称为「草东没有门票」。</p>
+                </div>
+                <div id="members">
+                    <h3 class="section-title" style="text-align: left; font-size: 1.8rem; margin-bottom: 1rem;">现有成员</h3>
+                    <div class="member-grid">
+                        <div class="member-card"><div class="member-name">巫堵 (林耕佑)</div><div class="member-role">主唱 / 吉他</div></div>
+                        <div class="member-card"><div class="member-name">筑筑 (詹为筑)</div><div class="member-role">合音 / 吉他</div></div>
+                        <div class="member-card"><div class="member-name">世暄 (杨世暄)</div><div class="member-role">贝斯 / 合音</div></div>
+                        <div class="member-card"><div class="member-name">鸟人 / 黄士玮</div><div class="member-role">鼓手</div></div>
+                    </div>
+                    <p style="font-size: 0.85rem; margin-top: 1.5rem; color: #888;">乐队经历多次人事变动，前鼓手凡凡（蔡忆凡）于2021年离世，永远留在乐迷记忆中。如今草东以全新阵容继续前行。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 专辑作品 -->
+    <div id="albums" class="section">
+        <div class="container">
+            <h2 class="section-title">音乐作品</h2>
+            <p class="section-sub">两张专辑，两种爆裂，同一种直指灵魂的表达</p>
+            <div class="albums-grid">
+                <div class="album-card">
+                    <div class="album-cover">
+                        <img src="https://picsum.photos/id/104/400/300?grayscale" alt="丑奴儿 封面示意" style="filter: grayscale(1) contrast(0.9);">
+                    </div>
+                    <div class="album-info">
+                        <div class="album-title">丑奴儿</div>
+                        <div class="album-year">2016 · 首张专辑</div>
+                        <div class="badge">金曲奖最佳乐团</div>
+                        <div class="badge">年度歌曲奖</div>
+                        <p style="margin: 0.8rem 0; font-size: 0.85rem;">以Grunge为核心的绝望呐喊，记录鲁蛇世代的虚无与愤怒。发行三天即售罄，成为华语独立摇滚里程碑。</p>
+                        <div class="album-songs">🎵 大风吹 · 山海 · 烂泥 · 丑 · 勇敢的人</div>
+                    </div>
+                </div>
+                <div class="album-card">
+                    <div class="album-cover">
+                        <img src="https://picsum.photos/id/106/400/300?grayscale" alt="瓦合 封面示意" style="filter: grayscale(1) brightness(0.7);">
+                    </div>
+                    <div class="album-info">
+                        <div class="album-title">瓦合</div>
+                        <div class="album-year">2023 · 第二张专辑</div>
+                        <div class="badge">金曲奖最佳乐团</div>
+                        <div class="badge">年度专辑</div>
+                        <p style="margin: 0.8rem 0; font-size: 0.85rem;">历经鼓手离世与疫情停摆，七年后交出的沉潜之作。褪去部分锋芒，却更显内省与辽阔，依旧是时代心碎之音。</p>
+                        <div class="album-songs">🎵 缸 · 床 · 白日梦 · 人洞山 · 芽</div>
+                    </div>
+                </div>
+                <div class="album-card">
+                    <div class="album-cover">
+                        <img src="https://picsum.photos/id/122/400/300?grayscale" alt="单曲及其他" style="filter: grayscale(1) contrast(1.1);">
+                    </div>
+                    <div class="album-info">
+                        <div class="album-title">经典单曲 & 现场</div>
+                        <div class="album-year">不朽的呐喊</div>
+                        <p style="margin: 0.8rem 0; font-size: 0.85rem;">《老张》《丑》《如常》，以及游戏《还愿》同名主题曲。他们的现场永远嘶吼，永远热泪盈眶。</p>
+                        <div class="album-songs">⚡ 草东没有门票 · 万人合唱现场</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 风格特点 -->
+    <div id="style" class="section">
+        <div class="container">
+            <h2 class="section-title">声音 · 美学</h2>
+            <div class="style-section">
+                <div class="style-grid">
+                    <div class="style-item">
+                        <h3>🎸 油渍摇滚之骨</h3>
+                        <p>以Grunge为核心，融合后摇、金属、朋克与电子舞曲元素。爆裂与宁静共存，时而细腻呢喃，时而绝望嘶吼，创造出极具生命力的声响。</p>
+                    </div>
+                    <div class="style-item">
+                        <h3>📖 时代之血与词</h3>
+                        <p>歌词直击“失败者的权利”，为崩世代写下残酷自白书：“我想要说的，前人们都说过了；我想要做的，有钱人都做过了。”拒绝粉饰，记录真实痛感。</p>
+                    </div>
+                    <div class="style-item">
+                        <h3>🌊 内耗型叙事</h3>
+                        <p>自我怀疑、怒己不争，在《山海》中目送纯真走向大海；在《勇敢的人》里对着影子道歉。草东的音乐从不是答案，而是最诚实的诘问。</p>
+                    </div>
+                </div>
+                <div class="quote-large">
+                    “他们既呈现了Grunge强烈鲜明的风格特色，更以言之有物的音乐表达赋予了青年群体失败和苦闷的权利。”
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 巡演 / 传奇现场 -->
+    <div id="tour" class="section">
+        <div class="container">
+            <h2 class="section-title">传奇 · 现场</h2>
+            <p class="section-sub">场场秒杀 · 十万青年沸腾 “草东没有门票”</p>
+            <div class="tour-grid">
+                <div class="tour-card"><div class="city">2016 · 滔滔丙申年冬</div><div class="year">大陆八城巡演</div><div class="note">五千张门票一小时内售罄，北京跨年场不到一分钟被抢光。</div></div>
+                <div class="tour-card"><div class="city">2017 · 金曲奖巅峰</div><div class="year">第28届金曲奖</div><div class="note">击败五月天拿下最佳乐团，阿信称赞“是天才”。</div></div>
+                <div class="tour-card"><div class="city">2019 · 远征里约</div><div class="year">里约摇滚音乐节</div><div class="note">受邀参加世界级音乐节，让南美也感受到华语摇滚的爆发力。</div></div>
+                <div class="tour-card"><div class="city">2023 · 瓦合巡演</div><div class="year">全面回归</div><div class="note">从Clockenflap到各大音乐节，凡响空前，场内万人合唱《大风吹》。</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 金句 / 歌词 共振 -->
+    <div class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="lyric-wall">
+                <div class="lyric-line">“哭啊 喊啊 叫你妈妈带你去买玩具啊” <small>— 大风吹</small></div>
+                <div class="lyric-line">“他明白 他明白 我给不起 于是转身向大海走去” <small>— 山海</small></div>
+                <div class="lyric-line">“我想要說的 前人們都說過了 我想要做的 有錢人都做過了” <small>— 烂泥</small></div>
+                <div class="lyric-line">“请别举起手枪 这里没有反抗的人” <small>— 勇敢的人</small></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>草东没有派对 · 献给每一个不甘沉默的灵魂</p>
+        <p style="margin-top: 1rem;">No Party For Cao Dong | 崩世代的回声 · 2026</p>
+    </div>
+</footer>
+
+<script>
+    // 简单的滚动导航高亮 + 平滑效果
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElem = document.getElementById(targetId);
+            if (targetElem) {
+                window.scrollTo({
+                    top: targetElem.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 导航栏透明逻辑 (略微优化)
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+            navbar.style.backdropFilter = 'blur(12px)';
+        } else {
+            navbar.style.background = 'rgba(10, 10, 10, 0.85)';
+        }
+    });
+</script>
+</body>
+</html>
