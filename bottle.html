@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>首页 - 蔚澜开发者生态</title>
+    <title>Bottle系列 - 蔚澜开发者生态</title>
     <style>
       :root {
         --bg0: #121212;
@@ -62,8 +62,6 @@
         max-width: var(--maxw);
         margin: 0 auto;
         padding: 110px 20px 60px;
-        position: relative;
-        z-index: 2;
       }
 
       .nav {
@@ -143,121 +141,6 @@
         color: var(--text);
         background: rgba(255, 140, 0, 0.16);
         border-color: rgba(255, 140, 0, 0.35);
-      }
-
-      .home-waves {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 1;
-        overflow: hidden;
-        opacity: 0.9;
-      }
-      .home-waves .wave {
-        position: absolute;
-        left: -10%;
-        width: 120%;
-        height: 320px;
-        top: 52%;
-        background-repeat: repeat-x;
-        background-size: 1200px 320px;
-        mix-blend-mode: screen;
-        will-change: transform, background-position;
-      }
-      .home-waves .wave1 {
-        opacity: 0.35;
-        filter: blur(0.2px);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='320' viewBox='0 0 1200 320'%3E%3Cpath d='M0 160 C150 120 250 200 400 160 C550 120 650 200 800 160 C950 120 1050 200 1200 160' stroke='%23ff8c00' stroke-width='3' fill='none' opacity='0.55'/%3E%3Cpath d='M0 205 C150 165 250 245 400 205 C550 165 650 245 800 205 C950 165 1050 245 1200 205' stroke='%23ff8c00' stroke-width='2' fill='none' opacity='0.28'/%3E%3Cpath d='M0 115 C150 75 250 155 400 115 C550 75 650 155 800 115 C950 75 1050 155 1200 115' stroke='%23ff8c00' stroke-width='2' fill='none' opacity='0.20'/%3E%3C/svg%3E");
-        animation: waveMove1 18s linear infinite, waveBob 6s ease-in-out infinite;
-      }
-      .home-waves .wave2 {
-        top: 58%;
-        opacity: 0.18;
-        filter: blur(1.8px);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='320' viewBox='0 0 1200 320'%3E%3Cpath d='M0 170 C140 210 260 130 410 170 C560 210 660 130 810 170 C960 210 1060 130 1200 170' stroke='%23ff8c00' stroke-width='3' fill='none' opacity='0.45'/%3E%3Cpath d='M0 125 C140 165 260 85 410 125 C560 165 660 85 810 125 C960 165 1060 85 1200 125' stroke='%23ff8c00' stroke-width='2' fill='none' opacity='0.22'/%3E%3C/svg%3E");
-        animation: waveMove2 26s linear infinite, waveBob2 8s ease-in-out infinite;
-      }
-      @keyframes waveMove1 {
-        from {
-          background-position: 0 0;
-        }
-        to {
-          background-position: 1200px 0;
-        }
-      }
-      @keyframes waveMove2 {
-        from {
-          background-position: 0 0;
-        }
-        to {
-          background-position: -1200px 0;
-        }
-      }
-      @keyframes waveBob {
-        0%,
-        100% {
-          transform: translateY(0px) skewY(-1.2deg);
-        }
-        50% {
-          transform: translateY(-10px) skewY(-1.2deg);
-        }
-      }
-      @keyframes waveBob2 {
-        0%,
-        100% {
-          transform: translateY(0px) skewY(1.2deg);
-        }
-        50% {
-          transform: translateY(12px) skewY(1.2deg);
-        }
-      }
-
-      .home-hero {
-        min-height: calc(100vh - 170px);
-        display: grid;
-        place-items: center;
-        text-align: center;
-        padding: 10px 0 30px;
-      }
-      .home-title {
-        margin: 0;
-        font-weight: 900;
-        letter-spacing: 0.6px;
-        font-size: clamp(40px, 6vw, 76px);
-        line-height: 1.08;
-        text-shadow: 0 14px 60px rgba(255, 140, 0, 0.12);
-        text-wrap: balance;
-      }
-      .home-title-line {
-        display: inline-block;
-        white-space: nowrap;
-      }
-      .home-title-line.is-typing::after {
-        content: "";
-        display: inline-block;
-        width: 10px;
-        height: 0.95em;
-        margin-left: 6px;
-        border-right: 2px solid rgba(255, 255, 255, 0.8);
-        transform: translateY(2px);
-        animation: caretBlink 900ms steps(1) infinite;
-      }
-      @keyframes caretBlink {
-        0%,
-        49% {
-          opacity: 1;
-        }
-        50%,
-        100% {
-          opacity: 0;
-        }
-      }
-      .home-subtitle {
-        margin: 14px 0 0;
-        color: var(--muted);
-        font-size: clamp(13px, 1.4vw, 16px);
-        line-height: 1.7;
-        letter-spacing: 0.2px;
       }
 
       .nav-right {
@@ -410,7 +293,7 @@
         padding: 6px 6px 6px 2px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 10px;
         min-width: 0;
       }
@@ -430,6 +313,15 @@
         margin: 0 0 14px;
         color: var(--muted);
         line-height: 1.7;
+      }
+
+      .card-actions {
+        margin-top: auto;
+        padding-top: 14px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
       }
 
       @media (max-width: 860px) {
@@ -459,11 +351,6 @@
     </style>
   </head>
   <body>
-    <div class="home-waves" aria-hidden="true">
-      <div class="wave wave1"></div>
-      <div class="wave wave2"></div>
-    </div>
-
     <header class="nav" role="navigation" aria-label="顶部导航">
       <div class="brand" aria-label="站点名称">
         <span class="brand-dot" aria-hidden="true"></span>
@@ -471,66 +358,128 @@
       </div>
 
       <nav class="nav-links" aria-label="主导航">
-        <a class="nav-link" href="./index.html" aria-current="page">首页</a>
-        <a class="nav-link" href="./bottle.html">Bottle系列</a>
+        <a class="nav-link" href="./index.html">首页</a>
+        <a class="nav-link" href="./bottle.html" aria-current="page">Bottle系列</a>
         <a class="nav-link" href="./software.html">软件服务</a>
       </nav>
 
       <div class="nav-right">
-        <a class="btn" href="./bottle.html#join" aria-label="加入我们">加入我们</a>
+        <a class="btn" href="#join" id="joinBtn" aria-label="加入我们">加入我们</a>
       </div>
     </header>
 
-    <main class="wrap" aria-label="首页">
-      <section class="home-hero" aria-label="首页标语">
-        <div>
-          <h1 class="home-title" aria-label="微核聚算力，一屏通万端">
-            <span class="home-title-line" data-text="微核聚算力，一屏通万端"></span>
-          </h1>
-          <p class="home-subtitle">WAXEED唯物智联，新时代SaaS平台解决方案创新领头羊</p>
-        </div>
+    <main class="wrap">
+      <section class="cards" aria-label="内容模块">
+        <article class="card">
+          <div class="media" aria-label="示例照片 1">
+            <img src="assets/photo-1.svg" alt="示例照片 1（4:3）" />
+          </div>
+          <div class="content">
+            <h2>SkillBottle Pro</h2>
+            <p>
+              面向专业场景的增强版，提供更完整的能力与更流畅的使用体验。
+            </p>
+            <div class="card-actions" aria-label="获取方式">
+              <a class="btn-ghost" href="https://github.com/" target="_blank" rel="noopener">Lite版</a>
+              <a class="btn" href="https://github.com/" target="_blank" rel="noopener">Github获取</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media" aria-label="示例照片 2">
+            <img src="assets/photo-2.svg" alt="示例照片 2（4:3）" />
+          </div>
+          <div class="content">
+            <h2>SkillBottle Web</h2>
+            <p>
+              轻量的 Web 版本，适合跨平台与快速部署使用。
+            </p>
+            <div class="card-actions" aria-label="获取方式">
+              <a class="btn" href="https://github.com/" target="_blank" rel="noopener">Github获取</a>
+            </div>
+          </div>
+        </article>
       </section>
     </main>
 
+    <div class="modal" id="joinModal" role="dialog" aria-modal="true" aria-labelledby="joinTitle">
+      <div class="modal-panel" role="document">
+        <h3 class="modal-title" id="joinTitle">加入我们</h3>
+        <p class="modal-desc" id="joinMsg">QQ群号已复制入粘贴板</p>
+        <div class="modal-code" aria-label="QQ群号">
+          <span style="color: var(--muted)">QQ群：</span>
+          <b id="qqNumber">996390776</b>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-ghost" type="button" id="modalClose">关闭</button>
+          <button class="btn" type="button" id="modalCopy" aria-label="重新复制QQ群号">重新复制</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       (function () {
-        const lines = Array.from(document.querySelectorAll(".home-title-line"));
-        if (lines.length === 0) return;
+        const QQ = "996390776";
+        const joinBtn = document.getElementById("joinBtn");
+        const modal = document.getElementById("joinModal");
+        const closeBtn = document.getElementById("modalClose");
+        const copyBtn = document.getElementById("modalCopy");
+        const msgEl = document.getElementById("joinMsg");
+        const qqEl = document.getElementById("qqNumber");
+        qqEl.textContent = QQ;
 
-        const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-        if (reduceMotion) {
-          for (const el of lines) el.textContent = el.dataset.text || "";
-          return;
+        function setOpen(open) {
+          modal.dataset.open = open ? "true" : "false";
+          if (open) closeBtn.focus();
         }
 
-        const perCharMs = 90;
-        const betweenLinesMs = 280;
-
-        function typeOneLine(el) {
-          const text = el.dataset.text || "";
-          el.textContent = "";
-          el.classList.add("is-typing");
-
-          return new Promise((resolve) => {
-            let i = 0;
-            const timer = setInterval(() => {
-              i += 1;
-              el.textContent = text.slice(0, i);
-              if (i >= text.length) {
-                clearInterval(timer);
-                el.classList.remove("is-typing");
-                resolve();
-              }
-            }, perCharMs);
-          });
-        }
-
-        (async function run() {
-          for (const el of lines) {
-            await typeOneLine(el);
-            await new Promise((r) => setTimeout(r, betweenLinesMs));
+        async function copyToClipboard(text) {
+          try {
+            await navigator.clipboard.writeText(text);
+            return true;
+          } catch (_) {
+            try {
+              const ta = document.createElement("textarea");
+              ta.value = text;
+              ta.setAttribute("readonly", "");
+              ta.style.position = "fixed";
+              ta.style.left = "-9999px";
+              document.body.appendChild(ta);
+              ta.select();
+              const ok = document.execCommand("copy");
+              document.body.removeChild(ta);
+              return ok;
+            } catch (_) {
+              return false;
+            }
           }
-        })();
+        }
+
+        async function openAndCopy() {
+          const ok = await copyToClipboard(QQ);
+          msgEl.textContent = ok ? "QQ群号已复制入粘贴板" : "复制失败，请手动复制QQ群号";
+          setOpen(true);
+        }
+
+        joinBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openAndCopy();
+        });
+
+        copyBtn.addEventListener("click", () => {
+          openAndCopy();
+        });
+
+        closeBtn.addEventListener("click", () => setOpen(false));
+
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) setOpen(false);
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.dataset.open === "true") setOpen(false);
+        });
       })();
     </script>
   </body>
