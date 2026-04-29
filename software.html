@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>软件服务 - 蔚澜开发者生态</title>
+    <title>氧分科技 - 蔚澜开发者生态</title>
     <style>
       :root {
         --bg0: #121212;
@@ -111,7 +111,7 @@
         justify-content: center;
         gap: 6px;
         line-height: 1;
-        padding: 6px;
+        padding: 2px;
         border-radius: var(--radius-pill);
         background: var(--bg0);
         border: 1px solid var(--stroke);
@@ -324,7 +324,7 @@
       @media (max-width: 520px) {
         .nav-links {
           min-width: 220px;
-          padding: 6px 8px;
+          padding: 2px 6px;
           gap: 4px;
         }
         .nav-link {
@@ -351,126 +351,26 @@
       <nav class="nav-links" aria-label="主导航">
         <a class="nav-link" href="./index.html">首页</a>
         <a class="nav-link" href="./bottle.html">Bottle系列</a>
-        <a class="nav-link" href="./software.html" aria-current="page">软件服务</a>
+        <a class="nav-link" href="./software.html" aria-current="page">氧分科技</a>
       </nav>
 
       <div class="nav-right">
-        <a class="btn" href="#join" id="joinBtn" aria-label="加入我们">加入我们</a>
+        <!-- 占位：保持三列导航布局 -->
       </div>
     </header>
 
     <main class="wrap">
-      <p class="hint">
-        这里是一个示例落地页布局：上方悬浮药丸导航栏，下面两个悬浮大模块（左图右文）。
-      </p>
-
       <section class="cards" aria-label="内容模块">
         <article class="card">
           <div class="media" aria-label="示例照片 1">
             <img src="assets/photo-1.svg" alt="示例照片 1（4:3）" />
           </div>
           <div class="content">
-            <h2>从工具链到生态：让开发更顺滑</h2>
-            <p>
-              统一的规范、清晰的文档与可复用的组件，能让团队交付更快、质量更稳。我们把常用能力做成标准化模块，
-              让你把时间用在真正重要的产品体验上。
-            </p>
-          </div>
-        </article>
-
-        <article class="card" id="join">
-          <div class="media" aria-label="示例照片 2">
-            <img src="assets/photo-2.svg" alt="示例照片 2（4:3）" />
-          </div>
-          <div class="content">
-            <h2>加入我们：一起打磨开发者体验</h2>
-            <p>
-              不论你擅长前端、后端、设计系统还是工程化，都可以从一个小改动开始贡献：修复文档、提交组件、完善规范与模板。
-              点击右上角“加入我们”，从第一步开始。
-            </p>
+            <h2>第一张代码专辑</h2>
+            <p>正在研发</p>
           </div>
         </article>
       </section>
     </main>
-
-    <div class="modal" id="joinModal" role="dialog" aria-modal="true" aria-labelledby="joinTitle">
-      <div class="modal-panel" role="document">
-        <h3 class="modal-title" id="joinTitle">加入我们</h3>
-        <p class="modal-desc" id="joinMsg">QQ群号已复制入粘贴板</p>
-        <div class="modal-code" aria-label="QQ群号">
-          <span style="color: var(--muted)">QQ群：</span>
-          <b id="qqNumber">996390776</b>
-        </div>
-        <div class="modal-actions">
-          <button class="btn-ghost" type="button" id="modalClose">关闭</button>
-          <button class="btn" type="button" id="modalCopy" aria-label="重新复制QQ群号">重新复制</button>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      (function () {
-        const QQ = "996390776";
-        const joinBtn = document.getElementById("joinBtn");
-        const modal = document.getElementById("joinModal");
-        const closeBtn = document.getElementById("modalClose");
-        const copyBtn = document.getElementById("modalCopy");
-        const msgEl = document.getElementById("joinMsg");
-        const qqEl = document.getElementById("qqNumber");
-        qqEl.textContent = QQ;
-
-        function setOpen(open) {
-          modal.dataset.open = open ? "true" : "false";
-          if (open) closeBtn.focus();
-        }
-
-        async function copyToClipboard(text) {
-          try {
-            await navigator.clipboard.writeText(text);
-            return true;
-          } catch (_) {
-            try {
-              const ta = document.createElement("textarea");
-              ta.value = text;
-              ta.setAttribute("readonly", "");
-              ta.style.position = "fixed";
-              ta.style.left = "-9999px";
-              document.body.appendChild(ta);
-              ta.select();
-              const ok = document.execCommand("copy");
-              document.body.removeChild(ta);
-              return ok;
-            } catch (_) {
-              return false;
-            }
-          }
-        }
-
-        async function openAndCopy() {
-          const ok = await copyToClipboard(QQ);
-          msgEl.textContent = ok ? "QQ群号已复制入粘贴板" : "复制失败，请手动复制QQ群号";
-          setOpen(true);
-        }
-
-        joinBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openAndCopy();
-        });
-
-        copyBtn.addEventListener("click", () => {
-          openAndCopy();
-        });
-
-        closeBtn.addEventListener("click", () => setOpen(false));
-
-        modal.addEventListener("click", (e) => {
-          if (e.target === modal) setOpen(false);
-        });
-
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && modal.dataset.open === "true") setOpen(false);
-        });
-      })();
-    </script>
   </body>
 </html>
