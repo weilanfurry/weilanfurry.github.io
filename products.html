@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>产品中心 | 彗流矩阵 COMETRIX</title>
-  <meta name="description" content="彗流矩阵产品中心：Tranxet 兼容层、Triton AIOS、CrixStudio 7。">
+  <title>项目中心 | 彗流矩阵 COMETRIX</title>
+  <meta name="description" content="彗流矩阵项目中心：Tranxet 兼容层、Triton AIOS、CrixStudio 7。">
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>
@@ -31,7 +31,7 @@
       </a>
       <nav class="main-nav">
         <a href="index.html">首页</a>
-        <a href="products.html" class="active">产品</a>
+        <a href="products.html" class="active">项目</a>
         <a href="repository.html">仓库</a>
         <a href="docs.html">文档</a>
         <a href="contact.html">联系</a>
@@ -50,10 +50,15 @@
   <main>
     <section class="page-hero">
       <div class="container">
-        <div class="breadcrumb">COMETRIX / PRODUCTS <span class="cur">// 产品</span></div>
+        <a class="lab-entry" href="quildlab.html" title="进入 QuildLab 彗心引力 AI 研究所">
+          <span class="lab-tag">AI LAB</span>
+          <span class="lab-name">QuildLab 彗心引力</span>
+          <span class="go">▸</span>
+        </a>
+        <div class="breadcrumb">COMETRIX / PROJECTS <span class="cur">// 项目</span></div>
         <h1>
-          产品中心
-          <span class="en">PRODUCT REGISTRY</span>
+          项目中心
+          <span class="en">PROJECT REGISTRY</span>
         </h1>
         <p>当前产品线聚焦系统兼容与 AI 工作流，应用分发能力已并入 Tranxet。以下模块均处于研发阶段，尚未正式上线。</p>
       </div>
@@ -63,81 +68,58 @@
       <div class="container">
         <div class="product-grid">
 
-          <article class="product reveal" id="tranxet">
+          <article class="product reveal" id="tranxet" data-project="tranxet" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Tranxet 项目详情">
             <div class="product-top">
               <span class="product-id">ID // A-TX</span>
               <span class="logo-mark"></span>
               <h3>Tranxet</h3>
               <div class="sub">ROXETOS COMPAT + LAYSTORE // 系统兼容层</div>
             </div>
-            <div class="product-body">
-              <p>面向 RoxetOS 的兼容层，并集成 LayStore 应用商店能力：既让既有软件与依赖无缝迁移，也统一提供应用分发。</p>
-              <div class="tag-row">
-                <span class="tag cyan">COMPAT</span>
-                <span class="tag">STORE</span>
-                <span class="tag amber">ROXETOS</span>
-                <span class="tag">LAYER</span>
-              </div>
-              <ul class="spec-list">
-                <li><span>形态</span><span class="val">系统兼容层</span></li>
-                <li><span>目标</span><span class="val">应用无缝迁移</span></li>
-                <li><span>已集成</span><span class="val">LayStore 应用商店</span></li>
-                <li><span>状态</span><span class="val">研发中 · 未上线</span></li>
-              </ul>
-              <div class="product-actions">
-                <a class="btn small primary" href="https://github.com/weilanfurry/tranxet-compat" target="_blank" rel="noopener">GitHub 仓库</a>
-                <a class="btn small amber" href="docs/tranxet.html">项目文档</a>
-              </div>
+            <div class="tag-row product-tags">
+              <span class="tag cyan">COMPAT</span>
+              <span class="tag">STORE</span>
+              <span class="tag amber">ROXETOS</span>
+              <span class="tag">LAYER</span>
+            </div>
+            <div class="product-foot">
+              <span>查看详情</span>
+              <span class="go">DETAILS ▸</span>
             </div>
           </article>
 
-          <article class="product reveal" id="triton-aios">
+          <article class="product reveal" id="triton-aios" data-project="triton-aios" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Triton AIOS 项目详情">
             <div class="product-top">
               <span class="product-id">ID // B-TA</span>
               <span class="logo-mark"></span>
               <h3>Triton AIOS</h3>
               <div class="sub">LLM AGENT OS // AGENT 运行环境</div>
             </div>
-            <div class="product-body">
-              <p>以 LLM Agent OS 为核心的 FastAPI 复刻版：构建可编程、可扩展的 Agent 运行与编排环境。</p>
-              <div class="tag-row">
-                <span class="tag cyan">LLM</span>
-                <span class="tag amber">AGENT OS</span>
-                <span class="tag">FASTAPI</span>
-              </div>
-              <ul class="spec-list">
-                <li><span>形态</span><span class="val">Agent 运行环境</span></li>
-                <li><span>技术栈</span><span class="val">FastAPI · LLM</span></li>
-                <li><span>状态</span><span class="val">研发中 · 未上线</span></li>
-              </ul>
-              <div class="product-actions">
-                <a class="btn small amber" href="docs/triton.html">项目文档</a>
-              </div>
+            <div class="tag-row product-tags">
+              <span class="tag cyan">LLM</span>
+              <span class="tag amber">AGENT OS</span>
+              <span class="tag">FASTAPI</span>
+            </div>
+            <div class="product-foot">
+              <span>查看详情</span>
+              <span class="go">DETAILS ▸</span>
             </div>
           </article>
 
-          <article class="product reveal" id="crixstudio-7">
+          <article class="product reveal" id="crixstudio-7" data-project="crixstudio-7" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 CrixStudio 7 项目详情">
             <div class="product-top">
               <span class="product-id">ID // C-CS7</span>
               <span class="logo-mark"></span>
               <h3>CrixStudio 7</h3>
               <div class="sub">AI WORKBENCH // 通用开源 AI 工作台</div>
             </div>
-            <div class="product-body">
-              <p>类似 WorkBuddy 的通用开源 AI 工作台：集成对话、工具调用与自动化工作流，面向日常任务。</p>
-              <div class="tag-row">
-                <span class="tag cyan">AI</span>
-                <span class="tag green">OPEN SOURCE</span>
-                <span class="tag amber">WORKFLOW</span>
-              </div>
-              <ul class="spec-list">
-                <li><span>形态</span><span class="val">AI 工作台</span></li>
-                <li><span>定位</span><span class="val">通用 · 开源 · 可扩展</span></li>
-                <li><span>状态</span><span class="val">研发中 · 未上线</span></li>
-              </ul>
-              <div class="product-actions">
-                <a class="btn small amber" href="docs/crixstudio.html">项目文档</a>
-              </div>
+            <div class="tag-row product-tags">
+              <span class="tag cyan">AI</span>
+              <span class="tag green">OPEN SOURCE</span>
+              <span class="tag amber">WORKFLOW</span>
+            </div>
+            <div class="product-foot">
+              <span>查看详情</span>
+              <span class="go">DETAILS ▸</span>
             </div>
           </article>
 
@@ -155,7 +137,7 @@
       <div class="container">
         <div>
           <h2>想查看源码与版本记录？</h2>
-          <p>所有产品均在仓库开放，欢迎浏览与贡献。</p>
+          <p>所有项目均在仓库开放，欢迎浏览与贡献。</p>
         </div>
         <div class="hero-actions">
           <a class="btn primary" href="repository.html">[ 进入仓库 ]</a>
@@ -182,14 +164,14 @@
           <h4>NAV // 导航</h4>
           <ul>
             <li><a href="index.html">首页</a></li>
-            <li><a href="products.html">产品</a></li>
+            <li><a href="products.html">项目</a></li>
             <li><a href="repository.html">仓库</a></li>
             <li><a href="docs.html">文档</a></li>
             <li><a href="contact.html">联系</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>PRODUCTS // 产品</h4>
+          <h4>PROJECTS // 项目</h4>
           <ul>
             <li><a href="products.html#tranxet">Tranxet</a></li>
             <li><a href="products.html#triton-aios">Triton AIOS</a></li>
@@ -212,6 +194,111 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" aria-label="关闭">×</button>
+      <div class="modal-head">
+        <div class="modal-id" id="modal-id"></div>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <div class="modal-sub" id="modal-sub"></div>
+        <div class="tag-row modal-tags" id="modal-tags"></div>
+      </div>
+      <div class="modal-specs">
+        <h4 class="modal-label">基本信息 / SPECS</h4>
+        <ul class="spec-list" id="modal-specs"></ul>
+      </div>
+      <div class="modal-links" id="modal-links">
+        <a class="btn small primary" data-kind="download" rel="noopener">[ 下载 ]</a>
+        <a class="btn small" data-kind="repo" rel="noopener">[ GitHub 仓库 ]</a>
+        <a class="btn small amber" data-kind="docs">[ 项目文档 ]</a>
+      </div>
+      <div class="modal-desc">
+        <h4 class="modal-label">项目介绍 / DETAILS</h4>
+        <div id="modal-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.COMETRIX_PROJECTS = {
+      "tranxet": {
+        id: "ID // A-TX",
+        title: "Tranxet",
+        sub: "ROXETOS COMPAT + LAYSTORE // 系统兼容层",
+        tags: [
+          '<span class="tag cyan">COMPAT</span>',
+          '<span class="tag">STORE</span>',
+          '<span class="tag amber">ROXETOS</span>',
+          '<span class="tag">LAYER</span>'
+        ],
+        specs: [
+          ["形态", "系统兼容层"],
+          ["目标", "应用无缝迁移"],
+          ["已集成", "LayStore 应用商店"],
+          ["状态", "研发中 · 未上线"]
+        ],
+        links: {
+          download: null,
+          repo: "https://github.com/weilanfurry/tranxet-compat",
+          docs: "docs/tranxet.html"
+        },
+        desc: [
+          "从 RoxetOS v1 中提取出的独立兼容层：启动后无需登录即可进入桌面，把 Python、HTML、Flask 应用放进 sys/ 目录就能运行，并完整支持 RoxetOS SDK。",
+          "已内置云盘、终端、应用商店、浏览器代理、设置、计算器、便签等应用；支持免登录 guest 会话、三种应用格式（文件夹 / 单文件 / Flask 单文件）、桌面弹窗运行与进程树级服务管理。源码已公开，欢迎 Fork 与贡献。"
+        ]
+      },
+      "triton-aios": {
+        id: "ID // B-TA",
+        title: "Triton AIOS",
+        sub: "LLM AGENT OS // AGENT 运行环境",
+        tags: [
+          '<span class="tag cyan">LLM</span>',
+          '<span class="tag amber">AGENT OS</span>',
+          '<span class="tag">FASTAPI</span>'
+        ],
+        specs: [
+          ["形态", "Agent 运行环境"],
+          ["技术栈", "FastAPI · LLM"],
+          ["方案版本", "Beta 2.5"],
+          ["状态", "研发中 · 未上线"]
+        ],
+        links: {
+          download: null,
+          repo: null,
+          docs: "docs/triton.html"
+        },
+        desc: [
+          "以 LLM Agent OS 为核心的 AI Native 桌面操作系统原型（FastAPI 复刻版）：用户通过自然语言与系统交互，系统由大模型驱动的主控与若干专业子 Agent 组成。",
+          "设计核心是不预设高级 API——系统只提供 HTTP、文件、命令等原子工具，小 AI 自主规划组合完成任务；UI 由系统按 view_type 统一渲染，语音交互作为一等公民。当前为 Beta 2.5 设计方案，整体架构、通信协议与 SDK 设计详见文档。"
+        ]
+      },
+      "crixstudio-7": {
+        id: "ID // C-CS7",
+        title: "CrixStudio 7",
+        sub: "AI WORKBENCH // 通用开源 AI 工作台",
+        tags: [
+          '<span class="tag cyan">AI</span>',
+          '<span class="tag green">OPEN SOURCE</span>',
+          '<span class="tag amber">WORKFLOW</span>'
+        ],
+        specs: [
+          ["形态", "AI 工作台"],
+          ["定位", "通用 · 开源 · 可扩展"],
+          ["状态", "研发中 · 未上线"]
+        ],
+        links: {
+          download: null,
+          repo: null,
+          docs: "docs/crixstudio.html"
+        },
+        desc: [
+          "类似 WorkBuddy 的通用开源 AI 工作台：集成对话、工具调用与自动化工作流，面向日常任务。",
+          "目标是把常用 AI 能力收进一个可扩展的工作台，让用户可以组合、复用并把流程沉淀为可执行的工作流。当前处于研发阶段，规划与进展将随文档陆续公开。"
+        ]
+      }
+    };
+  </script>
 
   <script src="assets/js/main.js"></script>
 </body>
