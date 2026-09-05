@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkHolic：强大的 AI Agent 软件 | 文档</title>
+  <meta name="description" content="WorkHolic 文档：Qomo 产品线下的 AI Agent 软件，接收目标、拆解任务并调用工具完成工作。">
+  <link rel="icon" type="image/png" href="../PullTogether_LOGO.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script>
+    try {
+      var t = localStorage.getItem("pulltogether-theme");
+      if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img class="logo-img" src="../PullTogether_LOGO.png" alt="牵引力工作室" width="38" height="38">
+        <span class="logo-text">
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html">首页</a>
+        <a href="../products.html">项目</a>
+        <a href="../qomo.html">Qomo</a>
+        <a href="../repository.html">仓库</a>
+        <a href="../docs.html" class="active">文档</a>
+        <a href="../contact.html">联系</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <span class="status-chip"><span class="dot"></span>SYSTEM ONLINE</span>
+      <button class="nav-toggle" aria-label="菜单" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">PULLTOGETHER / DOCS / ARTICLE <span class="cur">// WorkHolic</span></div>
+        <h1>
+          WorkHolic：强大的 AI Agent 软件
+          <span class="en">AI AGENT SOFTWARE</span>
+        </h1>
+        <p>接收目标、自动拆解任务并调用工具，把繁琐的重复工作真正「跑完」。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container docs-layout">
+        <nav class="docs-nav reveal">
+          <div class="docs-nav-title">DOC TREE</div>
+          <ul>
+            <li><a href="../docs.html">← 文档中心</a></li>
+            <li><a href="kiometagent.html">KiometAgent</a></li>
+            <li><a href="workholic.html" class="active">WorkHolic</a></li>
+            <li><a href="tranxet.html">Tranxet</a></li>
+            <li><a href="triton.html">Triton AIOS</a></li>
+          </ul>
+          <div class="docs-nav-title" style="border-top: 1px solid var(--line);">本文目录</div>
+          <ul>
+            <li><a href="#overview">产品概述</a></li>
+            <li><a href="#status">当前状态</a></li>
+            <li><a href="#roadmap">规划方向</a></li>
+            <li><a href="#links">相关链接</a></li>
+          </ul>
+        </nav>
+
+        <div class="doc-panel reveal">
+          <div class="status-line warn">
+            <span style="color: var(--amber);">●</span>
+            开发中 · 尚未上线 · 本文为规划稿
+          </div>
+
+          <section id="overview">
+            <h2>产品概述</h2>
+            <div class="doc-sub">OVERVIEW // AI Agent 软件</div>
+            <p>
+              WorkHolic 是牵引力工作室 <code>Qomo</code> 产品线下的
+              <strong>AI Agent 软件</strong>：
+              接收目标后自动拆解任务、调用工具并持续执行，
+              面向日常工作流与轻量开发场景，过程可查看、可随时人工接管。
+            </p>
+            <h3>核心目标</h3>
+            <ul>
+              <li>用自然语言交代目标，由 Agent 自主完成多步任务。</li>
+              <li>把任务拆解、工具调用与执行记录放在同一套流程中。</li>
+              <li>降低 AI 任务的接入与编排门槛，并保留人工接管入口。</li>
+            </ul>
+          </section>
+
+          <section id="status" style="margin-top: 40px;">
+            <h2>当前状态</h2>
+            <div class="doc-sub">STATUS // 开发阶段</div>
+            <ul>
+              <li>处于研发阶段，产品形态与核心流程设计进行中。</li>
+              <li><strong>尚未正式上线</strong>，仓库暂未公开。</li>
+              <li>正式发布后将在 GitHub 组织下开放源码与文档。</li>
+            </ul>
+          </section>
+
+          <section id="roadmap" style="margin-top: 40px;">
+            <h2>规划方向</h2>
+            <div class="doc-sub">ROADMAP // 规划中，不构成承诺</div>
+            <ul>
+              <li>接入 Qomo 5.0 推理底座。</li>
+              <li>任务自动拆解与多步工具调用。</li>
+              <li>执行记录、结果沉淀与工作流复用。</li>
+              <li>可插拔工具与扩展机制。</li>
+            </ul>
+          </section>
+
+          <section id="links" style="margin-top: 40px;">
+            <h2>相关链接</h2>
+            <div class="doc-sub">LINKS // 外部通道</div>
+            <ul>
+              <li><a href="../products.html#workholic" target="_blank" rel="noopener">产品页</a></li>
+              <li><a href="../qomo.html#workholic" target="_blank" rel="noopener">Qomo 官网</a></li>
+              <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+              <li><a href="../contact.html">联系我们</a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="../index.html">
+            <img class="logo-img" src="../PullTogether_LOGO.png" alt="牵引力工作室" width="38" height="38">
+            <span class="logo-text">
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
+            </span>
+          </a>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
+        </div>
+        <div class="footer-col">
+          <h4>NAV // 导航</h4>
+          <ul>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="../products.html">项目</a></li>
+            <li><a href="../qomo.html">Qomo</a></li>
+            <li><a href="../repository.html">仓库</a></li>
+            <li><a href="../docs.html">文档</a></li>
+            <li><a href="../contact.html">联系</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>PROJECTS // 项目</h4>
+          <ul>
+            <li><a href="../products.html#kiometagent">KiometAgent</a></li>
+            <li><a href="../products.html#workholic">WorkHolic</a></li>
+            <li><a href="../products.html#tranxet">Tranxet</a></li>
+            <li><a href="../products.html#triton-aios">Triton AIOS</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CHANNEL // 通道</h4>
+          <ul>
+            <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://space.bilibili.com/1911534718" target="_blank" rel="noopener">Bilibili</a></li>
+            <li><a href="https://qm.qq.com/q/hI5Wi8M3Qs" target="_blank" rel="noopener">QQ 群</a></li>
+            <li><a href="mailto:uild913@outlook.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · 保留部分权利</span>
+        <span class="ver">BUILD v1.1.0 // PRE-LAUNCH</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

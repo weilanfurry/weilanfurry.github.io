@@ -658,6 +658,10 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.card-grid.four {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .card {
   position: relative;
   background: var(--panel);
@@ -938,6 +942,14 @@ html[data-theme="dark"] .theme-toggle .icon-moon {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
+}
+
+.product-grid.four {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.product-grid.four .product {
+  aspect-ratio: 4 / 3;
 }
 
 .product {
@@ -2169,7 +2181,9 @@ body.modal-open {
   .stats-grid,
   .card-grid,
   .card-grid.two,
+  .card-grid.four,
   .product-grid,
+  .product-grid.four,
   .pipeline,
   .channel-grid,
   .faq-grid {
