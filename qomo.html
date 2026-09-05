@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qomo | 牵引力工作室 PullTogether</title>
+  <meta name="description" content="Qomo——牵引力工作室的 AI 产品线：自研 AI 模型 Qomo 5.0、AI Agent 软件 WorkHolic；研发与协作通道开放（QQ 群 1094164058 / Nexabox 621482061）。">
+  <link rel="icon" type="image/png" href="QOMO_LOGO.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/qomo.css">
+  <script>
+    try {
+      var t = localStorage.getItem("pulltogether-theme");
+      if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body class="qomo-body">
+  <div class="scanlines"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img class="logo-img" src="PullTogether_LOGO.png" alt="牵引力工作室" width="38" height="38">
+        <span class="logo-text">
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="products.html">项目</a>
+        <a href="qomo.html" class="active">Qomo</a>
+        <a href="repository.html">仓库</a>
+        <a href="docs.html">文档</a>
+        <a href="contact.html">联系</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <span class="status-chip"><span class="dot"></span>SYSTEM ONLINE</span>
+      <button class="nav-toggle" aria-label="菜单" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="qo-hero">
+      <div class="qo-grid-bg"></div>
+      <div class="container qo-hero-inner">
+        <div class="qo-hero-copy reveal">
+          <div class="qo-kicker">PULLTOGETHER // AI PRODUCT LINE</div>
+          <h1>Qomo</h1>
+          <p class="qo-hero-en">AI NATIVE SERIES // 自研模型 × AI Agent</p>
+          <p class="qo-lead">
+            Qomo 是牵引力工作室的 AI 产品线：以自研模型 Qomo 5.0 为底座，
+            打造以 WorkHolic 为代表的强大 AI Agent 软件。
+            从模型到应用，全部研发过程向社区开放。
+          </p>
+          <div class="qo-hero-actions">
+            <a class="btn qo-btn" href="#products">[ 查看产品 ]</a>
+            <a class="btn qo-btn ghost" href="#join">[ 加入我们，参与研发 ]</a>
+          </div>
+          <div class="qo-hero-meta">
+            <span>QOMO 5.0</span><i>·</i>
+            <span>WORKHOLIC</span><i>·</i>
+            <span>OPEN R&amp;D</span>
+          </div>
+        </div>
+        <div class="qo-hero-logo reveal">
+          <img src="QOMO_LOGO.png" alt="Qomo Logo">
+        </div>
+      </div>
+    </section>
+
+    <div class="qo-strip" aria-hidden="true">
+      <span>QOMO 5.0 // SELF-DEVELOPED MODEL</span><b>◆</b>
+      <span>WORKHOLIC // AI AGENT SOFTWARE</span><b>◆</b>
+      <span>JOIN THE PULL // 加入我们</span><b>◆</b>
+      <span>NEXABOX // 合作工作室</span><b>◆</b>
+      <span>QOMO 5.0 // SELF-DEVELOPED MODEL</span><b>◆</b>
+    </div>
+
+    <section class="section" id="products">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Core Products // 核心产品</div>
+          <h2>模型打底，<span class="qo-accent">Agent 干活</span></h2>
+          <p class="section-desc">Qomo 5.0 负责「思考与决策」，WorkHolic 负责「把事做完」。两者沿同一条产品线研发与迭代。</p>
+        </div>
+        <div class="qo-product-grid">
+
+          <article class="qo-card reveal" id="qomo5">
+            <div class="qo-card-top">
+              <div class="qo-mark qo-mark-q">Q5</div>
+              <div class="qo-card-head">
+                <span class="qo-chip">SELF-DEVELOPED MODEL</span>
+                <h3>Qomo 5.0</h3>
+                <div class="qo-sub">自研 AI 模型</div>
+              </div>
+            </div>
+            <p class="qo-desc">
+              牵引力工作室自研的新一代 AI 模型：面向中文理解、任务规划与工具调用场景，
+              为 WorkHolic 等 AI Agent 提供推理底座。
+            </p>
+            <ul class="qo-features">
+              <li>自研架构与训练管线</li>
+              <li>面向任务拆解与工具调用优化</li>
+              <li>与 Agent 软件同线联调、快速迭代</li>
+            </ul>
+            <div class="qo-card-foot">
+              <span>STATUS // 研发中 · 开放讨论</span>
+              <a href="#join">参与研发 →</a>
+            </div>
+          </article>
+
+          <article class="qo-card reveal" id="workholic">
+            <div class="qo-card-top">
+              <div class="qo-mark qo-mark-w">W</div>
+              <div class="qo-card-head">
+                <span class="qo-chip">AI AGENT SOFTWARE</span>
+                <h3>WorkHolic</h3>
+                <div class="qo-sub">强大的 AI Agent 软件</div>
+              </div>
+            </div>
+            <p class="qo-desc">
+              强大的 AI Agent 软件：接收目标后自动拆解任务、调用工具并持续执行，
+              把繁琐的重复工作真正「跑完」，过程中随时接受人工介入。
+            </p>
+            <ul class="qo-features">
+              <li>自然语言接收目标</li>
+              <li>自动规划步骤并调用工具</li>
+              <li>持续执行、状态可查、可随时接管</li>
+            </ul>
+            <div class="qo-card-foot">
+              <span>STATUS // 研发中 · 开放讨论</span>
+              <a href="#join">参与研发 →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="join">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Join R&amp;D // 加入我们</div>
+          <h2>加入我们，<span class="qo-accent">参与研发</span></h2>
+          <p class="section-desc">
+            Qomo 5.0 与 WorkHolic 均处于研发阶段。无论你想参与模型实验、Agent 开发、
+            产品内测，还是只想提交想法与反馈，都欢迎加入对应的 QQ 群。
+          </p>
+        </div>
+
+        <div class="qo-group-grid">
+          <article class="qo-group reveal">
+            <div class="qo-group-head">
+              <span class="qo-chip">QOMO R&amp;D // 研发群</span>
+              <h3>加入我们，参与研发</h3>
+            </div>
+            <p>Qomo 5.0 与 WorkHolic 的研发讨论、内测反馈与资料共享都在这里进行。</p>
+            <div class="qo-group-num">
+              <span>QQ 群号</span>
+              <b>1094164058</b>
+              <button class="qo-copy" type="button" data-copy="1094164058">复制群号</button>
+            </div>
+            <p class="qo-hint">打开 QQ → 搜索群号 → 申请加入，备注「参与 Qomo 研发」。</p>
+          </article>
+
+          <article class="qo-group reveal">
+            <div class="qo-group-head">
+              <span class="qo-chip">NEXABOX // 合作工作室</span>
+              <h3>Nexabox（合作工作室）</h3>
+            </div>
+            <p>Nexabox 是 Qomo 的合作工作室：交流 Agent 应用、模型落地与联合创作，保持外部协作通道开放。</p>
+            <div class="qo-group-num">
+              <span>QQ 群号</span>
+              <b>621482061</b>
+              <button class="qo-copy" type="button" data-copy="621482061">复制群号</button>
+            </div>
+            <p class="qo-hint">打开 QQ → 搜索群号 → 申请加入，备注「Nexabox 合作」。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div>
+          <h2>想让 AI 真正替你干活？</h2>
+          <p>先看看 Qomo 5.0 与 WorkHolic 的研发方向，或直接加入群聊。</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="products.html">[ 项目中心 ]</a>
+          <a class="btn amber" href="contact.html">[ 联系我们 ]</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="index.html">
+            <img class="logo-img" src="PullTogether_LOGO.png" alt="牵引力工作室" width="38" height="38">
+            <span class="logo-text">
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
+            </span>
+          </a>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
+        </div>
+        <div class="footer-col">
+          <h4>NAV // 导航</h4>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="products.html">项目</a></li>
+            <li><a href="qomo.html">Qomo</a></li>
+            <li><a href="repository.html">仓库</a></li>
+            <li><a href="docs.html">文档</a></li>
+            <li><a href="contact.html">联系</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>QOMO // AI</h4>
+          <ul>
+            <li><a href="qomo.html#qomo5">Qomo 5.0</a></li>
+            <li><a href="qomo.html#workholic">WorkHolic</a></li>
+            <li><a href="qomo.html#join">参与研发</a></li>
+            <li><a href="qomo.html#join">Nexabox</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CHANNEL // 通道</h4>
+          <ul>
+            <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://space.bilibili.com/1911534718" target="_blank" rel="noopener">Bilibili</a></li>
+            <li><a href="https://qm.qq.com/q/hI5Wi8M3Qs" target="_blank" rel="noopener">QQ 群</a></li>
+            <li><a href="mailto:uild913@outlook.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · 保留部分权利</span>
+        <span class="ver">QOMO v5.0 // OPEN R&amp;D</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    (() => {
+      const fallbackCopy = (text, done) => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(); } catch (e) { /* noop */ }
+        ta.remove();
+      };
+
+      document.querySelectorAll("[data-copy]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const value = btn.getAttribute("data-copy");
+          const label = btn.textContent;
+          const done = () => {
+            btn.textContent = "已复制 ✓";
+            setTimeout(() => { btn.textContent = label; }, 1400);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(value).then(done).catch(() => fallbackCopy(value, done));
+          } else {
+            fallbackCopy(value, done);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

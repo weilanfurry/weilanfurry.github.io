@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>项目中心 | 彗流矩阵 COMETRIX</title>
-  <meta name="description" content="彗流矩阵项目中心：Tranxet 兼容层、Triton AIOS、CrixStudio 7。">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <title>项目中心 | 牵引力工作室 PULLTOGETHER</title>
+  <meta name="description" content="牵引力工作室项目中心：KiometAgent AI 策略游戏、WorkHolic AI Agent、Tranxet 兼容层、Triton AIOS。">
+  <link rel="icon" type="image/png" href="PullTogether_LOGO.png">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>
     try {
-      var t = localStorage.getItem("cometrix-theme");
+      var t = localStorage.getItem("pulltogether-theme");
       if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
       document.documentElement.dataset.theme = t;
     } catch (e) {
@@ -23,15 +23,16 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="index.html">
-        <img class="logo-img" src="assets/logo.png" alt="彗流矩阵" width="38" height="38">
+        <img class="logo-img" src="PullTogether_LOGO.png" alt="牵引力工作室" width="38" height="38">
         <span class="logo-text">
-          <span class="logo-cn">彗流矩阵</span>
-          <span class="logo-en">Cometrix</span>
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
         </span>
       </a>
       <nav class="main-nav">
         <a href="index.html">首页</a>
         <a href="products.html" class="active">项目</a>
+        <a href="qomo.html">Qomo</a>
         <a href="repository.html">仓库</a>
         <a href="docs.html">文档</a>
         <a href="contact.html">联系</a>
@@ -50,17 +51,12 @@
   <main>
     <section class="page-hero">
       <div class="container">
-        <a class="lab-entry" href="quildlab.html" title="进入 QuildLab 彗心引力 AI 研究所">
-          <span class="lab-tag">AI LAB</span>
-          <span class="lab-name">QuildLab 彗心引力</span>
-          <span class="go">▸</span>
-        </a>
-        <div class="breadcrumb">COMETRIX / PROJECTS <span class="cur">// 项目</span></div>
+        <div class="breadcrumb">PULLTOGETHER / PROJECTS <span class="cur">// 项目</span></div>
         <h1>
           项目中心
           <span class="en">PROJECT REGISTRY</span>
         </h1>
-        <p>当前产品线聚焦系统兼容与 AI 工作流，应用分发能力已并入 Tranxet。以下模块均处于研发阶段，尚未正式上线。</p>
+        <p>当前产品线覆盖 AI 策略游戏、AI Agent 软件与系统兼容层。以下模块均处于研发阶段，尚未正式上线。</p>
       </div>
     </section>
 
@@ -68,9 +64,47 @@
       <div class="container">
         <div class="product-grid">
 
+          <article class="product reveal" id="kiometagent" data-project="kiometagent" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 KiometAgent 项目详情">
+            <div class="product-top">
+              <span class="product-id">ID // A-KA</span>
+              <span class="logo-mark"></span>
+              <h3>KiometAgent</h3>
+              <div class="sub">AI STRATEGY GAME // 由 AI 操控国家的战争沙盘</div>
+            </div>
+            <div class="tag-row product-tags">
+              <span class="tag cyan">GAME</span>
+              <span class="tag">AI</span>
+              <span class="tag amber">STRATEGY</span>
+              <span class="tag">KIOMET</span>
+            </div>
+            <div class="product-foot">
+              <span>查看详情</span>
+              <span class="go">DETAILS ▸</span>
+            </div>
+          </article>
+
+          <article class="product reveal" id="workholic" data-project="workholic" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 WorkHolic 项目详情">
+            <div class="product-top">
+              <span class="product-id">ID // B-WH</span>
+              <span class="logo-mark"></span>
+              <h3>WorkHolic</h3>
+              <div class="sub">AI AGENT SOFTWARE // Qomo 产品线 · AI Agent 软件</div>
+            </div>
+            <div class="tag-row product-tags">
+              <span class="tag cyan">AI</span>
+              <span class="tag">AGENT</span>
+              <span class="tag amber">QOMO</span>
+              <span class="tag">WORKFLOW</span>
+            </div>
+            <div class="product-foot">
+              <span>查看详情</span>
+              <span class="go">DETAILS ▸</span>
+            </div>
+          </article>
+
           <article class="product reveal" id="tranxet" data-project="tranxet" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Tranxet 项目详情">
             <div class="product-top">
-              <span class="product-id">ID // A-TX</span>
+              <span class="product-id">ID // C-TX</span>
               <span class="logo-mark"></span>
               <h3>Tranxet</h3>
               <div class="sub">ROXETOS COMPAT + LAYSTORE // 系统兼容层</div>
@@ -89,7 +123,7 @@
 
           <article class="product reveal" id="triton-aios" data-project="triton-aios" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Triton AIOS 项目详情">
             <div class="product-top">
-              <span class="product-id">ID // B-TA</span>
+              <span class="product-id">ID // D-TA</span>
               <span class="logo-mark"></span>
               <h3>Triton AIOS</h3>
               <div class="sub">LLM AGENT OS // AGENT 运行环境</div>
@@ -98,24 +132,6 @@
               <span class="tag cyan">LLM</span>
               <span class="tag amber">AGENT OS</span>
               <span class="tag">FASTAPI</span>
-            </div>
-            <div class="product-foot">
-              <span>查看详情</span>
-              <span class="go">DETAILS ▸</span>
-            </div>
-          </article>
-
-          <article class="product reveal" id="crixstudio-7" data-project="crixstudio-7" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 CrixStudio 7 项目详情">
-            <div class="product-top">
-              <span class="product-id">ID // C-CS7</span>
-              <span class="logo-mark"></span>
-              <h3>CrixStudio 7</h3>
-              <div class="sub">AI WORKBENCH // 通用开源 AI 工作台</div>
-            </div>
-            <div class="tag-row product-tags">
-              <span class="tag cyan">AI</span>
-              <span class="tag green">OPEN SOURCE</span>
-              <span class="tag amber">WORKFLOW</span>
             </div>
             <div class="product-foot">
               <span>查看详情</span>
@@ -152,19 +168,20 @@
       <div class="footer-grid">
         <div>
           <a class="logo" href="index.html">
-            <img class="logo-img" src="assets/logo.png" alt="彗流矩阵" width="38" height="38">
+            <img class="logo-img" src="PullTogether_LOGO.png" alt="牵引力工作室" width="38" height="38">
             <span class="logo-text">
-              <span class="logo-cn">彗流矩阵</span>
-              <span class="logo-en">Cometrix</span>
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
             </span>
           </a>
-          <p class="footer-about">开源软件工坊 · 以代码为引力，汇聚每一颗彗星。所有产品与文档开放可见。</p>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
         </div>
         <div class="footer-col">
           <h4>NAV // 导航</h4>
           <ul>
             <li><a href="index.html">首页</a></li>
             <li><a href="products.html">项目</a></li>
+            <li><a href="qomo.html">Qomo</a></li>
             <li><a href="repository.html">仓库</a></li>
             <li><a href="docs.html">文档</a></li>
             <li><a href="contact.html">联系</a></li>
@@ -173,9 +190,10 @@
         <div class="footer-col">
           <h4>PROJECTS // 项目</h4>
           <ul>
+            <li><a href="products.html#kiometagent">KiometAgent</a></li>
+            <li><a href="products.html#workholic">WorkHolic</a></li>
             <li><a href="products.html#tranxet">Tranxet</a></li>
             <li><a href="products.html#triton-aios">Triton AIOS</a></li>
-            <li><a href="products.html#crixstudio-7">CrixStudio 7</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -189,7 +207,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© <span data-year>2026</span> COMETRIX · 彗流矩阵 · 保留部分权利</span>
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · 保留部分权利</span>
         <span class="ver">BUILD v1.0.0 // OPEN SOURCE</span>
       </div>
     </div>
@@ -221,9 +239,61 @@
   </div>
 
   <script>
-    window.COMETRIX_PROJECTS = {
+    window.PULLTOGETHER_PROJECTS = {
+      "kiometagent": {
+        id: "ID // A-KA",
+        title: "KiometAgent",
+        sub: "AI STRATEGY GAME // 由 AI 操控国家的战争沙盘",
+        tags: [
+          '<span class="tag cyan">GAME</span>',
+          '<span class="tag">AI</span>',
+          '<span class="tag amber">STRATEGY</span>',
+          '<span class="tag">KIOMET</span>'
+        ],
+        specs: [
+          ["形态", "AI 策略游戏"],
+          ["玩法", "AI 控制国家 · 战争 / 合作 / 地盘扩张"],
+          ["原型", "Kiomet 改版"],
+          ["状态", "研发中 · 未上线"]
+        ],
+        links: {
+          download: null,
+          repo: null,
+          docs: "docs/kiometagent.html"
+        },
+        desc: [
+          "基于 Kiomet 的 AI 策略游戏改版：由 AI 控制不同国家，在实时推进的世界中自主开展战争、合作与地盘扩张，让玩家观察 AI 国家之间的博弈。",
+          "重点方向是让国家决策由 AI 驱动：军事行动、结盟谈判与领土发展都不再依赖手动操作，而是观察 AI 之间的战争与合作如何改写版图。当前处于研发阶段，规划与进展将随文档陆续公开。"
+        ]
+      },
+      "workholic": {
+        id: "ID // B-WH",
+        title: "WorkHolic",
+        sub: "AI AGENT SOFTWARE // 强大的 AI Agent 软件",
+        tags: [
+          '<span class="tag cyan">AI</span>',
+          '<span class="tag">AGENT</span>',
+          '<span class="tag amber">QOMO</span>',
+          '<span class="tag">WORKFLOW</span>'
+        ],
+        specs: [
+          ["形态", "AI Agent 软件"],
+          ["产品线", "Qomo"],
+          ["定位", "接收目标 · 拆解任务 · 调用工具"],
+          ["状态", "研发中 · 未上线"]
+        ],
+        links: {
+          download: null,
+          repo: null,
+          docs: "docs/workholic.html"
+        },
+        desc: [
+          "WorkHolic 是牵引力工作室 Qomo 产品线下的 AI Agent 软件：接收目标后自动拆解任务、调用工具并持续执行，把繁琐的重复工作真正「跑完」。",
+          "面向日常工作流与轻量开发场景：对话式交代目标、过程可查看、可随时人工接管；工具调用与工作流沉淀能力随版本逐步开放，规划以文档与仓库为准。"
+        ]
+      },
       "tranxet": {
-        id: "ID // A-TX",
+        id: "ID // C-TX",
         title: "Tranxet",
         sub: "ROXETOS COMPAT + LAYSTORE // 系统兼容层",
         tags: [
@@ -249,7 +319,7 @@
         ]
       },
       "triton-aios": {
-        id: "ID // B-TA",
+        id: "ID // D-TA",
         title: "Triton AIOS",
         sub: "LLM AGENT OS // AGENT 运行环境",
         tags: [
@@ -271,30 +341,6 @@
         desc: [
           "以 LLM Agent OS 为核心的 AI Native 桌面操作系统原型（FastAPI 复刻版）：用户通过自然语言与系统交互，系统由大模型驱动的主控与若干专业子 Agent 组成。",
           "设计核心是不预设高级 API——系统只提供 HTTP、文件、命令等原子工具，小 AI 自主规划组合完成任务；UI 由系统按 view_type 统一渲染，语音交互作为一等公民。当前为 Beta 2.5 设计方案，整体架构、通信协议与 SDK 设计详见文档。"
-        ]
-      },
-      "crixstudio-7": {
-        id: "ID // C-CS7",
-        title: "CrixStudio 7",
-        sub: "AI WORKBENCH // 通用开源 AI 工作台",
-        tags: [
-          '<span class="tag cyan">AI</span>',
-          '<span class="tag green">OPEN SOURCE</span>',
-          '<span class="tag amber">WORKFLOW</span>'
-        ],
-        specs: [
-          ["形态", "AI 工作台"],
-          ["定位", "通用 · 开源 · 可扩展"],
-          ["状态", "研发中 · 未上线"]
-        ],
-        links: {
-          download: null,
-          repo: null,
-          docs: "docs/crixstudio.html"
-        },
-        desc: [
-          "类似 WorkBuddy 的通用开源 AI 工作台：集成对话、工具调用与自动化工作流，面向日常任务。",
-          "目标是把常用 AI 能力收进一个可扩展的工作台，让用户可以组合、复用并把流程沉淀为可执行的工作流。当前处于研发阶段，规划与进展将随文档陆续公开。"
         ]
       }
     };

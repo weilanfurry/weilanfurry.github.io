@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" fill="#060a10"/>
   <path d="M8 8 H44 L56 20 V56 H20 L8 44 Z" fill="none" stroke="#00d9ff" stroke-width="2"/>
-  <text x="32" y="42" font-family="Consolas, monospace" font-size="28" font-weight="700" fill="#00d9ff" text-anchor="middle">C</text>
+  <text x="32" y="42" font-family="Consolas, monospace" font-size="28" font-weight="700" fill="#00d9ff" text-anchor="middle">P</text>
   <rect x="56" y="4" width="4" height="4" fill="#ffb020"/>
 </svg>

@@ -5,7 +5,7 @@
   const applyTheme = (t) => {
     document.documentElement.dataset.theme = t;
     try {
-      localStorage.setItem("cometrix-theme", t);
+      localStorage.setItem("pulltogether-theme", t);
     } catch (e) {
       /* ignore */
     }
@@ -178,7 +178,7 @@
   });
 
   /* ---------- Project modal ---------- */
-  const projects = window.COMETRIX_PROJECTS || {};
+  const projects = window.PULLTOGETHER_PROJECTS || {};
   const modalOverlay = document.getElementById("project-modal");
 
   if (modalOverlay) {
