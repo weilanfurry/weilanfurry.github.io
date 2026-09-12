@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工作台 WorkHolic | 牵引力工作室 PullTogether</title>
+  <meta name="description" content="工作台（WorkHolic）——牵引力工作室的 AI Agent 软件：交代目标后自动拆解任务、调用工具并持续执行，过程可查、随时接管。研发通道开放（研发群 1094164058 / Nexabox 621482061）。">
+  <link rel="icon" type="image/png" href="LOGO_Black.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/workbench.css">
+  <script>
+    try {
+      var t = localStorage.getItem("pulltogether-theme");
+      if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body class="wb-body">
+  <div class="scanlines"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img class="logo-img on-dark" src="LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+        <img class="logo-img on-light" src="LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+        <span class="logo-text">
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="products.html">项目</a>
+        <a href="workbench.html" class="active">工作台</a>
+        <a href="repository.html">仓库</a>
+        <a href="docs.html">文档</a>
+        <a href="contact.html">联系</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <span class="status-chip"><span class="dot"></span>SYSTEM ONLINE</span>
+      <button class="nav-toggle" aria-label="菜单" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="wb-hero">
+      <div class="wb-grid-bg"></div>
+      <div class="container wb-hero-inner">
+        <div class="wb-hero-copy reveal">
+          <div class="wb-kicker">PULLTOGETHER // AI AGENT WORKBENCH</div>
+          <h1>工作台</h1>
+          <p class="wb-hero-en">WORKHOLIC // 强大的 AI Agent 软件</p>
+          <p class="wb-lead">
+            把目标交给工作台，它会自己拆解任务、调用工具、一步步做完。
+            你不用学流程，只要说清楚想要什么——过程中随时可以看、可以插手。
+          </p>
+          <div class="wb-hero-actions">
+            <a class="btn wb-btn" href="#capabilities">[ 看看能做什么 ]</a>
+            <a class="btn wb-btn ghost" href="#join">[ 加入我们，参与研发 ]</a>
+          </div>
+          <div class="wb-hero-meta">
+            <span>AI AGENT</span><i>·</i>
+            <span>WORKHOLIC</span><i>·</i>
+            <span>OPEN R&amp;D</span>
+          </div>
+        </div>
+        <div class="wb-hero-logo reveal">
+          <div class="wb-mark wb-mark-lg">W</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wb-strip" aria-hidden="true">
+      <span>WORKHOLIC // AI AGENT SOFTWARE</span><b>◆</b>
+      <span>目标拆解 // TASK DECOMPOSITION</span><b>◆</b>
+      <span>工具调用 // TOOL CALLING</span><b>◆</b>
+      <span>JOIN THE PULL // 加入我们</span><b>◆</b>
+      <span>NEXABOX // 合作工作室</span><b>◆</b>
+      <span>WORKHOLIC // AI AGENT SOFTWARE</span><b>◆</b>
+    </div>
+
+    <section class="section" id="capabilities">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Capabilities // 核心能力</div>
+          <h2>你交代目标，<span class="wb-accent">它负责跑完</span></h2>
+          <p class="section-desc">从一句自然语言到一个能交付的结果，中间那些繁琐的多步流程，交给工作台自己走。</p>
+        </div>
+        <div class="wb-product-grid">
+
+          <article class="wb-card reveal">
+            <div class="wb-card-top">
+              <div class="wb-mark">01</div>
+              <div class="wb-card-head">
+                <span class="wb-chip">UNDERSTAND // 理解</span>
+                <h3>说人话就行</h3>
+                <div class="wb-sub">自然语言交代目标</div>
+              </div>
+            </div>
+            <p class="wb-desc">
+              不用记命令、不用搭工作流。像跟同事交代事情一样说清楚想要什么，
+              剩下的交给它去琢磨。
+            </p>
+            <ul class="wb-features">
+              <li>直接描述目标，无需编排</li>
+              <li>能读懂上下文与补充说明</li>
+              <li>说得含糊时会主动确认</li>
+            </ul>
+            <div class="wb-card-foot">
+              <span>STATUS // 研发中</span>
+              <a href="#join">参与研发 →</a>
+            </div>
+          </article>
+
+          <article class="wb-card reveal">
+            <div class="wb-card-top">
+              <div class="wb-mark">02</div>
+              <div class="wb-card-head">
+                <span class="wb-chip">PLAN // 拆解</span>
+                <h3>自己拆步骤</h3>
+                <div class="wb-sub">任务自动拆解与规划</div>
+              </div>
+            </div>
+            <p class="wb-desc">
+              拿到目标后先想清楚该分几步、先做哪一步，
+              把一件大事拆成一串能落地的动作。
+            </p>
+            <ul class="wb-features">
+              <li>自动拆解多步任务</li>
+              <li>排出执行顺序与依赖</li>
+              <li>中途变化可重新规划</li>
+            </ul>
+            <div class="wb-card-foot">
+              <span>STATUS // 研发中</span>
+              <a href="#join">参与研发 →</a>
+            </div>
+          </article>
+
+          <article class="wb-card reveal">
+            <div class="wb-card-top">
+              <div class="wb-mark">03</div>
+              <div class="wb-card-head">
+                <span class="wb-chip">EXECUTE // 执行</span>
+                <h3>动手把事做完</h3>
+                <div class="wb-sub">工具调用与持续执行</div>
+              </div>
+            </div>
+            <p class="wb-desc">
+              该用工具就用工具，一步接一步执行下去，
+              不是给完建议就结束，而是真的把结果跑出来。
+            </p>
+            <ul class="wb-features">
+              <li>按需调用各类工具</li>
+              <li>多步连续执行不中断</li>
+              <li>失败会重试或换路子</li>
+            </ul>
+            <div class="wb-card-foot">
+              <span>STATUS // 研发中</span>
+              <a href="#join">参与研发 →</a>
+            </div>
+          </article>
+
+          <article class="wb-card reveal">
+            <div class="wb-card-top">
+              <div class="wb-mark">04</div>
+              <div class="wb-card-head">
+                <span class="wb-chip">TAKEOVER // 接管</span>
+                <h3>始终在你手里</h3>
+                <div class="wb-sub">过程可查、随时接管</div>
+              </div>
+            </div>
+            <p class="wb-desc">
+              干了什么、干到哪一步都记录在案。
+              觉得方向不对，随时喊停、随时接手，不会失控。
+            </p>
+            <ul class="wb-features">
+              <li>执行过程完整可查</li>
+              <li>随时暂停或人工介入</li>
+              <li>结果与记录可沉淀复用</li>
+            </ul>
+            <div class="wb-card-foot">
+              <span>STATUS // 研发中</span>
+              <a href="#join">参与研发 →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="flow">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">How It Works // 工作方式</div>
+          <h2>四步，<span class="wb-accent">从目标到结果</span></h2>
+          <p class="section-desc">每一步都看得见。你只需要盯住第一步和最后一步。</p>
+        </div>
+        <div class="pipeline">
+          <div class="pipe reveal">
+            <h3>交代目标</h3>
+            <p>用自然语言说清楚想要什么结果。</p>
+          </div>
+          <div class="pipe reveal">
+            <h3>拆解规划</h3>
+            <p>自动拆成多步任务并排出顺序。</p>
+          </div>
+          <div class="pipe reveal">
+            <h3>调用执行</h3>
+            <p>按需调用工具，一步步跑完。</p>
+          </div>
+          <div class="pipe reveal">
+            <h3>交付接管</h3>
+            <p>结果可查可改，全程能随时接管。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="join">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Join R&amp;D // 加入我们</div>
+          <h2>一起把它<span class="wb-accent">打磨出来</span></h2>
+          <p class="section-desc">
+            工作台还在研发中。无论你想参与 Agent 开发、产品内测，
+            还是只想提想法、报问题，都欢迎加入对应的 QQ 群。
+          </p>
+        </div>
+
+        <div class="wb-group-grid">
+          <article class="wb-group reveal">
+            <div class="wb-group-head">
+              <span class="wb-chip">WORKHOLIC R&amp;D // 研发群</span>
+              <h3>加入我们，参与研发</h3>
+            </div>
+            <p>工作台的研发讨论、内测反馈与资料共享都在这里进行。</p>
+            <div class="wb-group-num">
+              <span>QQ 群号</span>
+              <b>1094164058</b>
+              <button class="wb-copy" type="button" data-copy="1094164058">复制群号</button>
+            </div>
+            <p class="wb-hint">打开 QQ → 搜索群号 → 申请加入，备注「参与工作台研发」。</p>
+          </article>
+
+          <article class="wb-group reveal">
+            <div class="wb-group-head">
+              <span class="wb-chip">NEXABOX // 合作工作室</span>
+              <h3>Nexabox（合作工作室）</h3>
+            </div>
+            <p>Nexabox 是我们长期合作的工作室：交流 Agent 应用、落地实践与联合创作，外部协作通道保持开放。</p>
+            <div class="wb-group-num">
+              <span>QQ 群号</span>
+              <b>621482061</b>
+              <button class="wb-copy" type="button" data-copy="621482061">复制群号</button>
+            </div>
+            <p class="wb-hint">打开 QQ → 搜索群号 → 申请加入，备注「Nexabox 合作」。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div>
+          <h2>想让 AI 真正替你干活？</h2>
+          <p>先看看工作台的能力边界，或者直接进群聊两句。</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="products.html">[ 项目中心 ]</a>
+          <a class="btn amber" href="contact.html">[ 联系我们 ]</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="index.html">
+            <img class="logo-img on-dark" src="LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+            <img class="logo-img on-light" src="LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+            <span class="logo-text">
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
+            </span>
+          </a>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
+        </div>
+        <div class="footer-col">
+          <h4>NAV // 导航</h4>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="products.html">项目</a></li>
+            <li><a href="workbench.html">工作台</a></li>
+            <li><a href="repository.html">仓库</a></li>
+            <li><a href="docs.html">文档</a></li>
+            <li><a href="contact.html">联系</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>WORKBENCH // 工作台</h4>
+          <ul>
+            <li><a href="workbench.html#capabilities">核心能力</a></li>
+            <li><a href="workbench.html#flow">工作方式</a></li>
+            <li><a href="workbench.html#join">参与研发</a></li>
+            <li><a href="workbench.html#join">Nexabox</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CHANNEL // 通道</h4>
+          <ul>
+            <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://space.bilibili.com/1911534718" target="_blank" rel="noopener">Bilibili</a></li>
+            <li><a href="https://qm.qq.com/q/hI5Wi8M3Qs" target="_blank" rel="noopener">QQ 群</a></li>
+            <li><a href="mailto:uild913@outlook.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · 保留部分权利</span>
+        <span class="ver">WORKBENCH // OPEN R&amp;D</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    (() => {
+      const fallbackCopy = (text, done) => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(); } catch (e) { /* noop */ }
+        ta.remove();
+      };
+
+      document.querySelectorAll("[data-copy]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const value = btn.getAttribute("data-copy");
+          const label = btn.textContent;
+          const done = () => {
+            btn.textContent = "已复制 ✓";
+            setTimeout(() => { btn.textContent = label; }, 1400);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(value).then(done).catch(() => fallbackCopy(value, done));
+          } else {
+            fallbackCopy(value, done);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

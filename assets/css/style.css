@@ -172,6 +172,25 @@ a:hover {
   filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.22));
 }
 
+/* Logo 随主题切换：暗色主题用白版，亮色主题用黑版 */
+.logo-img.on-light {
+  display: none;
+}
+
+html[data-theme="light"] .logo-img.on-dark {
+  display: none;
+}
+
+html[data-theme="light"] .logo-img.on-light {
+  display: block;
+  filter: drop-shadow(0 1px 6px rgba(40, 60, 80, 0.18));
+}
+
+/* 亮色主题下页头/页脚的底色与其徽标区分度 */
+html[data-theme="light"] .site-footer .logo-img.on-light {
+  filter: none;
+}
+
 .logo-text {
   display: flex;
   flex-direction: column;

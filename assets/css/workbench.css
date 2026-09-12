@@ -1,36 +1,42 @@
-/* ============ Qomo official page ============ */
+/* ============ WorkHolic workbench page ============ */
 
 :root {
-  --qo: #8b7bff;
-  --qo-2: #38e0ff;
-  --qo-pink: #f472b6;
-  --qo-soft: rgba(139, 123, 255, 0.13);
-  --qo-line: rgba(139, 123, 255, 0.4);
-  --qo-txt: #cfc6ff;
+  --wb: #3ddc84;
+  --wb-2: #00e0b8;
+  --wb-3: #a3e635;
+  --wb-soft: rgba(61, 220, 132, 0.13);
+  --wb-line: rgba(61, 220, 132, 0.4);
+  --wb-txt: #b6f2cf;
+  --wb-glow: rgba(61, 220, 132, 0.08);
+  --wb-glow-2: rgba(0, 224, 184, 0.08);
+  --wb-on-accent: #06170e;
 }
 
 html[data-theme="light"] {
-  --qo: #5b46d8;
-  --qo-2: #007d9b;
-  --qo-pink: #c2418c;
-  --qo-soft: rgba(91, 70, 216, 0.1);
-  --qo-line: rgba(91, 70, 216, 0.4);
-  --qo-txt: #4b38c2;
+  --wb: #14764a;
+  --wb-2: #0d9488;
+  --wb-3: #4d7c0f;
+  --wb-soft: rgba(23, 138, 82, 0.1);
+  --wb-line: rgba(23, 138, 82, 0.4);
+  --wb-txt: #0f6b3f;
+  --wb-glow: rgba(23, 138, 82, 0.09);
+  --wb-glow-2: rgba(13, 148, 136, 0.08);
+  --wb-on-accent: #ffffff;
 }
 
-.qo-accent {
-  color: var(--qo);
+.wb-accent {
+  color: var(--wb);
 }
 
 /* ---------- Hero ---------- */
 
-.qo-hero {
+.wb-hero {
   position: relative;
   padding: 96px 0 86px;
   overflow: hidden;
 }
 
-.qo-hero::before {
+.wb-hero::before {
   content: "";
   position: absolute;
   top: -220px;
@@ -39,13 +45,13 @@ html[data-theme="light"] {
   width: 920px;
   height: 560px;
   background:
-    radial-gradient(ellipse at center, var(--qo-soft) 0%, transparent 60%),
-    radial-gradient(ellipse at 28% 42%, rgba(56, 224, 255, 0.08) 0%, transparent 52%);
+    radial-gradient(ellipse at center, var(--wb-soft) 0%, transparent 60%),
+    radial-gradient(ellipse at 28% 42%, var(--wb-glow-2) 0%, transparent 52%);
   pointer-events: none;
   z-index: 0;
 }
 
-.qo-grid-bg {
+.wb-grid-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -58,18 +64,18 @@ html[data-theme="light"] {
   pointer-events: none;
 }
 
-.qo-hero .container {
+.wb-hero .container {
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
   gap: 46px;
   align-items: center;
 }
 
-.qo-kicker {
+.wb-kicker {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.34em;
-  color: var(--qo);
+  color: var(--wb);
   text-transform: uppercase;
   margin-bottom: 20px;
   display: inline-flex;
@@ -77,28 +83,28 @@ html[data-theme="light"] {
   gap: 10px;
 }
 
-.qo-kicker::before {
+.wb-kicker::before {
   content: "";
   width: 34px;
   height: 1px;
-  background: var(--qo);
-  box-shadow: 0 0 8px var(--qo);
+  background: var(--wb);
+  box-shadow: 0 0 8px var(--wb);
 }
 
-.qo-hero h1 {
+.wb-hero h1 {
   margin: 0;
   font-size: clamp(54px, 8vw, 92px);
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: 0.05em;
-  background: linear-gradient(90deg, var(--qo-2), var(--qo) 52%, var(--qo-pink));
+  background: linear-gradient(90deg, var(--wb-2), var(--wb) 52%, var(--wb-3));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 24px var(--qo-soft));
+  filter: drop-shadow(0 0 24px var(--wb-soft));
 }
 
-.qo-hero-en {
+.wb-hero-en {
   font-family: var(--mono);
   font-size: 13px;
   letter-spacing: 0.26em;
@@ -106,7 +112,7 @@ html[data-theme="light"] {
   margin-top: 12px;
 }
 
-.qo-lead {
+.wb-lead {
   color: var(--muted);
   font-size: 16px;
   line-height: 1.9;
@@ -114,45 +120,41 @@ html[data-theme="light"] {
   margin: 20px 0 28px;
 }
 
-.qo-hero-actions {
+.wb-hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
 }
 
-.btn.qo-btn {
-  border-color: var(--qo-line);
-  color: var(--qo-txt);
+.btn.wb-btn {
+  border-color: var(--wb-line);
+  color: var(--wb-txt);
   background:
-    linear-gradient(135deg, var(--qo-soft), transparent 58%),
+    linear-gradient(135deg, var(--wb-soft), transparent 58%),
     var(--panel);
 }
 
-.btn.qo-btn::after {
-  border-color: var(--qo);
+.btn.wb-btn::after {
+  border-color: var(--wb);
 }
 
-.btn.qo-btn:hover {
-  border-color: var(--qo);
-  color: #fff;
-  box-shadow: 0 0 26px var(--qo-soft), inset 0 0 18px var(--qo-soft);
+.btn.wb-btn:hover {
+  border-color: var(--wb);
+  color: var(--wb);
+  box-shadow: 0 0 26px var(--wb-soft), inset 0 0 18px var(--wb-soft);
 }
 
-html[data-theme="light"] .btn.qo-btn:hover {
-  color: #fff;
-}
-
-.btn.qo-btn.ghost {
+.btn.wb-btn.ghost {
   background: transparent;
   border-color: var(--line-strong);
   color: var(--txt);
 }
 
-.btn.qo-btn.ghost:hover {
-  color: #fff;
+.btn.wb-btn.ghost:hover {
+  color: var(--wb);
 }
 
-.qo-hero-meta {
+.wb-hero-meta {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -163,42 +165,37 @@ html[data-theme="light"] .btn.qo-btn:hover {
   color: var(--faint);
 }
 
-.qo-hero-meta i {
-  color: var(--qo);
+.wb-hero-meta i {
+  color: var(--wb);
   font-style: normal;
   animation: blink 2s steps(2, start) infinite;
 }
 
-.qo-hero-logo {
+.wb-hero-logo {
   position: relative;
   display: grid;
   place-items: center;
   padding: 30px 26px;
   background:
-    linear-gradient(135deg, var(--qo-soft), transparent 55%),
+    linear-gradient(135deg, var(--wb-soft), transparent 55%),
     var(--panel);
-  border: 1px solid var(--qo-line);
-  box-shadow: 0 0 46px rgba(139, 123, 255, 0.08);
+  border: 1px solid var(--wb-line);
+  box-shadow: 0 0 46px var(--wb-glow);
   clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
 }
 
-.qo-hero-logo img {
-  width: min(460px, 100%);
-  height: auto;
-  max-height: 220px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 22px var(--qo-soft));
-  animation: qo-float 5.5s ease-in-out infinite;
+.wb-hero-logo .wb-mark {
+  filter: drop-shadow(0 0 22px var(--wb-soft));
 }
 
-@keyframes qo-float {
+@keyframes wb-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-9px); }
 }
 
 /* ---------- Strip ---------- */
 
-.qo-strip {
+.wb-strip {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -208,7 +205,7 @@ html[data-theme="light"] .btn.qo-btn:hover {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background:
-    linear-gradient(90deg, transparent, var(--qo-soft), transparent),
+    linear-gradient(90deg, transparent, var(--wb-soft), transparent),
     var(--bg-2);
   font-family: var(--mono);
   font-size: 11px;
@@ -216,22 +213,32 @@ html[data-theme="light"] .btn.qo-btn:hover {
   color: var(--muted);
 }
 
-.qo-strip b {
+.wb-strip b {
   padding: 0 14px;
   font-weight: 400;
-  color: var(--qo);
+  color: var(--wb);
   font-size: 9px;
+}
+
+/* ---------- 流水线：本页改用绿色强调（style.css 默认为青色） ---------- */
+
+.wb-body .pipe h3 {
+  color: var(--wb);
+}
+
+.wb-body .pipe::after {
+  color: var(--wb-soft);
 }
 
 /* ---------- Product cards ---------- */
 
-.qo-product-grid {
+.wb-product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 22px;
 }
 
-.qo-card {
+.wb-card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -242,30 +249,30 @@ html[data-theme="light"] .btn.qo-btn:hover {
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.qo-card::before {
+.wb-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--qo-2), var(--qo), transparent);
+  background: linear-gradient(90deg, var(--wb-2), var(--wb), transparent);
 }
 
-.qo-card:hover {
+.wb-card:hover {
   transform: translateY(-4px);
-  border-color: var(--qo-line);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(139, 123, 255, 0.08);
+  border-color: var(--wb-line);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38), 0 0 0 1px var(--wb-glow);
 }
 
-.qo-card-top {
+.wb-card-top {
   display: flex;
   align-items: center;
   gap: 18px;
   margin-bottom: 20px;
 }
 
-.qo-mark {
+.wb-mark {
   width: 62px;
   height: 62px;
   flex: none;
@@ -274,24 +281,27 @@ html[data-theme="light"] .btn.qo-btn:hover {
   font-family: var(--mono);
   font-weight: 800;
   font-size: 22px;
-  color: #fff;
+  color: var(--wb-on-accent);
   background:
-    linear-gradient(135deg, var(--qo-2), var(--qo) 60%, var(--qo-pink));
-  border: 1px solid var(--qo-line);
+    linear-gradient(135deg, var(--wb-2), var(--wb) 60%, var(--wb-3));
+  border: 1px solid var(--wb-line);
   clip-path: polygon(0 0, 76% 0, 100% 24%, 100% 100%, 24% 100%, 0 76%);
-  box-shadow: 0 0 22px var(--qo-soft);
+  box-shadow: 0 0 22px var(--wb-soft);
 }
 
-.qo-mark-q {
-  font-size: 18px;
+.wb-mark-lg {
+  width: clamp(140px, 20vw, 190px);
+  height: clamp(140px, 20vw, 190px);
+  font-size: clamp(62px, 9vw, 86px);
+  animation: wb-float 5.5s ease-in-out infinite;
 }
 
-.qo-card-head h3 {
+.wb-card-head h3 {
   font-size: 24px;
   letter-spacing: 0.04em;
 }
 
-.qo-sub {
+.wb-sub {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -299,31 +309,31 @@ html[data-theme="light"] .btn.qo-btn:hover {
   margin-top: 3px;
 }
 
-.qo-chip {
+.wb-chip {
   display: inline-block;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--qo);
-  border: 1px solid var(--qo-line);
-  background: var(--qo-soft);
+  color: var(--wb);
+  border: 1px solid var(--wb-line);
+  background: var(--wb-soft);
   padding: 3px 10px;
   margin-bottom: 10px;
 }
 
-.qo-desc {
+.wb-desc {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.85;
 }
 
-.qo-features {
+.wb-features {
   list-style: none;
   margin: 18px 0 0;
   flex: 1;
 }
 
-.qo-features li {
+.wb-features li {
   position: relative;
   padding-left: 20px;
   color: var(--muted);
@@ -331,15 +341,15 @@ html[data-theme="light"] .btn.qo-btn:hover {
   margin: 7px 0;
 }
 
-.qo-features li::before {
+.wb-features li::before {
   content: "▸";
   position: absolute;
   left: 0;
-  color: var(--qo);
+  color: var(--wb);
   font-family: var(--mono);
 }
 
-.qo-card-foot {
+.wb-card-foot {
   margin-top: 20px;
   padding-top: 14px;
   border-top: 1px dashed var(--line-strong);
@@ -353,25 +363,25 @@ html[data-theme="light"] .btn.qo-btn:hover {
   letter-spacing: 0.06em;
 }
 
-.qo-card-foot a {
-  color: var(--qo);
+.wb-card-foot a {
+  color: var(--wb);
   white-space: nowrap;
 }
 
-.qo-card-foot a::after {
+.wb-card-foot a::after {
   content: " →";
   color: var(--amber);
 }
 
 /* ---------- Join groups ---------- */
 
-.qo-group-grid {
+.wb-group-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 22px;
 }
 
-.qo-group {
+.wb-group {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -382,36 +392,36 @@ html[data-theme="light"] .btn.qo-btn:hover {
   transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.qo-group::before {
+.wb-group::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--amber), var(--qo), transparent);
+  background: linear-gradient(90deg, var(--amber), var(--wb), transparent);
   opacity: 0.85;
 }
 
-.qo-group:hover {
+.wb-group:hover {
   transform: translateY(-3px);
-  border-color: var(--qo-line);
+  border-color: var(--wb-line);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.36);
 }
 
-.qo-group h3 {
+.wb-group h3 {
   font-size: 20px;
   letter-spacing: 0.04em;
 }
 
-.qo-group > p {
+.wb-group > p {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.85;
   margin-top: 12px;
 }
 
-.qo-group-num {
+.wb-group-num {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -422,28 +432,28 @@ html[data-theme="light"] .btn.qo-btn:hover {
   border: 1px dashed var(--line-strong);
 }
 
-.qo-group-num > span {
+.wb-group-num > span {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.18em;
   color: var(--faint);
 }
 
-.qo-group-num b {
+.wb-group-num b {
   font-family: var(--mono);
   font-size: 21px;
   letter-spacing: 0.08em;
-  color: var(--qo);
-  text-shadow: 0 0 18px var(--qo-soft);
+  color: var(--wb);
+  text-shadow: 0 0 18px var(--wb-soft);
 }
 
-.qo-copy {
+.wb-copy {
   margin-left: auto;
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: #fff;
-  background: linear-gradient(135deg, var(--qo), var(--qo-pink));
+  color: var(--wb-on-accent);
+  background: linear-gradient(135deg, var(--wb), var(--wb-3));
   border: none;
   cursor: pointer;
   padding: 9px 16px;
@@ -451,12 +461,12 @@ html[data-theme="light"] .btn.qo-btn:hover {
   transition: filter 0.2s ease, box-shadow 0.2s ease;
 }
 
-.qo-copy:hover {
+.wb-copy:hover {
   filter: brightness(1.12);
-  box-shadow: 0 0 18px var(--qo-soft);
+  box-shadow: 0 0 18px var(--wb-soft);
 }
 
-.qo-hint {
+.wb-hint {
   font-size: 12px;
   color: var(--faint);
   margin-top: 12px;
@@ -465,58 +475,54 @@ html[data-theme="light"] .btn.qo-btn:hover {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 960px) {
-  .qo-hero .container {
+  .wb-hero .container {
     grid-template-columns: 1fr;
     gap: 34px;
   }
 
-  .qo-hero-logo {
+  .wb-hero-logo {
     order: -1;
     padding: 22px 18px;
-  }
-
-  .qo-hero-logo img {
-    width: min(380px, 100%);
   }
 }
 
 @media (max-width: 860px) {
-  .qo-product-grid,
-  .qo-group-grid {
+  .wb-product-grid,
+  .wb-group-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 620px) {
-  .qo-hero {
+  .wb-hero {
     padding: 64px 0 58px;
   }
 
-  .qo-card,
-  .qo-group {
+  .wb-card,
+  .wb-group {
     padding: 22px 20px;
   }
 
-  .qo-card-top {
+  .wb-card-top {
     gap: 14px;
   }
 
-  .qo-mark {
+  .wb-mark {
     width: 52px;
     height: 52px;
   }
 
-  .qo-group-num b {
+  .wb-group-num b {
     width: 100%;
   }
 
-  .qo-copy {
+  .wb-copy {
     margin-left: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .qo-hero-logo img {
+  .wb-mark-lg {
     animation: none !important;
   }
 }
