@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIOS：面向 LLM 的智能体操作系统（中文翻译）| 牵引力工作室 PullTogether</title>
+  <meta name="description" content="arXiv:2403.16971v5《AIOS: LLM Agent Operating System》中文翻译：AIOS 分层架构、内核模块、AIOS SDK、实验评估与附录。">
+  <link rel="icon" type="image/png" href="../LOGO_Black.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script>
+    try {
+      var t = localStorage.getItem("pulltogether-theme");
+      if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img class="logo-img on-dark" src="../LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+        <img class="logo-img on-light" src="../LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+        <span class="logo-text">
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html">首页</a>
+        <a href="../products.html">项目</a>
+        <a href="../repository.html">仓库</a>
+        <a href="../docs.html" class="active">文档</a>
+        <a href="../contact.html">联系</a>
+        <a href="../ai.html" class="nav-ai">AI</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <span class="status-chip"><span class="dot"></span>SYSTEM ONLINE</span>
+      <button class="nav-toggle" aria-label="菜单" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">PULLTOGETHER / DOCS / ARTICLE <span class="cur">// AIOS 中文翻译</span></div>
+      <h1>
+        AIOS：面向 LLM 的智能体操作系统
+        <span class="en">AIOS · LLM AGENT OPERATING SYSTEM</span>
+      </h1>
+      <p>arXiv:2403.16971v5 中文翻译：AIOS 把 LLM 与工具等资源从智能体应用中隔离进内核，提供调度、上下文、内存、存储、工具与访问管理等基础服务。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container docs-layout">
+      <nav class="docs-nav reveal">
+        <div class="docs-nav-title">DOC TREE</div>
+        <ul>
+          <li><a href="../docs.html">← 文档中心</a></li>
+          <li><a href="aios.html" class="active">AIOS 中文翻译</a></li>
+          <li><a href="kiometagent.html">KiometAgent</a></li>
+          <li><a href="guessor.html">Guessor</a></li>
+          <li><a href="tranxet.html">Tranxet</a></li>
+          <li><a href="triton.html">Triton AIOS</a></li>
+        </ul>
+        <div class="docs-nav-title" style="border-top: 1px solid var(--line);">本文目录</div>
+        <ul class="toc">
+          <li><a href="#ch-1">摘要</a></li>
+          <li><a href="#ch-2">1 引言</a></li>
+          <li><a href="#ch-3">2 AIOS 的架构</a></li>
+          <li><a href="#ch-4">3 AIOS 内核</a></li>
+          <li><a href="#h3-4-3-1" style="padding-left: 36px; font-size: 12.5px;">3.1 模块之间的关系与连接</a></li>
+          <li><a href="#h3-5-3-2-llm" style="padding-left: 36px; font-size: 12.5px;">3.2 LLM 核心</a></li>
+          <li><a href="#h3-6-3-3" style="padding-left: 36px; font-size: 12.5px;">3.3 调度器</a></li>
+          <li><a href="#h3-7-3-4" style="padding-left: 36px; font-size: 12.5px;">3.4 上下文管理器</a></li>
+          <li><a href="#h3-8-3-5" style="padding-left: 36px; font-size: 12.5px;">3.5 内存管理器</a></li>
+          <li><a href="#h3-9-3-6" style="padding-left: 36px; font-size: 12.5px;">3.6 存储管理器</a></li>
+          <li><a href="#h3-10-3-7" style="padding-left: 36px; font-size: 12.5px;">3.7 工具管理器</a></li>
+          <li><a href="#h3-11-3-8" style="padding-left: 36px; font-size: 12.5px;">3.8 访问管理器</a></li>
+          <li><a href="#h3-12-3-9-aios-sdk" style="padding-left: 36px; font-size: 12.5px;">3.9 AIOS SDK</a></li>
+          <li><a href="#ch-5">4 评估</a></li>
+          <li><a href="#h3-14-4-1" style="padding-left: 36px; font-size: 12.5px;">4.1 实验设置</a></li>
+          <li><a href="#h3-15-4-2-rq1" style="padding-left: 36px; font-size: 12.5px;">4.2 智能体性能（RQ1）</a></li>
+          <li><a href="#h3-16-4-3-rq2" style="padding-left: 36px; font-size: 12.5px;">4.3 效率分析（RQ2）</a></li>
+          <li><a href="#h3-17-4-4-rq3" style="padding-left: 36px; font-size: 12.5px;">4.4 可扩展性分析（RQ3）</a></li>
+          <li><a href="#ch-6">5 相关工作</a></li>
+          <li><a href="#ch-7">6 结论与未来工作</a></li>
+          <li><a href="#ch-8">7 致谢</a></li>
+          <li><a href="#ch-9">参考文献</a></li>
+          <li><a href="#ch-10">附录</a></li>
+          <li><a href="#h3-23-a-aios" style="padding-left: 36px; font-size: 12.5px;">A AIOS 内核实现细节</a></li>
+          <li><a href="#h3-24-b-aios-sdk" style="padding-left: 36px; font-size: 12.5px;">B AIOS SDK</a></li>
+          <li><a href="#h3-25-c" style="padding-left: 36px; font-size: 12.5px;">C 智能体基准的细节</a></li>
+          <li><a href="#h3-26-d" style="padding-left: 36px; font-size: 12.5px;">D 补充实验结果</a></li>
+          <li><a href="#h3-27-e" style="padding-left: 36px; font-size: 12.5px;">E 讨论</a></li>
+        </ul>
+      </nav>
+
+      <div class="doc-panel reveal">
+        <div class="status-line warn">
+          <span style="color: var(--amber);">●</span>
+          论文中文翻译 · 基于 arXiv:2403.16971v5（COLM 2025）｜
+          <a href="aios-paper-zh.md" target="_blank" rel="noopener">Markdown 源文件</a> ·
+          <a href="https://arxiv.org/abs/2403.16971" target="_blank" rel="noopener">原文页面</a>
+        </div>
+<p><strong>原文标题</strong>：AIOS: LLM Agent Operating System</p>
+<p><strong>作者</strong>：Kai Mei、Xi Zhu、Wujiang Xu、Mingyu Jin、Wenyue Hua、Zelong Li、Shuyuan Xu、Ruosong Ye、Yingqiang Ge、Yongfeng Zhang（罗格斯大学计算机科学系）</p>
+<p><strong>发表</strong>：COLM 2025</p>
+<p><strong>原文</strong>：arXiv:2403.16971v5（2025 年 8 月 12 日）</p>
+<p><strong>译者说明</strong>：本文为原论文的中文翻译。LLM、Agent、syscall 等术语保留英文原词；参考文献未逐条收录；正文中的图注已翻译，图形请对照原文 PDF 阅读。</p>
+<section id="ch-1">
+<h2>摘要</h2>
+<p>基于 LLM 的智能体在部署上面临显著挑战，尤其是在资源管理方面。允许智能体不受限制地访问 LLM 或工具资源，会导致低效甚至可能有害的资源分配与使用。此外，当前智能体设计中缺乏合适的调度与资源管理机制，阻碍了并发处理，也限制了系统整体效率。</p>
+<p>为解决上述问题，本文在"管理基于 LLM 的智能体"这一背景下提出了 AIOS（基于 LLM 的 AI 智能体操作系统）架构。它给出了一种新的智能体服务架构：把资源以及 LLM 相关服务从智能体应用中隔离出来，收敛进一个 AIOS 内核。该内核为运行时智能体提供基础服务（如调度、上下文管理、内存管理、存储管理、访问控制）。为提升易用性，AIOS 还包含 AIOS SDK——一套用于调用内核所提供能力的综合 API。实验结果表明，使用 AIOS 为不同智能体框架构建的智能体提供服务时，执行速度最高可提升 2.1 倍。源码地址：https://github.com/agiresearch/AIOS 。</p>
+</section>
+<section id="ch-2">
+<h2>1 引言</h2>
+<p>在自主智能体领域，研究者一直致力于构建能够感知环境、理解指令、做出决策、采取行动并从反馈中学习的智能体（Wooldridge &amp; Jennings, 1995; Jennings et al., 1998; Bresciani et al., 2004）。大语言模型（LLM）的出现（Achiam et al., 2023; Touvron et al., 2023a; Team et al., 2023）为智能体开发带来了新的可能（Ge et al., 2023a）。当前 LLM 在理解指令（Ouyang et al., 2022; Chung et al., 2022; Touvron et al., 2023b; Geng et al., 2022）、推理与问题求解（Kojima et al., 2022; Nijkamp et al., 2022; Taylor et al., 2022; Hao et al., 2023; Kim et al., 2023），以及与人（Ross et al., 2023）和外部环境（Driess et al., 2023; Brohan et al., 2023）交互方面展现出强大能力。建立在强大 LLM 之上的新型 LLM 智能体（Ge et al., 2023a; Yao et al., 2023; Shinn et al., 2023; Deng et al., 2023; Packer et al., 2023; Wu et al., 2024）能够在多样环境中表现出很强的任务完成能力，从虚拟助手到更复杂的推理与问题求解系统。</p>
+<p>图 1 展示了一个 LLM 智能体执行真实任务的示例：一个旅行智能体处理用户"组织一次旅行"的请求。该智能体把请求有条不紊地拆解为可执行步骤——预订航班、预订住宿、处理支付，并按用户偏好更新日历。在整个执行过程中，智能体展现出源自 LLM 基础的推理与决策能力，这使它区别于受预设功能或工作流约束的传统应用。要实现这个旅行场景，智能体必须把 LLM 相关服务（偏好检索、API 选择、回复生成）与常规操作系统服务（磁盘访问、软件执行）无缝结合起来。</p>
+<p>当前的智能体框架存在关键的设计局限：它们让智能体直接访问 LLM、工具等系统级资源（Qin et al., 2024），既损害了资源优化，也引入了潜在的安全隐患。缺乏恰当的调度时，智能体可能独占资源——例如一个智能体向 LLM 大量灌入请求，而其他智能体只能等待。缺乏有效的资源管理机制会显著损害系统效率。在并发场景下，现有框架（如 Autogen、Langchain）对 LLM 调用采用低效的"试错"方式：把提示转换为张量载入 GPU 显存，直到触发 CUDA 显存上限异常，才被迫释放张量并多次重试；在大量智能体竞争有限 LLM 资源时，这会大幅降低系统吞吐量。</p>
+<p>为缓解上述局限，我们提出 AIOS——一种旨在更高效地服务 LLM 智能体的架构。我们的贡献如下。</p>
+<ul>
+<li><strong>新的智能体服务架构。</strong> 我们提出 AIOS，一种新的基于 LLM 的智能体服务架构。AIOS 把智能体应用与 LLM、工具等智能体资源划分到不同层次，即应用层与内核层。这种分离有利于系统化的资源管理、效率优化与安全性提升。</li>
+<li><strong>AIOS 内核的设计与实现。</strong> 在 AIOS 的核心，我们设计并实现了一个 AIOS 内核，用来封装资源管理抽象。在内核中，智能体查询被分解为子执行单元（即 AIOS 系统调用，syscall）以支持并行。我们设计了智能体调度器来编排跨模块的系统调用执行，内存、存储、工具管理器与 LLM 核心负责处理被分派的系统调用。我们还设计了上下文管理器来处理上下文中断，并设计访问管理器来校验智能体操作，以保证 AIOS 内核的可靠性。</li>
+<li><strong>AIOS SDK 开发。</strong> 我们开发了 AIOS SDK，它对内核功能提供更高层抽象，让开发者可以专注于应用逻辑与更高层功能，而无需背负复杂的内核细节。</li>
+<li><strong>实证结果。</strong> 我们在使用多种智能体框架开发的智能体上对 AIOS 进行了大量评估。结果表明，AIOS 能在标准智能体基准上保持智能体性能，在涉及工具调用的基准上甚至还能提升性能。此外，AIOS 显著提升了执行效率，为不同框架的智能体提供服务时执行速度最高提升 2.1 倍。这些实验结果凸显了 AIOS 在优化智能体性能与执行速度方面的有效性。</li>
+</ul>
+</section>
+<section id="ch-3">
+<h2>2 AIOS 的架构</h2>
+<p>如图 2 所示，AIOS 架构分为三个不同的层：应用层、内核层与硬件层。这种分层设计旨在系统中建立清晰的关注点分离。上层应用对底层的复杂性进行抽象，并通过明确的接口（如软件开发工具包 SDK 与系统调用）与底层交互。</p>
+<p><strong>应用层。</strong> 应用层使用 AIOS SDK，提供在 AIOS 中请求系统资源的接口。这种设计让智能体从资源管理中解脱出来，同时通过禁止直接操作资源来强制隔离。AIOS SDK 既支持原生智能体开发，也支持从多种框架改造而来的非原生智能体，包括 ReAct（Yao et al., 2023）、Reflexion（Shinn et al., 2023）、Autogen（Wu et al., 2023）、Open-Interpreter（Lucas, 2024）与 MetaGPT（Hong et al., 2023）。非原生智能体通过适配器函数与 AIOS 内核资源交互，原生开发则通过调用系统调用的预定义 API 得到简化。这种抽象让开发者可以专注于智能体逻辑，而非资源管理细节。</p>
+<p><strong>内核层。</strong> 内核层整合了两个组件：负责非 LLM 计算任务的传统操作系统内核，以及我们创新的 AIOS 内核。在 AIOS 内核中，专门的模块通过系统调用处理智能体请求。调度器使用先进的调度策略把这些调用分派给合适的模块（详见 3.3 节）。我们把 LLM 封装为类似 CPU 核心的"核"（core），提供统一接口，从而可以集成多种 LLM 端点。为支持 LLM 上下文切换，我们实现了具备快照与恢复能力的上下文管理器（3.4 节）。为高效处理智能体数据，我们开发了负责运行时操作的内存管理器（3.5 节）与负责持久化存储的存储管理器（3.6 节）。此外，工具管理器负责加载工具并解决 AIOS SDK 所支持工具的调用冲突（3.7 节），访问管理器则实现访问控制与用户干预协议（3.8 节）。</p>
+<p><strong>硬件层。</strong> 硬件层由系统的物理组件构成，例如 CPU、GPU、内存、磁盘与外设。硬件层不是本文工作的重点——AIOS 内核不直接与硬件交互，而是依赖操作系统系统调用来访问硬件层中的物理资源。</p>
+<blockquote class="doc-quote"><strong>图 1</strong>：一个动机示例，说明智能体（即旅行智能体）完成任务时为何既需要 LLM 相关服务，也需要非 LLM 相关（即操作系统）服务。图中红色代表与 LLM 相关的服务，蓝色代表与 LLM 无关的服务。</blockquote>
+<blockquote class="doc-quote"><strong>图 2</strong>：AIOS 分层架构总览。应用层便于智能体应用的设计与开发；内核层管理核心功能与资源，为智能体应用提供服务；硬件层控制并管理物理计算资源与设备，支撑内核层功能。</blockquote>
+</section>
+<section id="ch-4">
+<h2>3 AIOS 内核</h2>
+<p>本节先对 AIOS 内核做总体介绍，说明各模块如何与其他模块协作以支持整体功能；随后深入介绍每个模块的设计与实现，讨论它们在整个 AIOS 架构中的作用与贡献。</p>
+<h3 id="h3-4-3-1">3.1 模块之间的关系与连接</h3>
+<p>在 AIOS 内核中，智能体查询被分解为分类后的系统调用（LLM 处理、内存访问、存储操作、工具使用），如图 3 所示，完整的系统调用目录见附录 A.1。每个系统调用都与线程绑定，由调度器统一分派；调度器集中管理所有模块的队列。系统调用根据其属性集合被路由到相应模块的队列，每个模块监听分配给自己的队列。上下文管理器会在 LLM 核心内部被触发以处理上下文中断，而不是通过调度器调度。</p>
+<blockquote class="doc-quote"><strong>图 3</strong>：智能体查询如何被分解为 AIOS 系统调用，以及 AIOS 系统调用如何被分派与调度。图中省略了访问管理器模块，因为与访问相关的系统调用不会由调度器分派。</blockquote>
+<h3 id="h3-5-3-2-llm">3.2 LLM 核心</h3>
+<p>由于 LLM 的部署方式多种多样——使用哪个 LLM、LLM 部署在云端还是本地设备、需要什么硬件条件、使用哪种推理框架——我们把每个采用不同部署选项的 LLM 实例封装为一个"核"（core），类似传统操作系统中的 CPU 核心。这种设计让我们可以把每个 LLM 实例当作一个专用处理单元，增强 AIOS 架构的模块化与可扩展性。为适配不同的 LLM 实例，我们为每个 LLM 实例引入一个 wrapper，并在其中设计专门用于 LLM 推理的统一系统调用。通过把 LLM 实例抽象为核并实现标准化系统调用，AIOS 提供了一种灵活的方式来集成处于不同部署选项下的 LLM 实例，这得益于 LLM 核心的模块化设计。LLM 核心的详细信息见附录 A.2。</p>
+<h3 id="h3-6-3-3">3.3 调度器</h3>
+<p>我们把所有队列集中放在调度器模块中，而不是分散到各个处理模块里，从而把请求管理职责隔离出来，让每个模块只需专注于执行。这种集中化简化了跨模块任务协调，并提供了统一的调度框架。在管理系统调用方面，我们实现了两种经典算法：先进先出（FIFO），按到达顺序处理调用，但可能增加后续请求的等待时间；以及轮转调度（Round Robin，RR），以时间片轮转的方式循环处理调用，从而实现更均衡的资源分配。RR 策略由我们面向 LLM 推理的上下文中断机制支持，详见 A.3 节。</p>
+<h3 id="h3-7-3-4">3.4 上下文管理器</h3>
+<p>LLM 推理时间会造成瓶颈：长时间运行的系统调用会独占资源。我们的上下文中断机制通过任务中断与恢复（借助快照与恢复操作）来解决这一问题。上下文管理器设计了两种方式：基于文本的方式（面向无法访问 logits 的闭源 LLM，保存已解码输出）与基于 logits 的方式（保留中间搜索树结构，以实现更细粒度的状态恢复）。基于 logits 的方法如图 4 所示。以 beam search（在 LLM 中很常见（Touvron et al., 2023b; Jiang et al., 2023; Biderman et al., 2023））为例，为简单起见设 beam width 为 1，我们演示该过程：在处理"判断航班 UA057 的目的地是否会下雨"时，LLM 在每一步评估候选 token。如果生成中途被调度器挂起，上下文管理器会快照中间结果；恢复时重新载入该快照，从挂起点继续，最终得到答案"搜索巴黎的天气"，而无需从头重新计算。</p>
+<blockquote class="doc-quote"><strong>图 4</strong>：基于 logits 的上下文快照与恢复过程示意。以 beam search 为例，beam width 设为 1。</blockquote>
+<h3 id="h3-8-3-5">3.5 内存管理器</h3>
+<p>与传统操作系统内存管理器处理物理 RAM 不同，AIOS 的内存管理器处理智能体在运行时的交互历史（Lerman &amp; Galstyan, 2003; Zhang et al., 2024），包括对话日志与工具调用结果。它管理内存结构、分配、读写操作、删除与更新。智能体内存默认驻留在 RAM 中，但当已分配空间接近容量上限时，管理器会在 RAM 与磁盘之间进行内存交换。当某个智能体的内存使用超过其块限制（例如分配量的 80%）时，内存管理器会启动 K-最近最少使用（LRU-K）淘汰策略，通过存储管理器把条目从 RAM 转移到磁盘（详见 3.6 节）。LRU-K 优先把最近至少被访问过 K 次的条目保留在 RAM 中，把访问频率较低的条目移到磁盘。这样通过把不常访问的数据卸载出去、同时保证需要时可被取回，实现内存效率的平衡。内存管理器的详细实现见 A.5 节。</p>
+<h3 id="h3-9-3-6">3.6 存储管理器</h3>
+<p>存储管理器负责智能体的持久化数据存储，包括智能体运行所依赖的文件或知识库，以及需要持久保存的智能体内存。在智能体运行期间，当智能体内存使用超过分配上限时，内存管理器会调用存储管理器把数据换入磁盘。具体而言，存储管理器根据内存管理器传入的智能体 ID 读写数据。除内存管理器之外，智能体本身在运行时也可能请求读写磁盘数据，这些智能体请求同样由存储管理器处理。具体来说，智能体调用 SDK 中的存储 API，该调用进一步被转换为与存储相关的系统调用，并由调度器放入存储队列；存储管理器随后处理队列中的请求，满足智能体需求。存储管理器使用本地文件与向量数据库（例如 chromadb）实现。存储管理器的实现细节见附录 A.6。</p>
+<h3 id="h3-10-3-7">3.7 工具管理器</h3>
+<p>AIOS 内核中的工具管理器负责管理 AIOS SDK 支持的大量 API 工具。</p>
+<p><strong>标准化工具加载。</strong> 管理器采用标准化接口来统一处理各种工具，并在执行前加入参数校验以防止工具崩溃。当按名称调用工具时，工具管理器会动态加载工具实例，包括可执行文件初始化与依赖校验。</p>
+<p><strong>工具调用冲突的解决。</strong> 对于存在并行访问约束的工具，系统使用哈希表监控实时实例数量。请求处理时会用哈希表对照使用量与并行上限进行检查；一旦检测到冲突，系统就顺延到队列中的后续请求，直到找到无冲突的候选。实现细节见附录 A.7。</p>
+<h3 id="h3-11-3-8">3.8 访问管理器</h3>
+<p>AIOS 内核中的访问管理器提供以下两项关键功能。</p>
+<p><strong>访问控制。</strong> 访问管理器通过基于权限的访问控制机制来规范跨智能体的数据读写操作。它把每个智能体分配到一个特定权限组，并通过哈希表架构把智能体 ID 映射到对应的权限组来执行权限。访问请求在执行前会对照该权限结构进行校验，确保智能体只能访问其共享权限域内其他智能体的资源。</p>
+<p><strong>用户干预。</strong> 为降低不可逆操作（删除、覆盖、修改权限）的风险，系统提供了用户干预界面以获取用户确认。对文件或工具执行潜在破坏性操作之前，必须经过用户明确确认。实现细节见附录 A.8。</p>
+<h3 id="h3-12-3-9-aios-sdk">3.9 AIOS SDK</h3>
+<p>我们设计 AIOS SDK 是为了简化智能体在 AIOS 架构上的开发与集成。该 SDK 不仅让开发者能够构建与 AIOS 内核核心功能交互的智能体，还对复杂的系统调用进行抽象，使开发者可以专注于智能体的内部工作流。</p>
+<p><strong>工具集成。</strong> 为支持多样的智能体功能，AIOS SDK 集成了来自不同平台的大量工具，并支持不同的输入输出模态。关于这些集成工具的详细信息见附录 B.3。</p>
+<p><strong>与 AIOS 内核的交互接口。</strong> 为便于使用 AIOS 内核中系统调用提供的功能，SDK 定义了不同的 API 函数，智能体可用其调用系统调用并请求资源。</p>
+<p><strong>智能体框架适配器。</strong> 为支持用各种智能体创建框架构建的智能体，例如 Autogen（Wu et al., 2023）、Open-Interpreter（Lucas, 2024）与 MetaGPT（Hong et al., 2023），AIOS SDK 为这些框架提供了适配器。这些适配器定位上述框架中的核心函数，并把它们重定向到 AIOS 中的函数。这种适配使来自不同框架的智能体无需修改智能体代码即可在 AIOS 环境中运行。关于核心函数以及各智能体框架具体适配方式的更多细节见附录 B.5。</p>
+</section>
+<section id="ch-5">
+<h2>4 评估</h2>
+<p>本节我们通过实验回答以下研究问题。</p>
+<ul>
+<li><strong>RQ1</strong>：当同时运行多个智能体实例时，AIOS 能否在标准基准上保持甚至提升智能体的性能？</li>
+<li><strong>RQ2</strong>：在为使用不同智能体框架构建的大量智能体提供服务时，AIOS 能多有效地优化系统执行吞吐量、降低响应延迟？</li>
+<li><strong>RQ3</strong>：随着并发运行的智能体数量增加，AIOS 的可扩展性如何？</li>
+</ul>
+<h3 id="h3-14-4-1">4.1 实验设置</h3>
+<p><strong>模型。</strong> 我们使用 GPT-4o-mini（Achiam et al., 2023）作为闭源 API，并在实验中分别使用两个开源 LLM——Llama-3.1-8b（Dubey et al., 2024）与 Mistral-7b（Jiang et al., 2023）——作为 LLM 核心。两个开源模型均为指令微调版本，使用 float16 精度。</p>
+<p><strong>硬件。</strong> 实验在一台配备 NVIDIA RTX A5000 GPU（24GB）的 Ubuntu 22.04 机器上进行，所有实验都使用单个 A5000 GPU。</p>
+<p><strong>智能体框架。</strong> 我们通过运行由多种流行智能体框架构建的智能体进行评估：ReAct（Yao et al., 2023）、Reflexion（Shinn et al., 2023）、Autogen（Wu et al., 2023）、Open-Interpreter（Lucas, 2024）与 MetaGPT（Hong et al., 2023）。这些智能体框架的细节见附录 B.5。</p>
+<p><strong>工作负载。</strong> 我们评估一种资源受限场景：多个智能体并发运行，而只部署一个 LLM，且该 LLM 一次只能处理一个提示请求。为构造这种并发条件，我们把最大工作线程数默认设为 250，即最多允许 250 个智能体同时运行。增加智能体数量的影响将在 4.4 节分析。默认情况下，我们使用 RR 作为 AIOS 运行智能体的调度策略；使用另一种策略（即 FIFO）的影响见附录 D。</p>
+<h3 id="h3-15-4-2-rq1">4.2 智能体性能（RQ1）</h3>
+<p>为评估使用 AIOS 对标准基准上智能体性能的影响，我们采用四个智能体基准：HumanEval（Chen et al., 2021a）、MINT（代码子集）（Wang et al., 2023b）、GAIA（Mialon et al., 2023）与 SWE-Bench-Lite（Jimenez et al., 2024），分别在不使用与使用 AIOS 的情况下运行智能体。我们使用成功率（SR%）作为指标，与原始基准保持一致，并使用 GPT-4o-mini 作为 LLM 核心运行所有智能体。所有实验中 GPT-4o-mini 的温度都设为 1.0。基准设置与配置的详细说明见附录 C。</p>
+<p>如表 1 所示，引入 AIOS 后，智能体在标准基准上的性能总体保持一致；在某些情况下，AIOS 还能带来性能提升。例如在 MINT、HumanEval 与 SWE-Bench-Lite 等代码生成基准上，AIOS 通过提示增强提升了智能体性能——它在 LLM wrapper 内把更具结构化的输入输出嵌入系统提示。这些增强后的提示为 LLM 提供了额外的上下文与结构化指导，有助于生成回复。在 GAIA 这类工具调用基准上，智能体性能甚至得到了提升，原因来自以下两个机制：（1）执行前通过结构化正则表达式进行参数校验，检查工具调用的格式；（2）冲突解决哈希表用于缓解并发访问问题。</p>
+<blockquote class="doc-quote"><strong>表 1</strong>：分别在不使用 AIOS 与使用 AIOS 的情况下，智能体在各基准上的性能评估。所有基准都以成功率（SR%）为指标。"-"表示由于缺少 API 支持而未能完成 GAIA 基准任务的方法。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>方法</th>
+<th>HumanEval</th>
+<th>MINT（代码）</th>
+<th>GAIA</th>
+<th>SWE-Bench-Lite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReAct，不使用 AIOS</td>
+<td>48.8</td>
+<td>29.4</td>
+<td>5.5</td>
+<td>3.9</td>
+</tr>
+<tr>
+<td>ReAct，使用 AIOS</td>
+<td>50.6</td>
+<td>30.1</td>
+<td>7.3</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>Reflexion，不使用 AIOS</td>
+<td>50.6</td>
+<td>32.4</td>
+<td>6.7</td>
+<td>4.7</td>
+</tr>
+<tr>
+<td>Reflexion，使用 AIOS</td>
+<td>51.8</td>
+<td>33.8</td>
+<td>7.8</td>
+<td>5.1</td>
+</tr>
+<tr>
+<td>Autogen，不使用 AIOS</td>
+<td>87.8</td>
+<td>42.5</td>
+<td>7.3</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>Autogen，使用 AIOS</td>
+<td>87.8</td>
+<td>42.5</td>
+<td>9.7</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>Open-Interpreter，不使用 AIOS</td>
+<td>85.4</td>
+<td>45.9</td>
+<td>-</td>
+<td>4.7</td>
+</tr>
+<tr>
+<td>Open-Interpreter，使用 AIOS</td>
+<td>86.0</td>
+<td>48.7</td>
+<td>-</td>
+<td>5.1</td>
+</tr>
+<tr>
+<td>MetaGPT，不使用 AIOS</td>
+<td>82.9</td>
+<td>41.1</td>
+<td>-</td>
+<td>5.9</td>
+</tr>
+<tr>
+<td>MetaGPT，使用 AIOS</td>
+<td>82.9</td>
+<td>41.8</td>
+<td>-</td>
+<td>5.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="h3-16-4-3-rq2">4.3 效率分析（RQ2）</h3>
+<p>在效率实验中，我们使用两个关键指标评估系统性能：吞吐量与延迟。吞吐量通过统计每秒执行的 AIOS 系统调用数量来衡量，反映系统并行处理多个请求的能力。延迟则衡量智能体从提交查询到获得完整响应所经历的平均等待时间，反映系统的响应能力。为保证测试环境受控且一致，我们使用两个本地部署的开源模型 Llama-3.1-8b 与 Mistral-7b 进行评估。把模型部署在本地可以减少网络延迟导致的 LLM API 响应时间波动。</p>
+<p>如图 6a 与图 7a 所示，结果表明 AIOS 在不同智能体框架上都取得了显著更高的吞吐量：在 Llama-3.1-8b 上使用基于 Reflexion 的智能体时，吞吐量提升达到 2.1 倍。这一提升归功于 AIOS 内核中的调度机制——它避免了那些无法载入 GPU 执行的提示，从而避免了不必要的试错尝试。在延迟方面，如图 6b 与图 7b 所示，智能体的平均等待时间也大幅减少。这种降低凸显了 AIOS 在为基于 LLM 的智能体提供服务方面的效率。</p>
+<blockquote class="doc-quote"><strong>图 6</strong>：在 HumanEval 基准上，使用 Llama-3.1-8b 模型评估不同智能体框架的效率分析。（a）归一化吞吐量，越高越好；（b）归一化延迟，越低越好。</blockquote>
+<blockquote class="doc-quote"><strong>图 7</strong>：在 HumanEval 基准上，使用 Mistral-7b 模型评估不同智能体框架的效率分析。（a）归一化吞吐量，越高越好；（b）归一化延迟，越低越好。</blockquote>
+<h3 id="h3-17-4-4-rq3">4.4 可扩展性分析（RQ3）</h3>
+<p>我们在 HumanEval 基准上使用 Llama-3.1-8b 与 Mistral-7b 模型，把活跃智能体数量从 250 逐步增加到 2000，以评估 AIOS 的可扩展性。我们复制了 HumanEval 的 164 个样本来匹配智能体数量，从而支持大规模并发执行。如图 8 所示，AIOS 的总执行时间与智能体平均等待时间相对于智能体数量都保持近似线性关系，这表明 AIOS 即使在需求不断增长时也能高效处理工作负载。相比之下，不使用 AIOS 与使用 AIOS 之间的执行时间与等待时间差距会随着智能体数量增加而扩大，这种不断扩大的差异凸显了 AIOS 在高并发工作负载下的可扩展性。</p>
+<blockquote class="doc-quote"><strong>图 8</strong>：当智能体数量从 250 增加到 2000 时的总执行时间与智能体平均等待时间。</blockquote>
+</section>
+<section id="ch-6">
+<h2>5 相关工作</h2>
+<p>操作系统的演进从初级系统走向复杂的交互式系统：从基础的批处理（IBM, 2010）发展到包括分时（Ritchie &amp; Thompson, 1974）与多任务（Hoare, 1974; Engler et al., 1995）在内的进程管理，从而能够处理复杂任务。随后发展走向模块化架构，出现用于进程调度（Liu &amp; Layland, 1973; Dijkstra, 2002）、内存管理（Denning, 1968; Daley &amp; Dennis, 1968）与文件系统操作（Rosenblum &amp; Ousterhout, 1992; McKusick et al., 1984）的专门组件，提升了系统效率。Macintosh、Windows 与 GNOME 引入图形用户界面（GUI），增强了用户交互。当前，AI 模型（尤其是 LLM）正从应用层向系统层迁移，为跨应用提供标准化服务。</p>
+<p><strong>大语言模型智能体</strong>被用于解决复杂的规划与推理任务（Xie et al., 2024; Ge et al., 2023a）。单个智能体可以与数字环境或物理环境交互：它们可能调用 API（Ge et al., 2023a; Schick et al., 2023; Yao &amp; Narasimhan, 2023; Parisi et al., 2022; Tang et al., 2023; Xie et al., 2024）、浏览网站（Nakano et al., 2022; Deng et al., 2023; Wu et al., 2024）或执行代码（Zhang et al., 2023; Yang et al.）；处于物理环境中的智能体则可能操作物体（Brohan et al., 2023; Fan et al., 2022; Wang et al., 2023a）、开展实验室实验（Boiko et al., 2023; Bran et al., 2023）或做出可执行的决策（Huang et al., 2022; Xiang et al., 2023）。</p>
+<p><strong>基于 LLM 的多智能体系统（MAS）</strong>利用多个智能体之间的交互来解决问题。多个智能体之间的关系可以是合作的（Wang et al., 2023c; Mandi et al., 2023）、竞争的（Chan et al., 2023; Du et al., 2023），或合作与竞争兼有（Ge et al., 2023b）。在合作型多智能体系统中，每个智能体会接收并评估其他智能体提供的信息，从而协同解决复杂任务，例如角色扮演（Li et al., 2023; Chen et al., 2023; Zhu et al., 2023）、社会模拟（Park et al., 2023）与软件开发（Hong et al., 2023; Qian et al., 2023; Wu et al., 2023; Josifoski et al., 2023）。</p>
+</section>
+<section id="ch-7">
+<h2>6 结论与未来工作</h2>
+<p>本文提出了 AIOS——一种通过创新内核为基于 LLM 的智能体提供服务的架构，它把资源与 LLM 服务从智能体应用中隔离出来。配套的 AIOS SDK 使智能体应用能够高效利用内核功能。实验验证表明，AIOS 在标准基准上保持或提升了智能体性能，同时显著加快执行速度、提高系统吞吐量，并在并发智能体负载增加时展现出可扩展性。我们期望这项工作能够推动未来的创新，进一步完善和扩展该架构，以满足 LLM 智能体开发与部署不断演进的需求。</p>
+</section>
+<section id="ch-8">
+<h2>7 致谢</h2>
+<p>我们感谢 Balaji Rama、Hang Gao、Shuhang Lin、Jian Zhang 与 Zhenting Wang 在项目过程中提供的宝贵讨论与建议。</p>
+</section>
+<section id="ch-9">
+<h2>参考文献</h2>
+<p>为保留检索与引用信息，参考文献列表未作翻译，请对照原文阅读。原文信息：Kai Mei et al. <em>AIOS: LLM Agent Operating System</em>. arXiv:2403.16971v5. https://arxiv.org/abs/2403.16971</p>
+</section>
+<section id="ch-10">
+<h2>附录</h2>
+<blockquote class="doc-quote"><strong>译者说明</strong>：附录保留了各模块的说明、系统调用清单与对照表；为控制篇幅，原论文中成段的 Python 类定义与函数骨架未逐行收录，仅保留关键接口名称，完整代码请查阅原文附录。</blockquote>
+<h3 id="h3-23-a-aios">A AIOS 内核实现细节</h3>
+<h4>A.1 AIOS 系统调用</h4>
+<p>AIOS 中的模块通过调用系统调用来实现功能。表 2 给出了各模块对应的更完整的系统调用清单，并列出了调用这些系统调用所需的参数。</p>
+<blockquote class="doc-quote"><strong>表 2</strong>：AIOS 模块及其对应的系统调用。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>模块</th>
+<th>系统调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM Core</td>
+<td>execute_llm_syscall、get_model_response、process_model_response</td>
+</tr>
+<tr>
+<td>Scheduler</td>
+<td>execute_syscall、start、stop</td>
+</tr>
+<tr>
+<td>Context Manager</td>
+<td>generate_response_with_interruption、load_context、clear_context</td>
+</tr>
+<tr>
+<td>Memory Manager</td>
+<td>execute_memory_syscall、add_memory、remove_memory、update_memory、retrieve_memory</td>
+</tr>
+<tr>
+<td>Storage Manager</td>
+<td>execute_storage_syscall、sto_create_file、sto_create_directory、sto_mount、sto_write、sto_retrieve、sto_rollback、sto_share</td>
+</tr>
+<tr>
+<td>Tool Manager</td>
+<td>execute_tool_syscall、load_tool_instance</td>
+</tr>
+<tr>
+<td>Access Manager</td>
+<td>add_privilege、check_access、ask_permission</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>线程绑定。</strong> AIOS 中的每个系统调用都绑定到独立线程执行，从而支持并发处理。线程绑定通过继承 <code>Thread</code> 类并重写其 <code>__init__</code> 与 <code>run</code> 方法实现。系统会为每个系统调用创建 <code>SysCall</code> 对象，记录 <code>agent_name</code>、<code>request_data</code>、<code>event</code>、<code>pid</code>、<code>status</code>、<code>response</code>、<code>time_limit</code> 以及创建、开始、结束时间，并在 <code>run</code> 中设置进程 ID 后等待事件触发。</p>
+<h4>A.2 LLM Core</h4>
+<p>AIOS 通过 <code>LLMAdapter</code> 类实现统一接口，为集成来自不同后端的 LLM 实例提供一致的函数接口。这种架构在保持标准化 API 的同时，可以与不同 LLM 提供方无缝交互。表 3 列出了 AIOS 框架中支持的 LLM 后端及其各自功能。</p>
+<blockquote class="doc-quote"><strong>表 3</strong>：AIOS 中适配的 LLM 后端及其支持的功能。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>后端</th>
+<th>结构化输出</th>
+<th>函数调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI（云端）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Anthropic（云端）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Google（云端）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Groq（云端）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Bedrock（云端）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Huggingface（本地）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>vllm（本地）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Ollama（本地）</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>LLMAdapter</code> 负责根据配置初始化 LLM 后端：它支持多个 LLM 配置、可选的 API key 列表、日志模式、是否启用上下文管理器，以及顺序或轮转等路由器策略。其核心接口包括 <code>setup_api_keys</code>、<code>initialize_llms</code>、<code>initialize_single_llm</code>、<code>handle_completion_error</code>、<code>execute_llm_syscall</code>、<code>get_model_response</code> 与 <code>process_response</code>。其中 <code>execute_llm_syscall</code> 处理来自智能体的请求，<code>process_response</code> 把模型响应（文本或工具调用列表）转换为统一格式。</p>
+<h4>A.3 Scheduler</h4>
+<p>AIOS 通过 <code>BaseScheduler</code> 类实现灵活的调度器架构，作为各种调度策略的基础。通过可扩展的继承模型，可以从该基类派生专门的调度器（实现 FIFO、Round Robin、基于优先级的调度等算法）。这种模块化设计确保引入新调度算法时无需修改既有实现，从而在不同调度策略之间保持强隔离，并提升整体系统灵活性。</p>
+<p><code>BaseScheduler</code> 在初始化时接收 LLM 适配器、内存管理器、存储管理器、工具管理器、日志模式，以及四个队列的取消息函数（LLM、内存、存储、工具）。它提供 <code>_execute_syscall</code>（执行系统调用并跟踪状态、处理错误）、<code>process_llm_requests</code>、<code>process_memory_requests</code>、<code>process_storage_requests</code>、<code>process_tool_requests</code>，以及 <code>start</code> / <code>stop</code> 来启动和停止所有请求处理线程。</p>
+<h4>A.4 Context Manager</h4>
+<p><code>SimpleContextManager</code> 实现了一种高效的 LLM 生成上下文管理机制，具备时间感知的中断能力。该组件通过在生成阶段之间保存 LLM 状态来实现抢占式多任务。当 LLM 在分配的时间片内成功开始生成 token（以至少解码出一个 token 为标志）时，上下文管理器会捕获并保存中间生成状态，确保后续恢复可以从确切的断点继续，消除冗余计算。该架构通过统一接口支持多种 LLM 后端（OpenAI、HuggingFace 等），同时对生成任务施加严格的时间边界。通过同时管理流式响应与时间限制，上下文管理器有助于提升不同 LLM 查询之间的公平性。</p>
+<h4>A.5 Memory Manager</h4>
+<p>内存管理器为 AIOS 系统提供基于 RAM 的内存操作，处理智能体会话结束即清除的临时会话数据。它构建在 <code>BaseMemoryManager</code> 类之上，通过原子操作、自动元数据同步与线程安全的访问模式提供完整的内存访问能力。系统通过完整的 CRUD 操作与高级检索机制高效处理内存，其工作方式类似底层编程中的指针管理，同时在并发操作期间保证数据完整性。</p>
+<p><code>BaseMemoryManager</code> 提供内存操作的核心功能，包括 <code>add_memory</code>、<code>remove_memory</code>、<code>update_memory</code>、<code>get_memory</code>、<code>retrieve_memory</code>，以及把查询转换为 <code>MemoryNote</code> 的 <code>_analyze_query_to_memory</code> 和负责路由的 <code>execute_memory_syscall</code>。</p>
+<h4>A.6 Storage Manager</h4>
+<p>存储管理器编排 AIOS 中的持久化数据操作，把传统文件存储与向量数据库能力结合起来。它实现了带版本的文件管理、通过文件级锁实现的线程安全访问，以及语义搜索功能。存储管理器提供文件管理、语义文件检索、带回滚能力的版本控制与文件共享等文件操作。</p>
+<p>主要接口包括：<code>get_file_hash</code>（生成文件的 SHA-256 哈希）、<code>get_file_lock</code>（获取或创建文件级线程锁）、<code>handle_file_change</code>、<code>get_file_history</code>（从 Redis 缓存获取版本历史）、<code>restore_version</code>、<code>execute_storage_syscall</code>、<code>sto_create_file</code>、<code>sto_create_directory</code>、<code>sto_mount</code>（为智能体挂载目录并构建向量数据库）、<code>sto_retrieve</code>（基于语义搜索从向量数据库检索文档）、<code>sto_rollback</code>（按索引或时间戳回滚到历史版本）、<code>generate_share_link</code> 与 <code>sto_share</code>。</p>
+<h4>A.7 Tool Manager</h4>
+<p>工具管理器模块负责加载工具、执行工具，并提供工具冲突预防机制。其接口包括 <code>execute_tool_syscall</code> 与 <code>load_tool_instance</code>。</p>
+<h4>A.8 Access Manager</h4>
+<p>访问管理器提供两项关键功能：第一，当智能体试图访问其他智能体的资源时检查访问权限；第二，在智能体执行删除文件等不可逆操作之前请求用户许可。</p>
+<p>其接口包括：<code>add_privilege</code>（把某个智能体加入另一个智能体的权限组）、<code>check_access</code>（检查源智能体是否位于目标智能体的权限组中）、<code>ask_permission</code>（在不可逆操作前向用户请求确认）。</p>
+<h4>A.9 模块钩子（Module Hooks）</h4>
+<p>为有效分离"调用 AIOS 内核模块的接口"与"实现细节"，我们采用钩子机制来初始化模块并导出必要的调用接口。初始化模块所用的钩子包括：</p>
+<ul>
+<li><code>useLLM</code>：初始化并返回一个 LLM 实例。</li>
+<li><code>useMemoryManager</code>：初始化并返回一个内存管理器实例。</li>
+<li><code>useStorageManager</code>：初始化并返回一个存储管理器实例。</li>
+<li><code>useToolManager</code>：初始化并返回一个工具管理器实例。</li>
+</ul>
+<p>这些钩子都带有参数校验装饰器（如 <code>@validate</code>），并通过 <code>params.model_dump()</code> 把参数展开后构造对应模块实例。</p>
+<h3 id="h3-24-b-aios-sdk">B AIOS SDK</h3>
+<p>AIOS SDK 通过不同的功能模块，在用户设备上的应用与 AIOS 内核之间提供结构化接口。来自这些模块的所有查询最终都会汇聚到 SDK 中一个中心化的 <code>send_request()</code> 函数，再通过 HTTP 请求（发往 localhost 或远程 URL）与 AIOS 内核通信。从智能体开发者的角度看，他们的智能体本质上由若干代码片段组成，其中可能包含智能体逻辑，以及用于 LLM、内存、存储与工具的资源相关命令，这些命令通过 SDK API 与各自的模块交互。由此，应用逻辑与内核资源请求之间形成了清晰的分离。</p>
+<blockquote class="doc-quote"><strong>图 9</strong>：智能体应用如何利用 AIOS SDK 向 AIOS 内核发送查询。为简洁起见，图中省略了直接发往操作系统内核的查询。</blockquote>
+<h4>B.1 查询与响应</h4>
+<p>AIOS SDK 定义了健壮的查询—响应架构，使智能体应用与 AIOS 内核之间能够无缝通信。该框架建立在两个基础数据结构之上：<code>Query</code> 与 <code>Response</code>，它们支撑了整个系统中的结构化数据交换。</p>
+<p><strong>查询结构。</strong> <code>Query</code> 类是所有输入请求的抽象基类，为智能体与内核的交互建立一致接口。它派生出四种专门实现：</p>
+<ul>
+<li><code>LLMQuery</code>：用于自然语言交互，可配置 temperature、token 上限，并支持 chat、JSON 输出、工具调用与文件操作等多种 action 类型。</li>
+<li><code>MemoryQuery</code>：处理临时数据操作，包括添加、检索、更新与删除记忆，并为智能体内存管理提供专门支持。</li>
+<li><code>StorageQuery</code>：通过参数化请求管理持久化存储操作，用于文件和目录操作。</li>
+<li><code>ToolQuery</code>：通过结构化工具调用访问外部能力，扩展系统功能。</li>
+</ul>
+<p><strong>响应结构。</strong> <code>Response</code> 类为 AIOS 内核的标准化输出提供对应结构。每种响应类型都与其查询类型一一对应：</p>
+<ul>
+<li><code>LLMResponse</code>：返回语言模型操作生成的文本、工具调用结果、完成状态与错误信息。</li>
+<li><code>MemoryResponse</code>：为内存管理功能返回内存内容、元数据、搜索结果与操作状态。</li>
+<li><code>StorageResponse</code>：为存储相关活动提供操作结果、完成状态与错误细节。</li>
+<li><code>ToolResponse</code>：返回外部工具操作的执行结果、完成状态与错误信息。</li>
+</ul>
+<p><code>Query</code> 与 <code>Response</code> 都以 <code>query_class</code> / <code>response_class</code> 字段标识自身类型，取值范围为 <code>llm</code>、<code>memory</code>、<code>storage</code>、<code>tool</code>。以 <code>LLMQuery</code> 为例，其字段还包括 <code>llms</code>、<code>messages</code>、<code>tools</code>、<code>action_type</code>、<code>temperature</code>、<code>max_new_tokens</code>、<code>message_return_type</code> 与 <code>response_format</code>；<code>LLMResponse</code> 则包含 <code>response_message</code>、<code>tool_calls</code>、<code>finished</code>、<code>error</code> 与 <code>status_code</code>。<code>MemoryQuery</code> 支持 <code>add_memory</code>、<code>get_memory</code>、<code>update_memory</code>、<code>remove_memory</code>、<code>retrieve_memory</code>、<code>add_agentic_memory</code>、<code>retrieve_memory_raw</code> 等操作类型。</p>
+<h4>B.2 AIOS SDK API</h4>
+<p>AIOS SDK 还提供多个 API 函数，它们由 <code>Query</code>、<code>Response</code> 数据结构与 <code>send_request()</code> 函数构建而成。可用 API 见表 4。</p>
+<blockquote class="doc-quote"><strong>表 4</strong>：AIOS SDK API。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>模块</th>
+<th>API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM Core</td>
+<td>llm_chat、llm_chat_with_json_output、llm_chat_with_tool_call_output、llm_call_tool、llm_operate_file</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>create_memory、get_memory、delete_memory、update_memory、search_memories</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>mount、retrieve_file、create_file、create_dir、write_file、rollback_file、share_file</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>call_tool</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4>B.3 支持的工具</h4>
+<p>如表 5 所示，AIOS SDK 集成了多样化的计算工具，以应对广泛的信息处理任务。SDK 内置 17 个原生工具，横跨多种模态与功能，支持文本、图像与音频领域之间的复杂交互模式。这些工具可分为三个主要来源：成熟的技术提供商（Google、Bing、WolframAlpha）、专门的 API 聚合平台（Rapid API Hub）以及先进的 AI 模型提供方（Huggingface）。</p>
+<p>该工具集在基于文本的操作方面尤为突出，共有 12 个工具支持文本输入或输出模态，包括基础信息检索服务（Arxiv、BingSearch、Wikipedia）、专门的分析工具（CurrencyConverter、MoonPhaseSearch）以及领域特定应用（ImdbRank、TripAdvisor）。此外，SDK 还通过 VisualQuestionAnswering（图文结合）、TextToAudio（文本转语音）与 VoiceActivityRecognition（语音转文本）等工具展现出强大的跨模态能力。</p>
+<blockquote class="doc-quote"><strong>表 5</strong>：AIOS SDK 支持的工具，按名称字母顺序排列。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>工具名称</th>
+<th>来源</th>
+<th>类型</th>
+<th>模态（输入 → 输出）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arxiv</td>
+<td>Arxiv</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>BingSearch</td>
+<td>Bing</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>CurrencyConverter</td>
+<td>Rapid API Hub</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>GooglePlace</td>
+<td>Google</td>
+<td>API</td>
+<td>图像 / 文本 → 文本</td>
+</tr>
+<tr>
+<td>GoogleSearch</td>
+<td>Google</td>
+<td>API</td>
+<td>文本 → 图像</td>
+</tr>
+<tr>
+<td>ImageCaption</td>
+<td>Huggingface</td>
+<td>本地模型 / API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>ImdbRank</td>
+<td>Rapid API Hub</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>MoonPhaseSearch</td>
+<td>Rapid API Hub</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>Shazam</td>
+<td>Rapid API Hub</td>
+<td>API</td>
+<td>文本 → 文本 / 音频</td>
+</tr>
+<tr>
+<td>TextToAudio</td>
+<td>Huggingface</td>
+<td>本地模型 / API</td>
+<td>文本 → 音频</td>
+</tr>
+<tr>
+<td>TextToImage</td>
+<td>Huggingface</td>
+<td>本地模型 / API</td>
+<td>文本 → 图像</td>
+</tr>
+<tr>
+<td>TripAdvisor</td>
+<td>Rapid API Hub</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>VisualQuestionAnswering</td>
+<td>Huggingface</td>
+<td>本地模型 / API</td>
+<td>图像 &amp; 文本 → 文本</td>
+</tr>
+<tr>
+<td>VoiceActivityRecognition</td>
+<td>Huggingface</td>
+<td>本地模型 / API</td>
+<td>音频 → 文本</td>
+</tr>
+<tr>
+<td>Wikipedia</td>
+<td>Wikipedia</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>WolframAlpha</td>
+<td>WolframAlpha</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+<tr>
+<td>WordsAPI</td>
+<td>Rapid API Hub</td>
+<td>API</td>
+<td>文本 → 文本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4>B.4 智能体示例</h4>
+<p>下面给出使用 AIOS SDK 开发的智能体示例。</p>
+<p><strong>Travel Agent（旅行智能体）</strong>：用于旅行规划，包括搜索航班、住宿与当地活动。</p>
+<p><strong>Rec Agent（推荐智能体）</strong>：用于推荐电影与电视剧。</p>
+<p><strong>Math Agent（数学智能体）</strong>：用于求解方程、执行计算，并针对不同数学问题提供分步解释。</p>
+<p><strong>Creation Agent（创作智能体）</strong>：面向内容生成任务，例如写作、平面设计甚至视频剪辑。</p>
+<p><strong>Academic Agent（学术智能体）</strong>：用于支持研究与学习，例如文献综述，并就复杂学术主题提供解释。</p>
+<p><strong>Travel Agent 配置。</strong> 描述：你是规划与管理旅行行程的专家。工作流：1）确定目的地，使用酒店位置搜索工具查找酒店位置；2）根据酒店位置，使用酒店搜索工具找到合适酒店并选出最佳选项；3）使用酒店详情工具获取所选酒店的详细信息；4）使用机场搜索工具查找距离出发地最近的机场；5）使用机场搜索工具查找距离目的地最近的机场；6）使用正确的日期，通过航班搜索工具查找飞往目的地机场的可用航班；7）使用餐厅位置搜索工具查找目的地附近的餐厅位置；8）根据餐厅位置，使用餐厅搜索工具找到合适的餐厅；9）使用餐厅详情工具获取所选餐厅的详细信息；10）使用 Wikipedia 工具收集关于目的地的其他相关信息；11）整合前面各步骤收集到的信息，给出完整的旅行计划。可用工具：TripAdvisor、Wikipedia。任务输入示例：我想在 2024 年 7 月 4 日至 7 月 10 日从纽约去法国巴黎旅行，请帮我规划这次行程。</p>
+<p><strong>Rec Agent 配置。</strong> 描述：你是擅长推荐电视剧与电影的专家。工作流：1）确定需要调用哪个工具来获取信息；2）根据获取到的信息，结合约束条件向用户给出推荐。可用工具：TripAdvisor、Wikipedia。任务输入示例：推荐三部过去五年内、排名在 1 到 20 之间且评分高于 8.0 的动作片。</p>
+<p><strong>Creation Agent 配置。</strong> 描述：你是擅长内容创作的专家。工作流：1）把对内容需求的模糊描述转换为具体对象，并补充更多细节；2）根据补充后的细节，确定并调用用于创作内容的工具。可用工具：SDXL-Turbo。任务输入示例：创作一张图像，表现一座线条流畅、充满高科技感的未来城市，具有充满活力的夜生活氛围。</p>
+<p><strong>Math Agent 配置。</strong> 描述：你是擅长解决数学问题的专家。工作流：1）确定调用哪个工具进行预计算；2）利用预计算结果执行数学运算（可能包括与其他数值的加、减、乘、除）以解决问题。可用工具：Currency Converter、WolframAlpha。任务输入示例：把 15000 墨西哥比索换算成加元，并计算在 1 加元等于 0.79 美元时折合多少美元。</p>
+<p><strong>Academic Agent 配置。</strong> 描述：你是擅长从学术文章中查找和获取信息的专家。工作流：1）根据学术需求确定要调用的工具并调用；2）汇总从工具获得的信息，撰写提纲或摘要。可用工具：Arxiv API。任务输入示例：总结 2018 至 2023 年间关于人工智能在药物发现中作用的最新研究。</p>
+<h4>B.5 对智能体框架的支持</h4>
+<p>把现有智能体框架构建的智能体适配到 AIOS 的核心思路是：找出会与系统资源交互的核心函数，并把它们替换成我们原生适配器中的函数。本节说明为了让其他框架构建的智能体在 AIOS 上运行，需要改动的关键适配函数。</p>
+<p><strong>ReAct（Yao et al., 2023）。</strong> ReAct 框架把语言模型中的推理步骤与行动步骤结合起来，使模型在生成可执行步骤的同时给出中间推理轨迹，从而帮助模型既规划与跟踪思考过程，又与外部工具交互，提升问答、游戏环境以及需要多步推理与适应性的决策任务的表现。通过在推理与行动之间交替，ReAct 减少了仅靠预测式回答带来的错误，使任务完成更准确、更贴合上下文。</p>
+<p><strong>Reflexion（Shinn et al., 2023）。</strong> Reflexion 框架通过反馈驱动机制增强语言智能体，使其能够从错误中学习，并通过自我反思循环调整行为。借助言语强化学习，智能体评估并修正自身行动，通过迭代学习提升复杂任务上的表现。这种方式让语言智能体更具韧性与适应性，能够处理需求不断变化、存在不确定性的任务。</p>
+<p><strong>Autogen（Wu et al., 2023）。</strong> AutoGen 提出一种利用多个具有不同角色（如 Planner、Executor、Reflector）的语言模型智能体、通过结构化目标导向对话协作解决复杂任务的框架。通过让智能体相互通信并共享中间结果，AutoGen 协调数据分析、决策与迭代式问题求解等多步流程，显著提升效率与准确性。适配时，AIOS 会替换 <code>OpenAIWrapper</code> 与 <code>ConversableAgent</code> 的相关方法实现。由于 Autogen 团队仍在重构，当前仅支持 Autogen-0.2（最新稳定版）。</p>
+<p><strong>Open-Interpreter（Lucas, 2024）。</strong> Open Interpreter 是一个开源框架，让用户通过类似 ChatGPT 的界面与 LLM 交互，直接在终端中解释并执行跨编程语言的复杂指令。它同时支持本地与云端 LLM，可用自然语言完成代码执行与调试。通过把自然语言指令翻译为可执行代码，Open Interpreter 提供了直观环境，既简化开发流程，也便于学习。适配时，AIOS 把解释器的 <code>completions</code> 函数替换为 <code>adapter_aios_completions</code>，其中通过 <code>send_request</code> 发送 <code>LLMQuery</code> 并把结果转换为解释器所需的 completion 格式。</p>
+<p><strong>MetaGPT（Hong et al., 2023）。</strong> MetaGPT 提出一种元编程方法，通过为复杂协作问题求解引入面向任务的编程范式来优化 LLM 驱动的多智能体系统。MetaGPT 把标准作业程序（SOP）直接编码为结构化提示序列，形成精简的工作流，使具备类人领域专长的智能体能够系统性验证中间输出并主动减少错误。MetaGPT 缓解了现有 LLM 框架的幻觉与级联错误等局限，把复杂任务分解为可管理、相互依赖的子任务，提升系统整体鲁棒性。适配时，AIOS 会替换 <code>BaseLLM.aask</code> 为面向 AIOS 的异步适配函数。</p>
+<h3 id="h3-25-c">C 智能体基准的细节</h3>
+<h4>C.1 HumanEval</h4>
+<p>作者（Chen et al., 2021b）提出了 HumanEval——一个包含 164 道手写编程题的基准数据集，用于评估代码生成模型的功能正确性。每道题由函数签名、docstring、实现体与完整测试套件组成，平均每道题有 7.7 个测试用例。这些题目由人工编写这一点非常关键，因为现代语言模型通常在大量包含现成解法的 GitHub 代码上训练过。HumanEval 旨在从多个方面评估代码生成能力：自然语言理解、逻辑推理、算法思维与数学运算。借助这个公开基准，研究者可以对代码生成模型进行严格、标准化的评估。数据集地址：https://www.github.com/openai/human-eval 。</p>
+<h4>C.2 MINT</h4>
+<p>MINT（Wang et al., 2023b）提出了一个基准，用于评估 LLM 通过多轮交互解决挑战性任务的能力。该基准关注代码生成、决策与推理任务，要求 LLM 使用工具并结合自然语言反馈。MINT 通过整理多个单轮数据集构建而成，把原本 29,307 个实例缩减为 586 个精心挑选的样例。该基准以成功率（SR）作为主要评估指标，衡量成功完成任务的比例。对于取值 1 到 5 的交互上限 k，每个 LLM 最多允许 k 轮交互，性能记为 SR-k。在我们的实验中，设定 k = 5，并且只关注 MINT 的代码生成子集。地址：https://xwang.dev/mint-bench/ 。</p>
+<h4>C.3 GAIA</h4>
+<p>通用 AI 助手基准（General AI Assistant，GAIA）（Mialon et al., 2023）旨在通过评估通用智能所需的基础能力，标志 AI 研究中的一个重要里程碑。与关注专门专业知识的传统基准不同，GAIA 强调日常任务，要求具备逻辑推理、多模态处理、网页导航与有效使用工具等核心能力。GAIA 包含 466 个问题，从推理、多模态理解、编码与工具使用（尤其是网页浏览）等多个能力维度评估 AI 助手，任务涉及 PDF、电子表格、图像、视频与音频等多种数据格式。基准根据所需步骤与工具数量把问题分为三个难度等级：Level 1 只需极少工具使用（不超过 5 步）；Level 2 需要多个工具以及 5 至 10 步；Level 3 通过需要多种工具组合的复杂多步序列，测试高级通用助手能力。此外，虽然网页浏览是 GAIA 的核心，但该基准刻意排除了文件上传、发表评论等复杂网页交互，把这类评估留给未来研究。地址：https://huggingface.co/gaia-benchmark 。</p>
+<h4>C.4 SWE-Bench-Lite</h4>
+<p>SWE-bench（Jimenez et al., 2024）是一个软件工程基准，通过严格的三阶段流水线构建：处理来自 12 个流行 Python 仓库的 GitHub Pull Request（PR）。该流水线根据属性条件（问题是否被解决、是否贡献测试）与执行条件（能否成功安装、是否存在 fail-to-pass 的测试转换）从约 90,000 个 PR 中筛选，最终得到 2,294 个高质量任务实例。每个任务都要求模型生成补丁文件来解决软件问题，成功与否由完整的测试覆盖情况决定。该基准的特色在于真实的挑战、较长的输入上下文（每个问题平均 195 个词）、跨上下文编辑要求（每个解法通常涉及 1.7 个文件、32.8 行代码）以及稳健的基于测试的评估。值得注意的是，SWE-bench 的自动收集流程可以借助 GitHub 仓库中的新任务实例持续更新，保证基准长期保持相关性。地址：https://www.swebench.com/ 。</p>
+<h3 id="h3-26-d">D 补充实验结果</h3>
+<h4>D.1 效率分析</h4>
+<p>我们还报告了在 Llama-3.1-8b 与 Mistral-7b 上、使用与不使用 AIOS 时，在另外三个基准上运行智能体的吞吐量与延迟。结果分别如图 10 与图 11、图 12 与图 13、图 14 与图 15 所示。</p>
+<p><strong>不同调度策略的影响。</strong> 为进一步分析不同调度策略对系统效率的影响，我们在 HumanEval 基准上，使用 Llama-3.1-8b 模型与基于 ReAct 构建的智能体进行了消融实验。我们测试三种策略：不使用 AIOS、FIFO 与 Round Robin（RR），并测量总执行时间与智能体等待时间（平均值与 p90）。</p>
+<p>如表 6 所示，与其他策略相比，FIFO 策略取得了最短的总执行时间。RR 在总执行时间与平均智能体等待时间上位列第二，因为它的上下文切换带来了额外开销。但 RR 在 p90 指标（即 90% 的等待时间低于该值）上表现更好，因为它采用更公平的调度方式，降低了后续任务等待过久的可能性——这种情况在 FIFO 中较为常见。</p>
+<blockquote class="doc-quote"><strong>表 6</strong>：使用不同调度策略的影响。NONE 表示不使用 AIOS，FIFO 与 RR 表示使用 AIOS 的两种不同调度策略。所有指标单位均为秒。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>策略</th>
+<th>总执行时间</th>
+<th>智能体等待时间（平均）</th>
+<th>智能体等待时间（p90）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无 AIOS</td>
+<td>152.1</td>
+<td>9.8</td>
+<td>11.0</td>
+</tr>
+<tr>
+<td>FIFO</td>
+<td>74.2</td>
+<td>3.0</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>RR</td>
+<td>77.3</td>
+<td>3.2</td>
+<td>4.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote class="doc-quote"><strong>图 10</strong>：在 MINT 基准上，使用 Llama-3.1-8b 模型评估不同智能体框架的效率分析。</blockquote>
+<blockquote class="doc-quote"><strong>图 11</strong>：在 MINT 基准上，使用 Mistral-7b 模型评估不同智能体框架的效率分析。</blockquote>
+<blockquote class="doc-quote"><strong>图 12</strong>：在 GAIA 基准上，使用 Llama-3.1-8b 模型评估不同智能体框架的效率分析。</blockquote>
+<blockquote class="doc-quote"><strong>图 13</strong>：在 GAIA 基准上，使用 Mistral-7b 模型评估不同智能体框架的效率分析。</blockquote>
+<blockquote class="doc-quote"><strong>图 14</strong>：在 SWE-Bench-Lite 基准上，使用 Llama-3.1-8b 模型评估不同智能体框架的效率分析。</blockquote>
+<blockquote class="doc-quote"><strong>图 15</strong>：在 SWE-Bench-Lite 基准上，使用 Mistral-7b 模型评估不同智能体框架的效率分析。</blockquote>
+<h4>D.2 上下文切换的正确性</h4>
+<p>为评估上下文管理器所支持上下文切换的正确性，我们采用 BLEU 分数（Papineni et al., 2002）与 BERT 分数（Zhang et al., 2019）来衡量文本相似度。相似度的计算对象是：在相同条件下、仅改变是否启用上下文切换时，同一智能体生成的最终输出。如表 7 所示，BLEU 与 BERT 分数都达到 1.0。这表明上下文切换不会给输出质量带来差异，说明 AIOS 具有可靠性。</p>
+<blockquote class="doc-quote"><strong>表 7</strong>：上下文切换（基于文本与基于 logits）的正确性，检查启用与禁用上下文切换时生成最终输出之间的相似度。</blockquote>
+<div class="doc-table-wrap">
+<table class="doc-table">
+<thead>
+<tr>
+<th>LLM 核心</th>
+<th>方法</th>
+<th>BLEU 分数</th>
+<th>BERT 分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mistral-7B</td>
+<td>基于文本</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Mistral-7B</td>
+<td>基于 logits</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Llama-3-8B</td>
+<td>基于文本</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Llama-3-8B</td>
+<td>基于 logits</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="h3-27-e">E 讨论</h3>
+<h4>E.1 伦理考量</h4>
+<p>本节讨论这项工作可能带来的正面与负面社会影响。</p>
+<p>潜在的正向社会影响包括：1）<strong>效率与生产力提升</strong>：AIOS 可以自动化日常任务，实现更高效的运行，优化资源分配并减少瓶颈，从而为智能体开发者带来更好的服务与更高的效率；2）<strong>用户体验改善</strong>：借助更好的上下文、内存与存储管理，AIOS 能够提供更个性化、更及时的交互，提升各类应用中的用户满意度；3）<strong>创新生态</strong>：AIOS 的创建可能孕育一个活跃的智能体开发者与研究者生态，推动 AI 技术与应用的创新。</p>
+<p>潜在的负面社会影响包括：1）<strong>隐私顾虑</strong>：把 LLM 集成进操作系统可能引发隐私问题，因为 LLM 等 AI 模型可能需要访问个人数据才能提供有效服务；2）<strong>安全风险</strong>：随着 AI 系统在关键基础设施中扮演更重要角色，它们可能成为网络攻击的目标，进而危及敏感数据与运行；3）<strong>系统故障</strong>：集成系统的故障可能带来广泛后果，同时影响多个行业并造成中断。</p>
+<p><strong>平衡各种影响：</strong> 为最大化正面影响、缓解负面影响，采用平衡的方式来开发和部署 AIOS 至关重要，例如：1）<strong>规则与标准</strong>：实施负责任的开发规则与标准，确保数据隐私、安全与 AI 的合乎伦理使用；2）<strong>稳健设计</strong>：实施稳健的系统设计、定期维护、全面测试、持续监控、备份与恢复计划、开发者培训、细致文档、清晰沟通，并利用 AI 进行预测性维护与自动恢复；3）<strong>公众参与</strong>：与公众沟通，提高对 AI 收益与挑战的认识，确保社会发展过程中的关切得到回应。</p>
+<p>通过处理这些考量，社会可以在利用 AIOS 潜力的同时降低其风险，走向更公平、更繁荣的未来。</p>
+<h4>E.2 未来方向</h4>
+<p>以 AIOS 为基础，未来还有许多值得研究的方向。本节列出可在 AIOS 之上拓展的潜在研究领域。</p>
+<p><strong>语义调度算法。</strong> AIOS 的调度功能为开发更先进的算法奠定了基础。未来研究可以关注对智能体请求进行依赖分析的算法，从而优化计算资源分配。此外，部分工具资源本身就是本地部署的模型，也可以纳入调度范式，这包括工具状态与快照的管理，意味着未来可能走向一个同时涵盖智能体与其工具的统一调度框架。</p>
+<p><strong>上下文管理效率。</strong> 可以设计更高效的机制来辅助上下文管理。例如，追求时间高效的上下文管理技术，可以通过加快上下文快照与恢复过程，显著改善用户体验。此外，还可以在快照之前采用上下文压缩技术，从而得到更节省空间的方案。</p>
+<p><strong>内存与存储架构优化。</strong> 在智能体协作与通信的背景下，未来的内存与存储系统设计可以采用共享方式，使智能体之间能够共享内存与存储。这样的架构让智能体可以访问公共的内存与存储池，从而提升决策能力，因为一个智能体可以受益于其他智能体的内存或存储。此外，未来工作还可以探索分层存储方案，以优化数据检索与存储效率，例如为频繁访问的数据优先提供更快的访问速度并减少存储分配，对不常访问的信息则相反。</p>
+<p><strong>安全与隐私增强。</strong> AIOS 的安全方面需要针对各种攻击采取防护措施，确保系统能够抵御 LLM 越狱或未经授权访问其他智能体内存等恶意攻击。在隐私方面，探索先进加密技术对于保护 AIOS 内的数据传输、维持智能体通信的机密性至关重要。此外，实施水印技术可以通过在输出中嵌入唯一标识来保护智能体开发者的知识产权，便于追踪数据血缘。</p>
+<p>总而言之，AIOS 是一项具有启发性的工作，带来了广泛的研究机会。这里列出的每个方向不仅可以建立在 AIOS 的基础要素之上，也能为整个领域的进步作出贡献。</p>
+</section>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="../index.html">
+            <img class="logo-img on-dark" src="../LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+            <img class="logo-img on-light" src="../LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+            <span class="logo-text">
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
+            </span>
+          </a>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
+        </div>
+        <div class="footer-col">
+          <h4>NAV // 导航</h4>
+          <ul>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="../products.html">项目</a></li>
+            <li><a href="../repository.html">仓库</a></li>
+            <li><a href="../docs.html">文档</a></li>
+            <li><a href="../contact.html">联系</a></li>
+            <li><a href="../ai.html">AI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>PROJECTS // 项目</h4>
+          <ul>
+            <li><a href="../products.html#guessor">Guessor</a></li>
+            <li><a href="../products.html#kiometagent">KiometAgent</a></li>
+            <li><a href="../products.html#tranxet">Tranxet</a></li>
+            <li><a href="../products.html#triton-aios">Triton AIOS</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CHANNEL // 通道</h4>
+          <ul>
+            <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://space.bilibili.com/1911534718" target="_blank" rel="noopener">Bilibili</a></li>
+            <li><a href="https://qm.qq.com/q/hI5Wi8M3Qs" target="_blank" rel="noopener">QQ 群</a></li>
+            <li><a href="mailto:uild913@outlook.com">Email</a></li>
+            <li><a href="https://nexabox.de" target="_blank" rel="noopener">Nexabox 官网</a></li>
+            <li><span class="plain">Nexabox 群 621482061</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · Guessor 为 Nexabox 旗下 AI 品牌 · 保留部分权利</span>
+        <span class="ver">BETA 1 // NEXABOX × PULLTOGETHER</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
