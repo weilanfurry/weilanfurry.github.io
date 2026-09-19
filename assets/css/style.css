@@ -1617,6 +1617,16 @@ body.modal-open {
   overflow-x: auto;
 }
 
+/* 代码块内部的 code 继承代码块样式，避免被行内代码底色/边框覆盖成条状白底 */
+.doc-panel .code-block code,
+.code-block code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
 .code-block .k { color: var(--cyan); }
 .code-block .s { color: var(--green); }
 .code-block .n { color: var(--amber); }
