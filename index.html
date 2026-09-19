@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>牵引力工作室 PULLTOGETHER | 开源软件工坊</title>
-  <meta name="description" content="牵引力工作室（PullTogether）——开源软件工坊，正在研发 KiometAgent、WorkHolic、Tranxet、Triton AIOS。">
+  <meta name="description" content="牵引力工作室（PullTogether）——开源软件工坊，正在研发 Guessor、KiometAgent、Tranxet、Triton AIOS。">
   <link rel="icon" type="image/png" href="LOGO_Black.png">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>
@@ -33,10 +33,10 @@
       <nav class="main-nav">
         <a href="index.html" class="active">首页</a>
         <a href="products.html">项目</a>
-        <a href="workbench.html">工作台</a>
         <a href="repository.html">仓库</a>
         <a href="docs.html">文档</a>
         <a href="contact.html">联系</a>
+        <a href="ai.html" class="nav-ai">AI</a>
       </nav>
       <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
@@ -61,7 +61,7 @@
           </h1>
           <p class="hero-sub">
             以代码为牵引力，与同向的人一起发力。牵引力工作室是一个开源软件工坊：
-            做应用商店平台、系统兼容层与 AI 工作台，并把每一步都沉淀成文档和开源仓库。
+            做 AI Agent 软件、系统兼容层与应用分发平台，并把每一步都沉淀成文档和开源仓库。
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="products.html">[ 查看项目 ]</a>
@@ -81,7 +81,7 @@
             <span class="ln"><span class="p">user@pulltogether</span>:<span class="info">~</span>$ pulltogether boot --release=v1.0</span>
             <span class="ln"><span class="dim">[00:00.01]</span> <span class="info">INIT</span> loading core modules…</span>
             <span class="ln"><span class="dim">[00:00.06]</span> <span class="ok">OK</span>   mount <span class="info">kiometagent</span> → ai-strategy-sim</span>
-            <span class="ln"><span class="dim">[00:00.12]</span> <span class="ok">OK</span>   mount <span class="info">workholic</span> → agent.workbench</span>
+            <span class="ln"><span class="dim">[00:00.12]</span> <span class="ok">OK</span>   mount <span class="info">guessor</span> → agent.desktop</span>
             <span class="ln"><span class="dim">[00:00.22]</span> <span class="ok">OK</span>   mount <span class="info">tranxet</span> → roxetos.compat + laystore</span>
             <span class="ln"><span class="dim">[00:00.31]</span> <span class="ok">OK</span>   mount <span class="info">triton-aios</span> → agent-os.api</span>
             <span class="ln"><span class="dim">[00:00.31]</span> <span class="info">SYNC</span> github.com/weilanfurry … <span class="ok">done</span></span>
@@ -95,13 +95,13 @@
       <div class="ticker-track">
         <span>PULLTOGETHER SYSTEM</span><span class="sep">◆</span>
         <span>KIOMETAGENT // AI STRATEGY</span><span class="sep">◆</span>
-        <span>WORKHOLIC // AI AGENT</span><span class="sep">◆</span>
+        <span>GUESSOR // AI AGENT</span><span class="sep">◆</span>
         <span>TRANXET // ROXETOS COMPAT</span><span class="sep">◆</span>
         <span>TRITON AIOS // AGENT OS</span><span class="sep">◆</span>
         <span>PRE-LAUNCH · OPEN SOURCE</span><span class="sep">◆</span>
         <span>PULLTOGETHER SYSTEM</span><span class="sep">◆</span>
         <span>KIOMETAGENT // AI STRATEGY</span><span class="sep">◆</span>
-        <span>WORKHOLIC // AI AGENT</span><span class="sep">◆</span>
+        <span>GUESSOR // AI AGENT</span><span class="sep">◆</span>
         <span>TRANXET // ROXETOS COMPAT</span><span class="sep">◆</span>
         <span>TRITON AIOS // AGENT OS</span><span class="sep">◆</span>
         <span>PRE-LAUNCH · OPEN SOURCE</span><span class="sep">◆</span>
@@ -146,7 +146,7 @@
           <div class="card reveal">
             <div class="card-icon">01</div>
             <h3>软件产品</h3>
-            <p>从应用分发平台到系统兼容层与 AI 工作台，聚焦真正需要解决的基础问题。</p>
+            <p>从 AI Agent 软件到系统兼容层与应用分发平台，聚焦真正需要解决的基础问题。</p>
             <div class="card-meta">
               <span>MODULE // PROD</span>
               <a class="card-link" href="products.html">进入</a>
@@ -196,9 +196,9 @@
             </div>
           </div>
           <div class="card reveal">
-            <div class="card-icon">W</div>
-            <h3>WorkHolic</h3>
-            <p>强大的 AI Agent 软件：接收目标、拆解任务并调用工具，把工作真正做完。</p>
+            <div class="card-icon">G</div>
+            <h3>Guessor</h3>
+            <p>面向普通消费者的桌面 Agent 软件：模板给能力，项目给上下文，工作台给一双手。</p>
             <div class="tag-row">
               <span class="tag cyan">AI</span>
               <span class="tag amber">AGENT</span>
@@ -206,7 +206,7 @@
             </div>
             <div class="card-meta">
               <span>STATUS // 研发中</span>
-              <a class="card-link" href="workbench.html">详情</a>
+              <a class="card-link" href="ai.html">详情</a>
             </div>
           </div>
           <div class="card reveal">
@@ -300,17 +300,17 @@
           <ul>
             <li><a href="index.html">首页</a></li>
             <li><a href="products.html">项目</a></li>
-            <li><a href="workbench.html">工作台</a></li>
             <li><a href="repository.html">仓库</a></li>
             <li><a href="docs.html">文档</a></li>
             <li><a href="contact.html">联系</a></li>
+            <li><a href="ai.html">AI</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>PROJECTS // 项目</h4>
           <ul>
+            <li><a href="products.html#guessor">Guessor</a></li>
             <li><a href="products.html#kiometagent">KiometAgent</a></li>
-            <li><a href="products.html#workholic">WorkHolic</a></li>
             <li><a href="products.html#tranxet">Tranxet</a></li>
             <li><a href="products.html#triton-aios">Triton AIOS</a></li>
           </ul>

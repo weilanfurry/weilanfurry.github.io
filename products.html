@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>项目中心 | 牵引力工作室 PULLTOGETHER</title>
-  <meta name="description" content="牵引力工作室项目中心：KiometAgent AI 策略游戏、WorkHolic AI Agent、Tranxet 兼容层、Triton AIOS。">
+  <meta name="description" content="牵引力工作室项目中心：Guessor 桌面 Agent 软件、KiometAgent AI 策略游戏、Tranxet 兼容层、Triton AIOS。">
   <link rel="icon" type="image/png" href="LOGO_Black.png">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>
@@ -33,10 +33,10 @@
       <nav class="main-nav">
         <a href="index.html">首页</a>
         <a href="products.html" class="active">项目</a>
-        <a href="workbench.html">工作台</a>
         <a href="repository.html">仓库</a>
         <a href="docs.html">文档</a>
         <a href="contact.html">联系</a>
+        <a href="ai.html" class="nav-ai">AI</a>
       </nav>
       <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
@@ -84,18 +84,18 @@
             </div>
           </article>
 
-          <article class="product reveal" id="workholic" data-project="workholic" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 WorkHolic 项目详情">
+          <article class="product reveal" id="guessor" data-project="guessor" role="button" tabindex="0" aria-haspopup="dialog" aria-label="查看 Guessor 项目详情">
             <div class="product-top">
-              <span class="product-id">ID // B-WH</span>
+              <span class="product-id">ID // B-GS</span>
               <span class="logo-mark"></span>
-              <h3>WorkHolic</h3>
-              <div class="sub">AI AGENT SOFTWARE // 工作台 · 把工作真正做完</div>
+              <h3>Guessor</h3>
+              <div class="sub">CONSUMER AGENT SOFTWARE // 模板 · 项目 · 工作台</div>
             </div>
             <div class="tag-row product-tags">
               <span class="tag cyan">AI</span>
               <span class="tag">AGENT</span>
-              <span class="tag amber">WORKBENCH</span>
-              <span class="tag">WORKFLOW</span>
+              <span class="tag amber">AGENT APP</span>
+              <span class="tag">DESKTOP</span>
             </div>
             <div class="product-foot">
               <span>查看详情</span>
@@ -183,17 +183,17 @@
           <ul>
             <li><a href="index.html">首页</a></li>
             <li><a href="products.html">项目</a></li>
-            <li><a href="workbench.html">工作台</a></li>
             <li><a href="repository.html">仓库</a></li>
             <li><a href="docs.html">文档</a></li>
             <li><a href="contact.html">联系</a></li>
+            <li><a href="ai.html">AI</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>PROJECTS // 项目</h4>
           <ul>
+            <li><a href="products.html#guessor">Guessor</a></li>
             <li><a href="products.html#kiometagent">KiometAgent</a></li>
-            <li><a href="products.html#workholic">WorkHolic</a></li>
             <li><a href="products.html#tranxet">Tranxet</a></li>
             <li><a href="products.html#triton-aios">Triton AIOS</a></li>
           </ul>
@@ -268,30 +268,31 @@
           "重点方向是让国家决策由 AI 驱动：军事行动、结盟谈判与领土发展都不再依赖手动操作，而是观察 AI 之间的战争与合作如何改写版图。当前处于研发阶段，规划与进展将随文档陆续公开。"
         ]
       },
-      "workholic": {
-        id: "ID // B-WH",
-        title: "WorkHolic",
-        sub: "AI AGENT SOFTWARE // 强大的 AI Agent 软件",
+      "guessor": {
+        id: "ID // B-GS",
+        title: "Guessor",
+        sub: "CONSUMER AGENT SOFTWARE // 面向普通消费者的桌面 Agent",
         tags: [
           '<span class="tag cyan">AI</span>',
           '<span class="tag">AGENT</span>',
-          '<span class="tag amber">WORKBENCH</span>',
-          '<span class="tag">WORKFLOW</span>'
+          '<span class="tag amber">AGENT APP</span>',
+          '<span class="tag">DESKTOP</span>'
         ],
         specs: [
-          ["形态", "AI Agent 软件"],
-          ["入口", "官网工作台"],
-          ["定位", "接收目标 · 拆解任务 · 调用工具"],
+          ["形态", "桌面 Agent 软件"],
+          ["核心模块", "模板 · 应用空间 · 工作台"],
+          ["成果形态", "动态应用 · 报告"],
+          ["公开版本", "Beta 1（精简版）"],
           ["状态", "研发中 · 未上线"]
         ],
         links: {
           download: null,
           repo: null,
-          docs: "docs/workholic.html"
+          docs: "docs/guessor.html"
         },
         desc: [
-          "WorkHolic 是牵引力工作室的 AI Agent 软件，官网以「工作台」页面呈现：接收目标后自动拆解任务、调用工具并持续执行，把繁琐的重复工作真正「跑完」。",
-          "面向日常工作流与轻量开发场景：对话式交代目标、过程可查看、可随时人工接管；工具调用与工作流沉淀能力随版本逐步开放，规划以文档与仓库为准。"
+          "Guessor 是牵引力工作室面向普通消费者的桌面 Agent 软件：用<strong>模板</strong>把可复用的能力交给它，用<strong>应用空间</strong>让它长期管理一个项目，用<strong>工作台</strong>让它在授权下直接操作电脑。",
+          "项目最终可以一键生成可运行的动态应用，或一份可分享的单文件报告；执行过程可见、可中断、可撤销。公开资料为 Beta 1 精简版，完整方案见<a href=\"docs/guessor.html\">项目设计报告</a>，产品介绍见<a href=\"ai.html\">官网 AI 页面</a>。"
         ]
       },
       "tranxet": {

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guessor | AI · 牵引力工作室 PULLTOGETHER</title>
+  <meta name="description" content="Guessor 是牵引力工作室面向普通消费者的桌面 Agent 软件：用模板让它学会一件事，用应用空间长期推进一个项目，用工作台直接操作电脑，最后拿到能运行的应用或能分享的报告。">
+  <link rel="icon" type="image/png" href="LOGO_Black.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    try {
+      var t = localStorage.getItem("pulltogether-theme");
+      if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">
+        <img class="logo-img on-dark" src="LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+        <img class="logo-img on-light" src="LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+        <span class="logo-text">
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">首页</a>
+        <a href="products.html">项目</a>
+        <a href="repository.html">仓库</a>
+        <a href="docs.html">文档</a>
+        <a href="contact.html">联系</a>
+        <a href="ai.html" class="nav-ai active">AI</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <span class="status-chip"><span class="dot"></span>SYSTEM ONLINE</span>
+      <button class="nav-toggle" aria-label="菜单" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">PULLTOGETHER / AI <span class="cur">// Guessor</span></div>
+        <h1>
+          Guessor
+          <span class="en">CONSUMER AGENT SOFTWARE</span>
+        </h1>
+        <p>
+          面向普通消费者的桌面 Agent 软件：让它学会一件事，给你一个能长期推进的项目，
+          需要动电脑时直接动手，最后交给你可以运行、可以分享的成果。
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="status-line warn">
+          <span style="color: var(--amber);">●</span>
+          研发中 · 尚未上线 · 公开资料为 Beta 1 精简版｜完整设计报告见
+          <a href="docs/guessor.html">文档中心 · Guessor</a>
+        </div>
+
+        <div class="section-head">
+          <div class="section-label">Core Modules // 三个核心模块</div>
+          <h2>只用三个概念，<span class="accent">就能开始干活</span></h2>
+          <p class="section-desc">
+            Guessor 在用户面前只有三个并列的入口，不暴露任何 Agent 技术概念。
+          </p>
+        </div>
+        <div class="card-grid">
+          <div class="card reveal">
+            <div class="card-icon">01</div>
+            <h3>模板 · 让它学会一件事</h3>
+            <p>
+              把你的规则、流程、格式和领域知识写成一份「工作说明书」交给它。
+              配置一次，之后在项目里、在临时任务里都能直接复用，不用每次重新交代。
+            </p>
+            <div class="tag-row">
+              <span class="tag cyan">能力复用</span>
+              <span class="tag amber">一次配置</span>
+            </div>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">02</div>
+            <h3>应用空间 · 我的项目</h3>
+            <p>
+              一个长期存在的项目环境。目标、进度、文件、对话和记忆都在同一个空间里，
+              关掉软件再打开，看到的仍然是「这个项目现在是什么状态」。
+            </p>
+            <div class="tag-row">
+              <span class="tag cyan">长期项目</span>
+              <span class="tag amber">跨天继续</span>
+            </div>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">03</div>
+            <h3>工作台 · 现在替我做</h3>
+            <p>
+              一次性的即时任务区。在你看得见的授权范围里，它可以直接整理文件、运行程序、
+              处理 PDF / 表格 / 文档，把一件具体的事做完。
+            </p>
+            <div class="tag-row">
+              <span class="tag cyan">真实执行</span>
+              <span class="tag amber">过程可见</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Why Guessor // 为什么不一样</div>
+          <h2>它解决的是<span class="accent">四个断点</span></h2>
+          <p class="section-desc">
+            现有 AI 产品对普通消费者存在四类断点，Guessor 的产品设计围绕它们展开。
+          </p>
+        </div>
+        <div class="card-grid four">
+          <div class="card reveal">
+            <div class="card-icon">01</div>
+            <h3>能力无法沉淀</h3>
+            <p>每次对话都要重新交代角色、规则、格式与偏好。模板让能力一次配置、长期复用，结果更稳定。</p>
+            <div class="card-meta"><span>PAIN // 重复劳动</span></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">02</div>
+            <h3>会话无法延续</h3>
+            <p>聊天窗口一关，上下文与产物就散了。应用空间让对话只是手段，项目本身成为主体。</p>
+            <div class="card-meta"><span>PAIN // 无法长期做一件事</span></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">03</div>
+            <h3>只能「说」不能「做」</h3>
+            <p>输出停留在文字，用户还要自己搬运和执行。工作台让它在授权范围内真实操作电脑。</p>
+            <div class="card-meta"><span>PAIN // 结果落地难</span></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">04</div>
+            <h3>结果无法展示</h3>
+            <p>做完的成果只能复制文本。一键生成可运行的动态应用或单文件报告，能演示、能交付。</p>
+            <div class="card-meta"><span>PAIN // 无法交付</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Value Chain // 用户价值链条</div>
+          <h2>从「学会一件事」到<span class="accent">「拿到一个成果」</span></h2>
+          <p class="section-desc">所有界面、文案与流程都服务于这条链路，偏离链路的功能都会被削减。</p>
+        </div>
+        <div class="pipeline">
+          <div class="pipe reveal">
+            <h3>学会一件事</h3>
+            <p>用模板把可复用的能力交给 Agent。</p>
+          </div>
+          <div class="pipe reveal">
+            <h3>建一个项目</h3>
+            <p>用应用空间定义目标，交给它长期推进。</p>
+          </div>
+          <div class="pipe reveal">
+            <h3>持续协作</h3>
+            <p>对话、文件、进度与记忆都留在项目里。</p>
+          </div>
+          <div class="pipe reveal">
+            <h3>拿到成果</h3>
+            <p>生成可运行的应用，或可分享的报告。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Scenarios // 典型场景</div>
+          <h2>普通用户<span class="accent">真正会遇到的六件事</span></h2>
+          <p class="section-desc">以下场景均为产品目标形态，随版本逐步开放。</p>
+        </div>
+        <div class="doc-table-wrap reveal">
+          <table class="doc-table">
+            <thead>
+              <tr><th>#</th><th>场景</th><th>做什么</th><th>拿到什么</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>S1</td><td>用模板完成一项任务</td><td>导入「PPT 制作」模板，描述需求</td><td>本机的演示文稿文件</td></tr>
+              <tr><td>S2</td><td>创建一个长期项目</td><td>新建空间、选模板、交代目标</td><td>结构化项目 + 对话记录</td></tr>
+              <tr><td>S3</td><td>第二天继续推进</td><td>回来提新要求，它先读项目状态再动手</td><td>迭代后的项目</td></tr>
+              <tr><td>S4</td><td>把项目变成应用</td><td>点「生成动态应用」，预览并调试</td><td>可运行的本地网页应用</td></tr>
+              <tr><td>S5</td><td>把项目变成报告</td><td>点「生成报告」，确认后导出</td><td>单个 HTML 文件</td></tr>
+              <tr><td>S6</td><td>处理一次电脑上的活</td><td>说清任务、授权范围、看它执行</td><td>整理好的本机文件 + 操作记录</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Trust // 安全与可控</div>
+          <h2>把电脑交给它之前，<span class="accent">先让它变得可信</span></h2>
+          <p class="section-desc">消费者敢不敢用，取决于它是否看得见、拦得住、退得回。</p>
+        </div>
+        <div class="card-grid four">
+          <div class="card reveal">
+            <div class="card-icon">01</div>
+            <h3>能看见的执行</h3>
+            <p>正在做什么、结果如何、失败后怎么处理，都在界面上实时展开，不存在转圈的黑盒。</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">02</div>
+            <h3>危险操作有人在场</h3>
+            <p>默认「读自由、写确认、危险必问」。确认卡片用日常语言说明后果，拒绝后它会给出替代方案。</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">03</div>
+            <h3>随时可撤销</h3>
+            <p>每一轮改动都有快照，可以一键「撤销这些修改」；删除进回收站，保留 30 天。</p>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">04</div>
+            <h3>本地优先</h3>
+            <p>项目文件存放在你自己的电脑上，模板是纯文本，记忆以 Markdown 落盘，随时可查、可改、可备份。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Deliverables // 成果形态</div>
+          <h2>一个项目，<span class="accent">两种交付方式</span></h2>
+          <p class="section-desc">生成能力属于项目本身，不是第四个模块。路线固定为两条，不做通用渲染框架。</p>
+        </div>
+        <div class="card-grid two">
+          <div class="card reveal">
+            <div class="card-icon">A</div>
+            <h3>动态应用</h3>
+            <p>
+              根据项目生成一个可以运行、可以点、可以交互的本地网页应用：
+              适合演示、数据查看、参数测算与轻量工具。生成后会先自检再交付，
+              打不开的结果不会交到用户手上。
+            </p>
+            <div class="tag-row">
+              <span class="tag cyan">能操作</span>
+              <span class="tag">可运行</span>
+              <span class="tag amber">本地预览</span>
+            </div>
+          </div>
+          <div class="card reveal">
+            <div class="card-icon">B</div>
+            <h3>报告</h3>
+            <p>
+              把项目的完成度、关键成果、时间线与文件清单汇总成单个 HTML 文件：
+              样式内联、离线可用，双击就能打开，直接发给同事或客户。
+            </p>
+            <div class="tag-row">
+              <span class="tag cyan">能展示</span>
+              <span class="tag">单文件</span>
+              <span class="tag amber">可分享</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-line" style="margin-top: 26px;">
+          <span>●</span>
+          一句话选择指南：要能操作，选动态应用；要能展示，选报告。
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-label">Beta 1 // 版本状态</div>
+          <h2>先跑通<span class="accent">一条完整链路</span></h2>
+          <p class="section-desc">
+            Beta 1 的目标不是功能多，而是验证「模板 → 应用空间 → 工作台 → 生成成果」这条链路是否真的有用。
+          </p>
+        </div>
+        <div class="doc-table-wrap reveal">
+          <table class="doc-table">
+            <thead>
+              <tr><th>方向</th><th>Beta 1</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>模板</td><td>新建 / 导入 / 编辑 / 启用停用 / 用于项目或临时任务</td></tr>
+              <tr><td>应用空间</td><td>创建与打开、文件读写、项目状态、项目记忆、变更与撤销</td></tr>
+              <tr><td>工作台</td><td>即时会话、文件操作、Python 执行、权限确认、操作记录</td></tr>
+              <tr><td>成果</td><td>生成动态应用、生成报告、预览、导出</td></tr>
+              <tr><td>暂不提供</td><td>账号与云同步、团队协作、插件体系、定时任务、模板市场</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="soon reveal" style="margin-top: 26px;">
+          <span class="big">▸▸▸</span>
+          <p>研发中 · 尚未上线</p>
+          <p style="font-size: 11px; margin-top: 4px;">BETA 1 // 公开资料为精简版，完整方案以内部完整设计报告为准</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div>
+          <h2>想看完整的产品设计？</h2>
+          <p>公开精简版（Beta 1）已经放在文档中心，包含定位、理念、模块与版本范围。</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="docs/guessor.html">[ 阅读设计报告 ]</a>
+          <a class="btn amber" href="contact.html">[ 联系我们 ]</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="index.html">
+            <img class="logo-img on-dark" src="LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+            <img class="logo-img on-light" src="LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+            <span class="logo-text">
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
+            </span>
+          </a>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
+        </div>
+        <div class="footer-col">
+          <h4>NAV // 导航</h4>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="products.html">项目</a></li>
+            <li><a href="repository.html">仓库</a></li>
+            <li><a href="docs.html">文档</a></li>
+            <li><a href="contact.html">联系</a></li>
+            <li><a href="ai.html">AI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>PROJECTS // 项目</h4>
+          <ul>
+            <li><a href="products.html#guessor">Guessor</a></li>
+            <li><a href="products.html#kiometagent">KiometAgent</a></li>
+            <li><a href="products.html#tranxet">Tranxet</a></li>
+            <li><a href="products.html#triton-aios">Triton AIOS</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CHANNEL // 通道</h4>
+          <ul>
+            <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://space.bilibili.com/1911534718" target="_blank" rel="noopener">Bilibili</a></li>
+            <li><a href="https://qm.qq.com/q/hI5Wi8M3Qs" target="_blank" rel="noopener">QQ 群</a></li>
+            <li><a href="mailto:uild913@outlook.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · 保留部分权利</span>
+        <span class="ver">BETA 1 // PRE-LAUNCH</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

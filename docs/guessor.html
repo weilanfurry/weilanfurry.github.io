@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guessor 项目设计报告（Beta 1 · 公开精简版）| 文档</title>
+  <meta name="description" content="Guessor 项目设计报告公开精简版（Beta 1）：产品定位、设计理念、用户场景、三个核心模块、成果生成、权限安全与版本范围。">
+  <link rel="icon" type="image/png" href="../LOGO_Black.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script>
+    try {
+      var t = localStorage.getItem("pulltogether-theme");
+      if (!t) { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
+    }
+  </script>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img class="logo-img on-dark" src="../LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+        <img class="logo-img on-light" src="../LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+        <span class="logo-text">
+          <span class="logo-cn">牵引力工作室</span>
+          <span class="logo-en">PullTogether</span>
+        </span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html">首页</a>
+        <a href="../products.html">项目</a>
+        <a href="../repository.html">仓库</a>
+        <a href="../docs.html" class="active">文档</a>
+        <a href="../contact.html">联系</a>
+        <a href="../ai.html" class="nav-ai">AI</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <span class="status-chip"><span class="dot"></span>SYSTEM ONLINE</span>
+      <button class="nav-toggle" aria-label="菜单" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">PULLTOGETHER / DOCS / ARTICLE <span class="cur">// Guessor</span></div>
+        <h1>
+          Guessor 项目设计报告
+          <span class="en">PUBLIC EDITION // BETA 1</span>
+        </h1>
+        <p>面向普通消费者的桌面 Agent 软件：公开精简版，包含产品定位、设计理念、三个核心模块与版本范围。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container docs-layout">
+        <nav class="docs-nav reveal">
+          <div class="docs-nav-title">DOC TREE</div>
+          <ul>
+            <li><a href="../docs.html">← 文档中心</a></li>
+            <li><a href="guessor.html" class="active">Guessor</a></li>
+            <li><a href="kiometagent.html">KiometAgent</a></li>
+            <li><a href="tranxet.html">Tranxet</a></li>
+            <li><a href="triton.html">Triton AIOS</a></li>
+          </ul>
+          <div class="docs-nav-title" style="border-top: 1px solid var(--line);">本文目录</div>
+          <ul class="toc">
+            <li><a href="#about">文档说明</a></li>
+            <li><a href="#ch-1">一、项目概述</a></li>
+            <li><a href="#ch-2">二、产品背景与目标</a></li>
+            <li><a href="#ch-3">三、产品定位</a></li>
+            <li><a href="#ch-4">四、核心设计理念</a></li>
+            <li><a href="#ch-5">五、用户群体与场景</a></li>
+            <li><a href="#ch-6">六、三个核心模块</a></li>
+            <li><a href="#ch-7">七、成果生成</a></li>
+            <li><a href="#ch-8">八、权限与安全</a></li>
+            <li><a href="#ch-9">九、版本范围与路线</a></li>
+            <li><a href="#ch-10">十、相关链接</a></li>
+          </ul>
+        </nav>
+
+        <div class="doc-panel reveal">
+          <div class="status-line warn">
+            <span style="color: var(--amber);">●</span>
+            开发中 · 尚未上线 · 公开精简版（Beta 1）｜源文档：Guessor-项目设计报告.md（内部完整版 v1.0）
+          </div>
+
+          <section id="about">
+            <h2>文档说明</h2>
+            <div class="doc-sub">ABOUT // 版本与精简范围</div>
+            <blockquote class="doc-quote">
+              文档版本：<strong>Beta 1（公开精简版）</strong><br>
+              最后更新：2026 年 9 月<br>
+              说明：本文由内部完整设计报告精简而成。为保证可读性与信息节奏，完整版中仍在验证与打磨的部分没有收录在公开版本中；
+              已公开的内容也会随版本迭代调整，均不构成对外承诺。
+            </blockquote>
+            <h3>精简范围</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>范围</th><th>内容</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>本版本公开</td>
+                    <td>产品定位与目标、核心设计理念、用户群体与使用场景、三个核心模块的用户视角定义、成果生成能力、权限与安全的用户可见部分、版本范围与路线</td>
+                  </tr>
+                  <tr>
+                    <td>本版本未收录</td>
+                    <td>Agent 内部运行机制与上下文处理、模板底层的装配与复用细节、生成器的实现约束与自动修复策略、工作台权限分级的技术细节与危险调用清单、数据存储 / 接口 / 日志 / 错误处理等工程规范、后续版本中尚未验证的规划项</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              未被收录不代表不存在。它们属于产品正在打磨的部分，会在能力稳定、表达清晰之后再进入公开文档。
+            </p>
+          </section>
+
+          <section id="ch-1" style="margin-top: 44px;">
+            <h2>一、项目概述</h2>
+            <div class="doc-sub">OVERVIEW // 一句话与三个模块</div>
+
+            <h3>1.1 一句话定义</h3>
+            <p>
+              Guessor 是一款面向普通消费者的桌面 Agent 软件：用户通过 <strong>模板</strong> 把可复用的能力交给 Agent，
+              通过 <strong>应用空间</strong> 让它长期管理一个项目，通过 <strong>工作台</strong> 让它直接操作电脑完成即时任务。
+            </p>
+
+            <h3>1.2 三个核心模块</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>模块</th><th>用户语言</th><th>用户理解</th><th>解决的问题</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>模板</td><td>「让 Agent 学会一件事」</td><td>一套可复用的能力、规则和知识</td><td>能力复用：不想每次重复交代</td></tr>
+                  <tr><td>应用空间</td><td>「我的项目」</td><td>一个长期存在的项目环境</td><td>长期项目：让 Agent 持续在一个上下文里工作</td></tr>
+                  <tr><td>工作台</td><td>「让它现在替我做这件事」</td><td>立即执行任务的临时工作区</td><td>即时任务：让 Agent 直接操作电脑</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="code-block">
+              <div class="code-head"><span>TXT</span><span>MEMO</span></div>
+              <pre><code data-lang="text">模板     = 给 Agent 能力
+应用空间 = 给 Agent 长期项目
+工作台   = 给 Agent 一双手</code></pre>
+            </div>
+
+            <h3>1.3 明确不做什么（反模式清单）</h3>
+            <p>以下内容在产品中不出现，也不在后续开发中引入：</p>
+            <ul>
+              <li>不新增与「模板 / 应用空间 / 工作台」并列的第四个核心模块。</li>
+              <li>不做 Agent 开发平台：不暴露编排、节点连线、多角色协作配置。</li>
+              <li>不做可视化工作流编辑器：用户不需要画流程图来让 Agent 干活。</li>
+              <li>不做多智能体平台：用户视角始终只有「一个 Agent 在帮自己」。</li>
+              <li>不做 Skill 管理器：产品层面不出现 Skill、Prompt、Tool 等术语。</li>
+              <li>不做企业级 Agent 管理：不做组织 / 审批流 / 权限矩阵后台。</li>
+              <li>不做通用渲染框架：动态应用固定一条路线，报告固定一条路线。</li>
+            </ul>
+            <blockquote class="doc-quote">
+              以上限制只针对<strong>用户界面与用户认知层</strong>。底层实现中的技术概念只出现在代码、日志与内部文档中。
+            </blockquote>
+
+            <h3>1.4 支撑功能（不是核心模块）</h3>
+            <p>
+              设置、模型配置、更新、帮助、日志查看属于支撑功能，在导航中放在次级位置，
+              不作为与三大模块并列的入口，避免用户在认知上把它们当成第四个模块。
+            </p>
+          </section>
+
+          <section id="ch-2" style="margin-top: 44px;">
+            <h2>二、产品背景与目标</h2>
+            <div class="doc-sub">BACKGROUND // 断点与目标</div>
+
+            <h3>2.1 背景问题</h3>
+            <p>现有 AI 产品对普通消费者存在四类明显断点：</p>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>断点</th><th>具体表现</th><th>后果</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>能力无法沉淀</td><td>每次对话都要重新交代角色、规则、格式、偏好</td><td>用户重复劳动，结果不稳定</td></tr>
+                  <tr><td>会话无法延续</td><td>聊天窗口一关，上下文与产物散落，没有「项目」概念</td><td>无法长期做一件事</td></tr>
+                  <tr><td>只能「说」不能「做」</td><td>输出停留在文字，无法操作本机文件、程序、浏览器</td><td>用户还要自己搬运和执行</td></tr>
+                  <tr><td>结果无法展示</td><td>做完的成果只能复制文本</td><td>无法演示、汇报、交付</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>2.2 产品目标</h3>
+            <p>
+              <strong>主目标</strong>：让没有技术背景的用户，可以在 5 分钟内让 Agent 具备一项可复用能力，
+              并在一个长期项目里持续协作，最终拿到一个能展示、能运行、能交付的成果。
+            </p>
+            <ul>
+              <li><strong>能力可复用</strong>：创建或导入模板后，后续任务中 Agent 的表现明显稳定且符合预期。</li>
+              <li><strong>项目可延续</strong>：第二天打开应用空间，Agent 依然知道项目是什么、做到哪一步、下一步做什么。</li>
+              <li><strong>操作可执行</strong>：Agent 能在用户授权下真实创建、修改、运行本机文件与程序。</li>
+              <li><strong>成果可交付</strong>：项目能一键生成可运行的动态应用或可分享的报告。</li>
+            </ul>
+
+            <h3>2.3 成功指标</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>指标</th><th>说明</th><th>目标值</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>首次成功时间</td><td>新用户从打开软件到完成第一个任务的时长</td><td>≤ 10 分钟</td></tr>
+                  <tr><td>模板复用率</td><td>使用过模板的用户占比</td><td>≥ 50%</td></tr>
+                  <tr><td>空间回访率</td><td>创建空间后 7 天内再次打开的用户占比</td><td>≥ 40%</td></tr>
+                  <tr><td>生成成功率</td><td>一键生成应用或报告的成功率</td><td>≥ 85%（含自动修复后）</td></tr>
+                  <tr><td>任务完成率</td><td>工作台任务被用户判定为「完成」的比例</td><td>≥ 70%</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>2.4 设计边界（非目标）</h3>
+            <ul>
+              <li>不追求「什么都能做」的通用 Agent 平台。</li>
+              <li>不追求多人协作、团队空间、云端同步（Beta 1 为单机本地）。</li>
+              <li>不追求覆盖全部操作系统能力，只覆盖普通消费者高频场景：文件、Python、程序运行、浏览器、文档处理。</li>
+            </ul>
+          </section>
+
+          <section id="ch-3" style="margin-top: 44px;">
+            <h2>三、产品定位</h2>
+            <div class="doc-sub">POSITIONING // 与其他形态的区别</div>
+
+            <h3>3.1 定位公式</h3>
+            <div class="code-block">
+              <div class="code-head"><span>TXT</span><span>FORMULA</span></div>
+              <pre><code data-lang="text">Guessor = 可复用的 Agent 能力（模板）
+        + 长期存在的项目环境（应用空间）
+        + 真实操作电脑的执行能力（工作台）</code></pre>
+            </div>
+
+            <h3>3.2 与相邻产品形态的区别</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>对比对象</th><th>它的核心</th><th>Guessor 的差异</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>AI 聊天机器人</td><td>一问一答，会话结束即丢失</td><td>有项目、有文件、有记忆、能执行</td></tr>
+                  <tr><td>Agent 开发框架</td><td>给开发者搭 Agent</td><td>面向消费者，用户只看到三个模块</td></tr>
+                  <tr><td>工作流平台</td><td>用户画流程、配节点</td><td>用自然语言交代目标，Agent 自己决定怎么做</td></tr>
+                  <tr><td>云 IDE / 代码工具</td><td>面向开发者的编辑器</td><td>内容区是给所有人看的项目空间，不只是代码</td></tr>
+                  <tr><td>自动化脚本工具</td><td>需要用户会配置</td><td>执行由对话驱动，用户只需确认</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>3.3 用户价值链条</h3>
+            <div class="code-block">
+              <div class="code-head"><span>TXT</span><span>FLOW</span></div>
+              <pre><code data-lang="text">拥有能力（模板）
+   ↓
+进入项目（应用空间）
+   ↓
+持续工作（对话 + 文件 + 记忆）
+   ↓
+直接执行（工作台 + 工具）
+   ↓
+生成成果（动态应用 / 报告）</code></pre>
+            </div>
+            <p>产品所有界面、文案、流程都必须服务于这条价值链条，任何偏离这条链条的功能都应被削减。</p>
+          </section>
+
+          <section id="ch-4" style="margin-top: 44px;">
+            <h2>四、核心设计理念</h2>
+            <div class="doc-sub">PRINCIPLES // 七条底线</div>
+
+            <h3>4.1 用户语言优先</h3>
+            <p>
+              用户看到的词必须是日常词汇：模板、项目、文件、对话、运行、预览、导出、报告。
+              禁止出现在界面上的词：Skill、Tool、MCP、Prompt、Embedding、Agent Loop、Context Window、Runtime、Function Calling、Token。
+            </p>
+
+            <h3>4.2 一切围绕「项目」而不是「对话」</h3>
+            <p>对话是手段，项目是主体。判断一个设计是否合理，用这条标准：</p>
+            <blockquote class="doc-quote">
+              如果用户关掉软件再打开，他能不能一眼看到「我的项目现在是什么状态」？不能满足这条的设计，一律重做。
+            </blockquote>
+
+            <h3>4.3 能力一次配置，长期复用</h3>
+            <p>模板是能力的载体。用户配置一次，之后所有项目、所有会话都可以调用，不需要重复解释规则。</p>
+
+            <h3>4.4 能看见的执行</h3>
+            <p>Agent 在做任何实际动作（创建文件、运行命令、启动服务、修改系统）时，界面必须实时展示：</p>
+            <ul>
+              <li>正在做什么（动作 + 目标）</li>
+              <li>结果是什么（成功 / 失败 / 摘要）</li>
+              <li>失败了会怎么处理（重试 / 修复 / 请你决定）</li>
+            </ul>
+            <p>用户不应该面对一个「转圈但不知道在干什么」的黑盒。</p>
+
+            <h3>4.5 渐进披露</h3>
+            <ul>
+              <li>默认视图只显示最重要的三件事：项目内容、对话、结果。</li>
+              <li>高级信息（执行日志、环境配置、模型选择、文件历史）藏在「详情 / 更多」里。</li>
+              <li>普通用户不需要打开任何高级面板就能完成主流程。</li>
+            </ul>
+
+            <h3>4.6 本地优先与可解释</h3>
+            <ul>
+              <li>项目文件存放在用户本机，用户能直接打开文件夹查看。</li>
+              <li>模板是纯文本，用户可以自己打开读、自己改、自己备份。</li>
+              <li>Agent 的记忆与摘要以 Markdown 形式落盘，用户可以查看和纠正。</li>
+            </ul>
+
+            <h3>4.7 危险操作必须有人在场</h3>
+            <p>
+              默认策略是「读自由、写确认、危险必问」。用户随时可以把某个动作升级为「以后都允许」，
+              也可以随时撤销授权。
+            </p>
+          </section>
+
+          <section id="ch-5" style="margin-top: 44px;">
+            <h2>五、用户群体与场景</h2>
+            <div class="doc-sub">USERS // 画像、特征与六个场景</div>
+
+            <h3>5.1 用户画像</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>画像</th><th>描述</th><th>主要诉求</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>学生</td><td>会写一点代码，但不想研究 Agent 技术</td><td>让 Agent 按固定方式长期整理一门课的资料</td></tr>
+                  <tr><td>非技术岗职场人</td><td>会用表格、演示文稿、聊天工具，不会写代码</td><td>把一堆文件整理成一份汇报，并直接操作本机文件</td></tr>
+                  <tr><td>独立开发者</td><td>会写代码，想要效率和长期项目环境</td><td>在项目里长期改代码、跑程序、生成可演示的 Demo</td></tr>
+                  <tr><td>内容创作者</td><td>关注一致性与产出量</td><td>固定写作风格与流程，长期更新一个内容项目</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>5.2 用户共同特征</h3>
+            <ol>
+              <li>不会（也不愿）学习 Agent 技术概念。</li>
+              <li>希望用自然语言表达目标，而不是配置参数。</li>
+              <li>对「能不能直接看到结果」极其敏感。</li>
+              <li>对「它动了我电脑上的东西」有天然警惕，需要清晰的确认与撤销。</li>
+            </ol>
+
+            <h3>5.3 六个核心场景</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>#</th><th>场景</th><th>用到的模块</th><th>产出</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>S1</td><td>用模板完成一项任务</td><td>模板 + 工作台</td><td>本机文件（如演示文稿）</td></tr>
+                  <tr><td>S2</td><td>创建一个长期项目空间</td><td>应用空间</td><td>结构化项目 + 对话记录</td></tr>
+                  <tr><td>S3</td><td>在空间中持续修改项目</td><td>应用空间</td><td>迭代后的项目</td></tr>
+                  <tr><td>S4</td><td>把项目生成动态应用</td><td>应用空间（生成能力）</td><td>可运行的本地网页应用</td></tr>
+                  <tr><td>S5</td><td>把项目生成报告</td><td>应用空间（生成能力）</td><td>单个 HTML 文件</td></tr>
+                  <tr><td>S6</td><td>用工作台操作电脑</td><td>工作台</td><td>整理好的本机文件 + 操作记录</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              场景之间的组合关系是：<strong>模板是横切能力，应用空间与工作台是两个不同的工作场地，工作台可以为空间服务。</strong>
+            </p>
+
+            <h3>5.4 非目标用户</h3>
+            <ul>
+              <li>需要复杂多智能体编排的团队。</li>
+              <li>需要企业级权限、审计、合规后台的组织。</li>
+              <li>希望把本产品当成 Agent 开发框架使用的工程师。</li>
+            </ul>
+            <p>这类用户可以使用底层能力，但产品不为他们的高级诉求扩展界面。</p>
+          </section>
+
+          <section id="ch-6" style="margin-top: 44px;">
+            <h2>六、三个核心模块</h2>
+            <div class="doc-sub">MODULES // 用户视角的定义</div>
+
+            <h3>6.1 模板：让 Agent 学会一件事</h3>
+            <p>对用户来说，模板就是「一份事先写好的工作说明书」。把它交给 Agent，它就知道这类事情该怎么做、按什么规则做、输出成什么样。</p>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>内容类型</th><th>用户视角</th><th>举例</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>角色与身份</td><td>「它是谁」</td><td>你是一位资深演示文稿设计师</td></tr>
+                  <tr><td>工作方式</td><td>「它怎么做」</td><td>先确认受众，再定大纲，最后逐页填充</td></tr>
+                  <tr><td>规则与约束</td><td>「什么必须 / 什么不许」</td><td>每页不超过 6 行，不要使用渐变色</td></tr>
+                  <tr><td>输出格式</td><td>「结果长什么样」</td><td>输出大纲 + 逐页要点</td></tr>
+                  <tr><td>领域知识</td><td>「它需要知道的事」</td><td>配色规范、常见图表选型</td></tr>
+                  <tr><td>检查清单</td><td>「做完要自检」</td><td>检查空页、错别字、超长文本</td></tr>
+                  <tr><td>示例与初始文件</td><td>「照着这个来」</td><td>一份样张、一个初始目录结构</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>首发内置示例模板方向</strong>：Python 开发、演示文稿制作、写作、数据分析、学习、网站开发。</p>
+            <p><strong>使用入口</strong>：模板列表的「使用」按钮；应用空间输入框上方的模板标签；工作台输入框上方的模板标签。</p>
+            <p>
+              <strong>界面约束</strong>：只有「模板」一个词，只有新建、导入、编辑、使用四个操作概念；
+              不要求用户填写参数、触发条件等技术字段。
+            </p>
+            <blockquote class="doc-quote">
+              没有模板也能使用全部三个模块。模板是增强能力，不是前置条件。
+            </blockquote>
+
+            <h3>6.2 应用空间：我的项目</h3>
+            <p><strong>应用空间的核心不是「聊天」，而是「长期项目」。</strong>用户可以在这里创建一个项目，然后长期与 Agent 协作，直到项目结束。</p>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>组成</th><th>作用</th><th>用户在哪里看到</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>项目内容</td><td>目标、状态、进度、最近变更摘要</td><td>空间首页 + 状态面板</td></tr>
+                  <tr><td>项目文件</td><td>真实的产物与目录结构</td><td>内容区（主视图）</td></tr>
+                  <tr><td>Agent 对话</td><td>跨多次会话的沟通与操作记录</td><td>右侧对话区</td></tr>
+                  <tr><td>持续操作</td><td>谁在什么时候改了什么</td><td>执行轨迹（可展开）</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h4>空间首页要回答的问题</h4>
+            <p>打开项目先看到什么，是产品「不是聊天窗口」的最直接证据：</p>
+            <ul>
+              <li>这个项目要做什么（目标）</li>
+              <li>现在做到哪一步（进度与状态）</li>
+              <li>建议的下一步是什么（可直接点击继续）</li>
+              <li>最近改了什么、有哪些文件</li>
+            </ul>
+            <h4>空间内页</h4>
+            <p>左到右依次是文件树与内容预览、Agent 对话区，底部是一个横跨全宽的输入框；顶部固定「生成」与设置入口。</p>
+            <h4>项目状态与生命周期</h4>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>状态</th><th>用户感知</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>进行中</td><td>首页显示进度与下一步，正常协作</td></tr>
+                  <tr><td>已暂停</td><td>长时间未打开后自动标记，打开即恢复</td></tr>
+                  <tr><td>已完成</td><td>Agent 输出收尾总结，并建议生成报告</td></tr>
+                  <tr><td>已归档</td><td>默认列表隐藏，需要主动筛选才可见</td></tr>
+                  <tr><td>已删除</td><td>进入回收站，保留 30 天，可恢复</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h4>文件与撤销</h4>
+            <ul>
+              <li>项目文件统一放在空间自己的目录里，用户可以直接用系统文件管理器打开查看。</li>
+              <li>元数据、记忆与历史单独存放，不干扰用户的文件视图。</li>
+              <li>每一轮回复涉及的文件改动合并为一个快照，用于「撤销这一轮做的事」。</li>
+              <li>删除进入回收目录，不做物理删除。</li>
+            </ul>
+
+            <h3>6.3 工作台：现在替我做这件事</h3>
+            <p>工作台是 Agent 的<strong>即时工作环境</strong>：一次任务的场地，而不是长期项目。</p>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th></th><th>应用空间</th><th>工作台</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>时间尺度</td><td>长期（天 / 周 / 月）</td><td>即时（一次任务）</td></tr>
+                  <tr><td>主体</td><td>项目</td><td>任务</td></tr>
+                  <tr><td>记忆</td><td>长期记忆 + 项目状态</td><td>仅本次会话</td></tr>
+                  <tr><td>产出</td><td>项目文件、动态应用、报告</td><td>任务结果（文件 / 操作 / 结论）</td></tr>
+                  <tr><td>失败代价</td><td>需要谨慎，改动要可撤销</td><td>可丢弃，重来即可</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>一句话区分：<strong>应用空间是「把它做完」，工作台是「把它做了」。</strong></p>
+            <h4>能力范围</h4>
+            <ul>
+              <li>文件操作：读取、整理、转换、批量重命名</li>
+              <li>Python 执行：数据处理、脚本、计算</li>
+              <li>程序运行：调用本机命令行工具、运行脚本</li>
+              <li>浏览器操作：打开页面、抓取公开信息、填写表单</li>
+              <li>文件处理：PDF、表格、文档、图片、压缩包</li>
+              <li>自动化操作：批处理与重复性工作</li>
+              <li>系统环境操作：环境变量、进程查看（需要较高权限等级）</li>
+            </ul>
+            <h4>三条设计重点</h4>
+            <ol>
+              <li><strong>每一环都可见</strong>：用户能看到调用的动作、作用的位置、结果如何。</li>
+              <li><strong>每一环都可中断</strong>：用户可以随时停止，已完成的动作保留并记录。</li>
+              <li><strong>每一环都可追溯</strong>：所有执行写入操作记录，能回答「它到底改了哪些文件」。</li>
+            </ol>
+            <h4>空状态引导</h4>
+            <p>新用户第一次进入时展示可直接点击的示例任务：整理一个文件夹、把多个文件合并成一份、分析一个表格、查找并整理资料。点击只填入输入框，不自动执行。</p>
+          </section>
+
+          <section id="ch-7" style="margin-top: 44px;">
+            <h2>七、成果生成</h2>
+            <div class="doc-sub">GENERATION // 两条固定路线</div>
+
+            <h3>7.1 定位</h3>
+            <p>
+              「生成」不是第四个模块，而是<strong>应用空间的一种输出能力</strong>：
+              根据当前项目生成一个可展示、可使用的成果。
+            </p>
+            <div class="code-block">
+              <div class="code-head"><span>TXT</span><span>ROUTE</span></div>
+              <pre><code data-lang="text">动态应用 = 可以运行、可以交互的页面应用
+报告     = 完整、可分享的单文件页面</code></pre>
+            </div>
+
+            <h3>7.2 选择指南</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>用户想问的问题</th><th>选动态应用</th><th>选报告</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>我想点按钮、填表单、看到实时结果</td><td>是</td><td>否</td></tr>
+                  <tr><td>我想把成果讲清楚、发给别人看</td><td>否</td><td>是</td></tr>
+                  <tr><td>我想随时改数据、看变化</td><td>是</td><td>否</td></tr>
+                  <tr><td>我只想生成一次，之后当文件保存</td><td>否</td><td>是</td></tr>
+                  <tr><td>我需要它离线也能打开</td><td>否</td><td>是</td></tr>
+                  <tr><td>我需要它调用 Python 算东西</td><td>是</td><td>否</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>界面上一句话总结：<strong>要能操作，选动态应用；要能展示，选报告。</strong></p>
+
+            <h3>7.3 共同流程</h3>
+            <div class="code-block">
+              <div class="code-head"><span>TXT</span><span>FLOW</span></div>
+              <pre><code data-lang="text">点击生成 → 选择类型（动态应用 / 报告）
+  → 分析当前项目（文件、状态、已确认的决定）
+  → 给出内容计划（先给用户看，可调整）
+  → 用户确认 → 生成文件 → 校验
+  → 预览 → 用户可以继续让它修改</code></pre>
+            </div>
+            <p>「内容计划」是给用户看的中间步骤，而不是让用户配置参数。例如它会说明打算做哪几个页面、数据来自哪里、预计生成多少文件。</p>
+
+            <h3>7.4 与项目的关系</h3>
+            <ul>
+              <li>生成物独立存放，不放进用户的项目文件里，避免污染项目内容。</li>
+              <li>生成物可以读取项目文件，但只读引用。</li>
+              <li>每次重新生成产生新版本，用户可以在预览页切换查看。</li>
+              <li>生成能力必须校验后再交付：宁可多花几秒，也不要让用户看到打不开的结果。</li>
+            </ul>
+          </section>
+
+          <section id="ch-8" style="margin-top: 44px;">
+            <h2>八、权限与安全</h2>
+            <div class="doc-sub">SAFETY // 用户可见的部分</div>
+
+            <h3>8.1 权限模型</h3>
+            <p>权限判断同时考虑三件事：<strong>目录范围</strong>（读 / 写）、<strong>能力类型</strong>（文件 / Python / 命令 / 浏览器 / 系统）、<strong>动作风险等级</strong>（低 / 中 / 高）。</p>
+
+            <h3>8.2 授权粒度</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>粒度</th><th>有效期</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>允许一次</td><td>仅当前动作</td></tr>
+                  <tr><td>本次会话都允许</td><td>会话结束后失效</td></tr>
+                  <tr><td>本项目都允许</td><td>项目存在期间有效</td></tr>
+                  <tr><td>始终允许</td><td>永久，可在设置中随时撤销</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>8.3 默认策略</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>能力</th><th>应用空间内</th><th>工作台内</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>读取项目文件</td><td>允许</td><td>允许（需先指定目录）</td></tr>
+                  <tr><td>写入项目文件</td><td>允许（可在空间设置关闭）</td><td>需要确认</td></tr>
+                  <tr><td>删除文件</td><td>需要确认</td><td>需要确认</td></tr>
+                  <tr><td>访问项目目录之外</td><td>需要确认</td><td>需要确认</td></tr>
+                  <tr><td>运行 Python</td><td>允许（限定项目内）</td><td>按风险等级</td></tr>
+                  <tr><td>执行命令行 / 系统级操作</td><td>需要确认</td><td>需要确认</td></tr>
+                  <tr><td>浏览器读取 / 交互</td><td>允许 / 需要确认</td><td>允许 / 需要确认</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>8.4 撤销与恢复</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>场景</th><th>恢复方式</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Agent 改了文件</td><td>回复气泡内的「撤销这些修改」</td></tr>
+                  <tr><td>Agent 删了文件</td><td>空间内的回收目录恢复</td></tr>
+                  <tr><td>Agent 移动了文件</td><td>撤销时按快照移动回原位置</td></tr>
+                  <tr><td>不可逆操作</td><td>执行前必须确认，确认卡片明确标注「这一步不能撤销」</td></tr>
+                  <tr><td>误删项目</td><td>回收站保留 30 天</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>8.5 用户可见的安全表达</h3>
+            <p>安全机制必须用日常语言表达，而不是把技术术语丢给用户：</p>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>内部概念</th><th>界面文案</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>权限提升</td><td>允许 Agent 访问这个文件夹</td></tr>
+                  <tr><td>白名单 / 黑名单</td><td>允许 / 禁止的程序（收在高级设置）</td></tr>
+                  <tr><td>审计日志</td><td>操作记录</td></tr>
+                  <tr><td>越权拦截</td><td>这个操作超出了你允许的范围</td></tr>
+                  <tr><td>回滚</td><td>撤销这次修改</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <blockquote class="doc-quote">
+              权限确认只回答三个问题：它想做什么、影响是什么、能不能撤销。
+            </blockquote>
+          </section>
+
+          <section id="ch-9" style="margin-top: 44px;">
+            <h2>九、版本范围与路线</h2>
+            <div class="doc-sub">ROADMAP // Beta 1 与后续</div>
+
+            <h3>9.1 Beta 1 目标</h3>
+            <blockquote class="doc-quote">
+              用最小功能集合验证核心假设：普通用户能否通过「模板 → 应用空间 → 工作台 → 生成成果」
+              这条链路，真实完成一件对自己有价值的事？
+            </blockquote>
+
+            <h3>9.2 Beta 1 主要能力</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>模块</th><th>能力</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>基础</td><td>本地服务启动与健康检查、模型配置、单机本地运行</td></tr>
+                  <tr><td>模板</td><td>列表 / 详情 / 新建 / 编辑 / 删除、导入文本模板、启用停用、用于项目或临时任务</td></tr>
+                  <tr><td>应用空间</td><td>创建 / 列表 / 打开 / 重命名 / 删除（回收站）、文件读写与预览、项目状态、项目记忆、变更记录与撤销</td></tr>
+                  <tr><td>对话</td><td>流式输出、执行轨迹、确认卡片（允许一次 / 会话 / 拒绝）</td></tr>
+                  <tr><td>工作台</td><td>即时会话、文件工具、Python 执行、权限与确认流程、操作记录</td></tr>
+                  <tr><td>生成</td><td>生成动态应用（启动 / 停止 / 日志 / 自动修复）、生成报告（预览 / 导出单文件）</td></tr>
+                  <tr><td>安全</td><td>路径校验、删除进回收、写前快照、权限确认</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>9.3 Beta 1 暂不包含</h3>
+            <ul>
+              <li>账号体系与云同步</li>
+              <li>团队协作与权限管理后台</li>
+              <li>模板市场与分享链接</li>
+              <li>插件 / 扩展体系</li>
+              <li>定时与自动化任务</li>
+              <li>多设备协同</li>
+            </ul>
+
+            <h3>9.4 后续规划（概要）</h3>
+            <div class="doc-table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr><th>阶段</th><th>方向</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>v1.1</td><td>成果的排版与主题、项目复制与导出、临时任务历史回放、长任务完成提醒</td></tr>
+                  <tr><td>v1.2</td><td>模板分享、项目内全文检索、更强的浏览器交互、报告导出优化</td></tr>
+                  <tr><td>v2.0（谨慎评估）</td><td>账号与可选云同步、项目跨设备、定时任务；均需以不破坏现有三个模块的简单性为前提</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>规划原则</strong>：任何新功能都必须能归入模板 / 应用空间 / 工作台三者之一，或属于支撑功能。</p>
+
+            <h3>9.5 一句话的最终产品形态</h3>
+            <div class="code-block">
+              <div class="code-head"><span>TXT</span><span>SUMMARY</span></div>
+              <pre><code data-lang="text">用户打开 Guessor
+  → 让它学会一件事（模板）
+  → 建一个项目，长期和它一起做（应用空间）
+  → 需要动电脑时让它直接动手（工作台）
+  → 最后拿到一个能运行的应用，或一份能分享的报告</code></pre>
+            </div>
+          </section>
+
+          <section id="ch-10" style="margin-top: 44px;">
+            <h2>十、相关链接</h2>
+            <div class="doc-sub">LINKS // 外部通道</div>
+            <ul>
+              <li><a href="../ai.html">Guessor 官网页（AI）</a></li>
+              <li><a href="../products.html#guessor">项目中心</a></li>
+              <li><a href="../docs.html">文档中心</a></li>
+              <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+              <li><a href="../contact.html">联系我们</a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="logo" href="../index.html">
+            <img class="logo-img on-dark" src="../LOGO_White.png" alt="牵引力工作室" width="38" height="38">
+            <img class="logo-img on-light" src="../LOGO_Black.png" alt="" aria-hidden="true" width="38" height="38">
+            <span class="logo-text">
+              <span class="logo-cn">牵引力工作室</span>
+              <span class="logo-en">PullTogether</span>
+            </span>
+          </a>
+          <p class="footer-about">开源软件工坊 · 以代码为牵引力，与同向的人一起发力。所有产品与文档开放可见。</p>
+        </div>
+        <div class="footer-col">
+          <h4>NAV // 导航</h4>
+          <ul>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="../products.html">项目</a></li>
+            <li><a href="../repository.html">仓库</a></li>
+            <li><a href="../docs.html">文档</a></li>
+            <li><a href="../contact.html">联系</a></li>
+            <li><a href="../ai.html">AI</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>PROJECTS // 项目</h4>
+          <ul>
+            <li><a href="../products.html#guessor">Guessor</a></li>
+            <li><a href="../products.html#kiometagent">KiometAgent</a></li>
+            <li><a href="../products.html#tranxet">Tranxet</a></li>
+            <li><a href="../products.html#triton-aios">Triton AIOS</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CHANNEL // 通道</h4>
+          <ul>
+            <li><a href="https://github.com/weilanfurry" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://space.bilibili.com/1911534718" target="_blank" rel="noopener">Bilibili</a></li>
+            <li><a href="https://qm.qq.com/q/hI5Wi8M3Qs" target="_blank" rel="noopener">QQ 群</a></li>
+            <li><a href="mailto:uild913@outlook.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> PULLTOGETHER · 牵引力工作室 · 保留部分权利</span>
+        <span class="ver">BETA 1 // PUBLIC EDITION</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
