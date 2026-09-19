@@ -2387,3 +2387,62 @@ html[data-theme="light"] .soon {
 .main-nav a.nav-ai.active {
   color: var(--amber);
 }
+
+/* Guessor brand band (Nexabox × PullTogether) */
+
+.brand-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin: 0 0 22px;
+  padding: 13px 18px;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--amber);
+  background: linear-gradient(90deg, var(--amber-soft), rgba(0, 0, 0, 0) 78%);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--amber);
+}
+
+.brand-band .bb-main {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--txt);
+}
+
+.brand-band .bb-sep {
+  color: var(--faint);
+  letter-spacing: 0;
+}
+
+.brand-band .bb-sub {
+  color: var(--muted);
+}
+
+.brand-band a {
+  color: inherit;
+  border-bottom: 1px dashed currentColor;
+}
+
+.brand-band a:hover {
+  color: var(--txt);
+  border-bottom-style: solid;
+}
+
+.brand-band a.bb-main {
+  color: var(--txt);
+}
+
+.page-hero .brand-band {
+  margin: 22px 0 0;
+}
+
+.footer-col li .plain {
+  display: inline-block;
+  font-size: 13.5px;
+  font-family: var(--mono);
+  color: var(--faint);
+}
