@@ -2337,6 +2337,29 @@ html[data-theme="light"] .modal-head {
     var(--panel-2);
 }
 
+/* 浅色模式下代码块与终端同样使用浅色底、深色文字 */
+html[data-theme="light"] .terminal,
+html[data-theme="light"] .code-block {
+  background: #ffffff;
+  border-color: var(--line-strong);
+}
+
+html[data-theme="light"] .terminal-head,
+html[data-theme="light"] .code-block .code-head {
+  background: var(--panel-2);
+  border-bottom-color: var(--line);
+  color: var(--muted);
+}
+
+html[data-theme="light"] .term-title {
+  color: var(--muted);
+}
+
+html[data-theme="light"] .term-body,
+html[data-theme="light"] .code-block pre {
+  color: var(--txt);
+}
+
 html[data-theme="light"] body,
 html[data-theme="light"] .site-footer,
 html[data-theme="light"] .ticker,
